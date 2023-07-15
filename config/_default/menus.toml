@@ -1,0 +1,80 @@
+# Navigation Links
+#   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
+#     desired widget in your `content/home/` folder.
+#   The weight parameter defines the order that the links will appear in.
+# 设置主页头部的菜单信息，按weight数字排列
+[[main]]
+  name = "Home"   # 菜单名称
+  url = "/"   # 对应的内容在 content/home下是哪个md
+  weight = 10
+
+[[main]]
+  name = "Documentation"
+  url = "docs/"
+  weight = 20
+
+[[main]]
+  name = "Blog"
+  url = "blog/"
+  weight = 30
+
+[[main]]
+  name = "Downloads"
+  url = "https://github.com/kmesh-net/kmesh/releases"
+  weight = 40
+
+# Right Menu
+[[main_right]]
+  name = "<i class=\"fab fa-github-alt\" style=\"color: #333; font-size: 1rem; line-height: 1.25\"></i>"
+  post = ""
+  url = "https://github.com/kmesh-net/kmesh"
+  weight = 10
+
+[[main_right]]
+  name = "<i class=\"fab fa-twitter\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+  post = ""
+  url = "https://twitter.com/Kmesh_net"
+  weight = 20
+
+#[[main_right]]
+#  name = "<i class=\"fab fa-slack\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+#  post = ""
+#  url = "https://app.slack.com/client/T08PSQ7BQ/C052JRURD8V?selected_team_id=T08PSQ7BQ"
+#  weight = 30
+
+[[main_right]]
+  name = "<i class=\"fab fa-weixin\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+  post = ""
+  url = "https://blog.51cto.com/u_15127420/4992806"
+  weight = 40
+
+# Documentation
+[[docs]]
+  name = "Welcome"
+  weight = 5
+  identifier = "welcome"
+
+[[docs]]
+  name = "Architecture"
+  weight = 10
+  identifier = "architecture"
+
+[[docs]]
+  name = "quickStart"
+  weight = 15
+  identifier = "quickstart"
+
+[[docs]]
+  name = "Performance"
+  weight = 20
+  identifier = "performance"
+
+[[docs]]
+  name = "Developer Guide"
+  weight = 25
+  identifier = "developer guide"
+
+[[docs]]
+  name = "Community"
+  weight = 30
+  identifier = "community"

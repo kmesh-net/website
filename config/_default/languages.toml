@@ -11,9 +11,9 @@
 [zh]
   languageCode = "zh-Hans"
   contentDir = "content/zh"
-  title = "Chinese website title..."
+  title = "Kmesh"
   [zh.params]
-    description = "Site description in Chinese..."
+    description = ""
   [[zh.menu.main]]
     name = "文档"
     url = "docs/"

@@ -4,9 +4,9 @@
 #   The weight parameter defines the order that the links will appear in.
 # 设置主页头部的菜单信息，按weight数字排列
 [[main]]
-  name = "Home"   # 菜单名称
-  url = "/"   # 对应的内容在 content/home下是哪个md
-  weight = 10
+#  name = "Home"   # 菜单名称
+#  url = "/"   # 对应的内容在 content/home下是哪个md
+#  weight = 10
 
 [[main]]
   name = "Documentation"

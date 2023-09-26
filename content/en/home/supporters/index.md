@@ -7,14 +7,6 @@ weight: 10
 widget: supporters
 supporters:
 
-- name: Agricultural-Bank-of-China-ICTIC
-  img_src: supporters/zhongxin-bank.png
-  external_link: https://www.citicbank.com/
-  
-- name: TCloud
-  img_src: supporters/tcloud.png
-  external_link: https://www.ctyun.cn/
-
 - name: HuaweiCloud
   img_src: supporters/huawei.png
   external_link: https://www.huaweicloud.com

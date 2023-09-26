@@ -10,11 +10,6 @@ toc: true
 type: docs
 
 ---
-## 准备工作
-
-* 操作系统推荐使用openEuler-23.03, openEuler-23.09，其他操作系统下使用请参考:[其他平台使用指导](https://xxx);
-* 已正确安装k8s、istio等软件;
-
 ## 集群启动模式
 
 ### Kmesh容器镜像准备

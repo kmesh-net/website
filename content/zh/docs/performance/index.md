@@ -20,7 +20,7 @@ Kmesh采用fortio、dstat做性能测试工具；fortio是一款功能强大的�
 
 - 测试方法
 
-  以并发链接数为变参测试一组fortio性能数据，并同步收集测试过程中的CPU使用率；`test/performance`目录已归档[测试脚本](https://github.com/kmesh-net/kmesh/test/performance/)；
+  以并发链接数为变参测试一组fortio性能数据，并同步收集测试过程中的CPU使用率；`test/performance`目录已归档[测试脚本](https://github.com/kmesh-net/kmesh/tree/main/test/performance/)；
 
 ## 测试执行
 

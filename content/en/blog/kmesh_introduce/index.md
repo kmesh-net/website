@@ -74,7 +74,7 @@ This raises the question: Can we reduce the latency overhead of the service mesh
 
 Based on the performance analysis mentioned above, we have conducted a two-stage optimization for the service mesh data plane.
 
-### Kmesh 1.0: Accelerating the Service Mesh Data Plane with Sockmap
+### Sockmap: Accelerating the Service Mesh Data Plane with Sockmap
 
 Sockmap is an eBPF feature introduced in Linux 4.14, which enables the redirection of data flows between sockets within a node without going through the complex kernel protocol stack. It optimizes the performance of data forwarding between sockets on the network path.
 
@@ -97,7 +97,7 @@ By leveraging Sockmap to accelerate the service mesh data plane, we observed a 1
 
 While Sockmap is a commonly used solution for optimizing the service mesh data plane, it does not fully address the performance challenges associated with service mesh latency.
 
-### Kmesh 2.0: Offloading Traffic Governance to the Operating System with Programmable Kernel
+### Offload: Offloading Traffic Governance to the Operating System with Programmable Kernel
 
 Based on the performance analysis mentioned earlier, it is evident that a significant portion of the additional overhead introduced by the service mesh is spent on redirecting traffic to the proxy component. The actual overhead of performing traffic governance is relatively small. This raises the question: Can we bypass the proxy component and perform traffic governance directly within the kernel, which is naturally involved in network communication?
 

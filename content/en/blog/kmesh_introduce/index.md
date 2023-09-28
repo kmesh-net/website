@@ -119,8 +119,6 @@ We deployed an Istio mesh environment and conducted comparative testing on the p
 
 It is worth noting that we also tested the performance of service-to-service communication in a non-mesh environment based on Kubernetes, and the performance was comparable to Kmesh. This further validates the latency performance of Kmesh. (The testing scenario involved L7 load balancing in a laboratory environment, and the actual performance in real-world governance scenarios may not be as ideal. Preliminary evaluations suggest a 2-3x improvement over Istio.)
 
-The Kmesh project has been released in the openEuler 23.03 version, and we welcome interested users to download and try it out.
-
 ## Conclusion
 
 As the next-generation technology for cloud-native environments, a service mesh provides transparent service governance for applications. However, the proxy architecture introduces additional latency overhead, which has become a critical challenge for widespread adoption of service meshes. Kmesh proposes a new approach by offloading traffic governance to the operating system using a programmable kernel. By doing so, Kmesh significantly improves the performance of the service mesh data plane. It offers a fresh perspective for the development of the service mesh data plane.

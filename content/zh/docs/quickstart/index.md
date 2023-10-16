@@ -120,5 +120,5 @@ ExecStart=/usr/bin/kmesh-daemon -enable-kmesh -enable-ads=false
   ```sh
   [root@ ~]# ./build.sh -u
 
-更多Kmesh编译方式，请参考[Kmesh编译构建](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md)
+更多Kmesh编译方式，请参考[Kmesh编译构建](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile-zh.md)
 

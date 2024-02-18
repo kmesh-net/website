@@ -49,6 +49,45 @@ time="2023-07-25T09:28:38+08:00" level=info msg="controller Start successful" su
 time="2023-07-25T09:28:38+08:00" level=info msg="command StartServer successful" subsys=manager
 ```
 
+## Helm Install Kemsh
+
+### Preparation
+
+Istio installation is required prior to Kmesh due to certificate dependency.
+
+It is recommended to install Istio using istioctl. Refer to [istio documentation](https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/) for instructions on installing istioctl.
+
+After installing istioctl, you can install Istio using the following commands:
+
+```console
+istioctl manifest install --set profile=default
+```
+
+Review the results:
+
+```console
+kubeclt get po -n istio-system
+NAMESPACE            NAME                                                    READY   STATUS    RESTARTS   AGE
+istio-system         istio-ingressgateway-65b5c9f9bb-8w5ml                   1/1     Running   0          37s
+istio-system         istiod-657f7686cf-hshwp                                 1/1     Running   0          2m5s
+```
+
+### Install Kmesh
+
+Use the following command to install Kmesh:
+
+```console
+helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
+```
+
+Verify the Kmesh chart installation:
+
+```console
+$ kubectl get po -n istio-system 
+NAMESPACE            NAME                                                 READY   STATUS    RESTARTS   AGE
+kmesh-system         kmesh-jflr9                                          1/1     Running   0          56s
+```
+
 ## Local start mode
 
 Download the corresponding version of the Kmesh software package

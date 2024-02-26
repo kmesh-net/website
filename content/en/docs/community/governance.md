@@ -23,7 +23,7 @@ type: docs
 
 ## Community Membership
 
-See [community membership](../membership)
+See [community membership](membership.md)
 
 
 ## Community Groups

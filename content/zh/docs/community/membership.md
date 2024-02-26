@@ -115,4 +115,4 @@ type: docs
 
 **注**：这些角色仅适用于Kmesh github组织和存储库。目前，Kmesh没有正式的程序来审查和接受这些角色。我们很快就会想出一个程序。
 
-- [双因素身份验证](https://help.github.com/articles/about-two-factor-authentication)
+[双因素身份验证]: (https://help.github.com/articles/about-two-factor-authentication)

@@ -14,111 +14,117 @@ type: docs
 
 ### Kmesh容器镜像准备
 
-下载对应版本Kmesh容器镜像后，使用如下命令将镜像加载到环境中
+  Kmesh实现通过内核增强将完整的流量治理能力下沉至OS。当发布镜像时，镜像适用的OS的范围是必须考虑的。因此，我们考虑发布三种类型的镜像：
 
-```sh
-[root@ ~]# docker load -i Kmesh.tar
-```
+  - 支持内核增强的OS版本：
 
+    当前[openEuler 23.03](https://repo.openeuler.org/openEuler-23.03/)原生支持Kmesh所需的内核增强特性。Kmesh发布的镜像可以直接在该OS上安装运行。对于详细的支持内核增强的OS版本列表，请参见[链接](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md)。
+  
+  - 针对所有OS版本：
+
+    为了兼容不同的OS版本，Kmesh提供在线编译并运行的镜像。在Kmesh被部署之后，它会基于宿主机的内核能力自动选择运行的Kmesh特性，从而满足一个镜像在不同OS环境运行的要求。
+    
+    
+    
+    考虑到kmesh使用的通用性，我们也发布了用于kmesh编译构建的镜像。用户可以基于此镜像方便的制作出可以在当前OS版本上运行的kmesh镜像。默认命名为ghcr.io/kmesh-net/kmesh:latest，用户可自行调整，参考[Kmesh编译构建](docs/kmesh_compile-zh.md#docker image编译)
+  
+    ```bash
+    make docker TAG=latest
+    ```
 ### 启动Kmesh容器
-
-下载对应版本yaml文件
-
-启动Kmesh
-
-```sh
-[root@ ~]# kubectl apply -f kmesh.yaml
-```
 
 默认使用Kmesh功能，可通过调整yaml文件中的启动参数进行功能选择
 
-### 查看kmesh服务启动状态
+- 启动Kmesh容器
 
-```sh
-[root@ ~]# kubectl get pods -A -owide | grep kmesh
-default        kmesh-deploy-j8q68                   1/1     Running   0          6h15m   192.168.11.6    node1   <none> 
-```
+  默认使用名为 ghcr.io/kmesh-net/kmesh:latest的镜像，如需使用兼容模式或其他版本可自行修改
 
-查看kmesh服务运行状态
+  -  Helm安装方式
 
-```sh
-[root@ ~]# kubectl logs -f kmesh-deploy-j8q68
-time="2023-07-25T09:28:37+08:00" level=info msg="options InitDaemonConfig successful" subsys=manager
-time="2023-07-25T09:28:38+08:00" level=info msg="bpf Start successful" subsys=manager
-time="2023-07-25T09:28:38+08:00" level=info msg="controller Start successful" subsys=manager
-time="2023-07-25T09:28:38+08:00" level=info msg="command StartServer successful" subsys=manager
-```
+   ```sh
+  [root@ ~]# helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
+   ```
 
-## 本地启动模式
+  - Yaml安装方式
 
-下载对应版本Kmesh软件包
+  ```sh
+  # get kmesh.yaml：来自代码仓 deploy/yaml/kmesh.yaml
+  [root@ ~]# kubectl apply -f kmesh.yaml
+  [root@ ~]# kubectl apply -f clusterrole.yaml
+  [root@ ~]# kubectl apply -f clusterrolebinding.yaml
+  [root@ ~]# kubectl apply -f serviceaccount.yaml
+  ```
 
-### 安装Kmesh软件包
+  默认使用Kmesh功能，可通过调整yaml文件中的启动参数进行功能选择
 
-```
-[root@ ~]# yum install Kmesh
-```
+- 查看kmesh服务启动状态
 
-### 配置Kmesh服务
+  ```sh
+  [root@ ~]# kubectl get pods -A | grep kmesh
+  kmesh-system   kmesh-l5z2j                                 1/1     Running   0          117m
+  ```
 
-```sh
-# 禁用ads开关
-[root@ ~]# vim /usr/lib/systemd/system/kmesh.service
-ExecStart=/usr/bin/kmesh-daemon -enable-kmesh -enable-ads=false
-[root@ ~]# systemctl daemon-reload
-```
+- 查看kmesh服务运行状态
 
-### 启动Kmesh服务
+  ```sh
+  [root@master mod]# kubectl logs -f -n kmesh-system kmesh-l5z2j
+  time="2024-02-19T10:16:52Z" level=info msg="service node sidecar~192.168.11.53~kmesh-system.kmesh-system~kmesh-system.svc.cluster.local connect to discovery address istiod.istio-system.svc:15012" subsys=controller/envoy
+  time="2024-02-19T10:16:52Z" level=info msg="options InitDaemonConfig successful" subsys=manager
+  time="2024-02-19T10:16:53Z" level=info msg="bpf Start successful" subsys=manager
+  time="2024-02-19T10:16:53Z" level=info msg="controller Start successful" subsys=manager
+  time="2024-02-19T10:16:53Z" level=info msg="command StartServer successful" subsys=manager
+  time="2024-02-19T10:16:53Z" level=info msg="start write CNI config\n" subsys="cni installer"
+  time="2024-02-19T10:16:53Z" level=info msg="kmesh cni use chained\n" subsys="cni installer"
+  time="2024-02-19T10:16:54Z" level=info msg="Copied /usr/bin/kmesh-cni to /opt/cni/bin." subsys="cni installer"
+  time="2024-02-19T10:16:54Z" level=info msg="kubeconfig either does not exist or is out of date, writing a new one" subsys="cni installer"
+  time="2024-02-19T10:16:54Z" level=info msg="wrote kubeconfig file /etc/cni/net.d/kmesh-cni-kubeconfig" subsys="cni installer"
+  time="2024-02-19T10:16:54Z" level=info msg="command Start cni successful" subsys=manager
+  ```
 
-```sh
-[root@ ~]# systemctl start kmesh.service
-# 查看Kmesh服务运行状态
-[root@ ~]# systemctl status kmesh.service
-```
-
-### 停止Kmesh服务
-
-```sh
-[root@ ~]# systemctl stop kmesh.service
-```
-
-更多Kmesh服务使用方式，请参考[Kmesh项目主页](https://github.com/kmesh-net/kmesh#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B)
 
 
 ## 编译构建
+
+- 准备工作
+
+  - docker-engine安装
+
+    ```sh
+    [root@dev Kmesh]# yum install docker-engine
+    ```
+
+  - 镜像原料准备
+
+    Kmesh的镜像编译需要准备好kmesh源码，以及kmesh-build镜像，镜像可以通过如下命令获取
+
+    注意：kmesh-build镜像需要和源码版本相匹配
+
+    ```bash
+    docker pull ghcr.io/kmesh-net/kmesh-build-x86:latest
+    ```
 
 ### 源码编译
 
 - 代码下载
 
   ```sh
-  [root@ ~]# git clone https://github.com/kmesh-net/kmesh.git
+  [root@dev tmp]# git clone https://github.com/kmesh-net/kmesh.git
   ```
 
-- 代码编译
+- 代码修改编译
 
   ```sh
-  [root@ ~]# cd kmesh/
-  [root@ ~]# ./build.sh -b
+  [root@dev tmp]# cd kmesh/
+  [root@dev Kmesh]# make build
   ```
 
-- 程序安装
+  kmesh会在编译镜像中进行编译构建，并将编译产物输出至out目录
 
-  ```sh
-  # 安装脚本显示了Kmesh所有安装文件的位置
-  [root@ ~]# ./build.sh -i
+  ```bash
+  [root@localhost kmesh]# ls out/amd64/
+  kmesh-cmd  kmesh-daemon       libbpf.so    libbpf.so.0.8.1       libkmesh_deserial.so  libprotobuf-c.so.1      mdacore
+  kmesh-cni  libboundscheck.so  libbpf.so.0  libkmesh_api_v2_c.so  libprotobuf-c.so      libprotobuf-c.so.1.0.0
   ```
 
-- 编译清理
-
-  ```sh
-  [root@ ~]# ./build.sh -c
-  ```
-
-- 程序卸载
-
-  ```sh
-  [root@ ~]# ./build.sh -u
-
-更多Kmesh编译方式，请参考[Kmesh编译构建](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile-zh.md)
+- 更多Kmesh编译方式，请参考[Kmesh编译构建](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile-zh.md)
 

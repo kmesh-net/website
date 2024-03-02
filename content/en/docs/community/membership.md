@@ -124,4 +124,4 @@ Has deep understanding of Kmesh and related domain and facilitates major agreeme
 
 **Note :** These roles are applicable only for Kmesh github organization and repositories. Currently Kmesh doesn't have a formal process for review and acceptance into these roles. We will come-up with a process soon.
 
-- [two-factor authentication](https://help.github.com/articles/about-two-factor-authentication)
+[two-factor authentication]: (https://help.github.com/articles/about-two-factor-authentication)

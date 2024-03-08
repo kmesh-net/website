@@ -50,7 +50,7 @@ image:
 
 projects: []
 ---
-Kmesh is the industry's first kernel-level cloud-native traffic management engine, which helps users build high-performance communication infrastructure in cloud-native scenarios through basic software innovation. Users can deploy Kmesh<sup>[1]</sup> with one click using helm in a service mesh environment, seamlessly connecting to Istiod. By sinking the traffic management down to the OS, Kmesh achieves more than a 50% reduction in forwarding latency compared to the Istio Sidecar solution, providing applications with an ultimate forwarding performance experience.
+Kmesh is a brand new kernel-level traffic governance engine, which helps users build high-performance communication infrastructure in cloud-native scenarios through basic software innovation. Users can deploy Kmesh<sup>[1]</sup> with one click using helm in a service mesh environment, seamlessly connecting to Istiod. By sinking the traffic management down to the OS, Kmesh achieves more than a 50% reduction in forwarding latency compared to the Istio Sidecar solution, providing applications with an ultimate forwarding performance experience.
 ## Introduction to Kmesh
 Based on eBPF and programmable kernel technology, Kmesh sinks traffic management into the OS, eliminating the need for a proxy layer on the data path, and realizing a kernel-level sidecarless mesh data plane.
 ![image](images/kmesh-arch.png)

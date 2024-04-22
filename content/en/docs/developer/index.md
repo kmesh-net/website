@@ -20,7 +20,7 @@ Starting deployment based on container images
 
 ```sh
 # The Kmesh x86 image is used for openEuler 23.03 OS.
-docker pull ghcr.io/kmesh-net/kmesh:v0.2.0
+docker pull ghcr.io/kmesh-net/kmesh:v0.3.0
 ```
 
 - Start Kmesh.
@@ -28,7 +28,7 @@ docker pull ghcr.io/kmesh-net/kmesh:v0.2.0
 - Start the Kmesh container.
 
 ```sh
-docker run -itd --privileged=true -v /mnt:/mnt -v /sys/fs/bpf:/sys/fs/bpf -v /lib/modules:/lib/modules --name kmesh kmesh:1.0.1
+docker run -itd --privileged=true -v /mnt:/mnt -v /sys/fs/bpf:/sys/fs/bpf -v /lib/modules:/lib/modules --name kmesh kmesh:v0.3.0
 ```
 
 - Start Kmesh in daemonset mode.

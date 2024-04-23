@@ -6,7 +6,7 @@ linktitle: Contributing
 menu:
   docs:
     parent: community
-    weight: 1
+    weight: 5
 title: Contributing
 toc: true
 type: docs

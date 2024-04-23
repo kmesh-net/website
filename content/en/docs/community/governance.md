@@ -6,7 +6,7 @@ linktitle: Governance
 menu:
   docs:
     parent: community
-    weight: 2
+    weight: 10
 title: Governance
 toc: true
 type: docs

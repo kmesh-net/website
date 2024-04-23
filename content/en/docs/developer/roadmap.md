@@ -5,8 +5,8 @@ lastmod: 2023-07-07
 linktitle: Roadmap
 menu:
   docs:
-    parent: welcome
-    weight: 2
+    parent: developer guide
+    weight: 99
 title: Roadmap
 toc: true
 type: docs

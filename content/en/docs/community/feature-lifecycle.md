@@ -6,7 +6,7 @@ linktitle: Feature Lifecycle
 menu:
   docs:
     parent: community
-    weight: 4
+    weight: 20
 title: Feature Lifecycle
 toc: true
 type: docs

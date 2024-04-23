@@ -6,7 +6,7 @@ linktitle: Membership
 menu:
   docs:
     parent: community
-    weight: 3
+    weight: 15
 title: Membership
 toc: true
 type: docs

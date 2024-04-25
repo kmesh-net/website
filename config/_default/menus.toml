@@ -65,14 +65,19 @@
   identifier = "setup"
 
 [[docs]]
+  name = "User Guide"
+  weight = 16
+  identifier = "user guide"
+
+[[docs]]
   name = "Performance"
   weight = 20
   identifier = "performance"
 
 [[docs]]
-  name = "Developer Guide"
+  name = "Developer"
   weight = 25
-  identifier = "developer guide"
+  identifier = "developer"
 
 [[docs]]
   name = "Community"

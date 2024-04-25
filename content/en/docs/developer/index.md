@@ -3,7 +3,7 @@ draft: false
 linktitle: Build
 menu:
   docs:
-    parent: developer guide
+    parent: developer
     weight: 5
 title: Build
 toc: true

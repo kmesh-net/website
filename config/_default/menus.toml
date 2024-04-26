@@ -75,9 +75,9 @@
   identifier = "performance"
 
 [[docs]]
-  name = "Developer"
+  name = "Developer Guide"
   weight = 25
-  identifier = "developer"
+  identifier = "developer guide"
 
 [[docs]]
   name = "Community"

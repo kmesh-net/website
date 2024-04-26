@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Kmesh performance
+linktitle: Kmesh Performance
 menu:
   docs:
     parent: performance
     weight: 1
-title: Kmesh performance
+title: Kmesh Performance
 toc: true
 type: docs
 

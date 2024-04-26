@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Get Started
+linktitle: Quick Start
 menu:
   docs:
-    parent: quickstart
-    weight: 1
-title: Get Started
+    parent: setup
+    weight: 5
+title: Quick Start
 toc: true
 type: docs
 

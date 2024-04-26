@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Kmesh architecture
+linktitle: Kmesh Architecture
 menu:
   docs:
     parent: architecture
-    weight: 1
-title: Kmesh architecture
+    weight: 5
+title: Kmesh Architecture
 toc: true
 type: docs
 

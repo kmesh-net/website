@@ -60,9 +60,14 @@
   identifier = "architecture"
 
 [[docs]]
-  name = "quickStart"
+  name = "Setup"
   weight = 15
-  identifier = "quickstart"
+  identifier = "setup"
+
+[[docs]]
+  name = "User Guide"
+  weight = 16
+  identifier = "user guide"
 
 [[docs]]
   name = "Performance"

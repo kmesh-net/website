@@ -12,7 +12,7 @@ type: docs
 ---
 ## Test Networking
 
-![perf_network](images/perf_network.png)
+![perf_network](/docs/performance/perf_network.png)
 
 ## Test Procedure
 
@@ -33,4 +33,4 @@ Test a group of Fortio performance data by using the number of concurrent connec
 ```
 
 ## Performace
-![perf_test](images/fortio_performance_test.png)
+![perf_test](/docs/performance/fortio_performance_test.png)

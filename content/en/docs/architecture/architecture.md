@@ -11,7 +11,7 @@ type: docs
 
 ---
 
-![image](images/kmesh-arch.png)
+![image](/docs/architecture/architecture.svg)
 The software architecture of Kmesh consists of the following components:
 
 - kmesh-controller: The management program responsible for Kmesh lifecycle management, XDS protocol integration, observability, and other functions.

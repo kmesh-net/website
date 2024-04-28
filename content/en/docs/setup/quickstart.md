@@ -18,9 +18,9 @@ This guide lets you quickly install Kmesh.
 
 Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly build a Kubernetes cluster. Of course, you can also use minikube and other ways to create Kubernetes clusters.
 
-Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. For details, see [istio install guide](https://istio.io/latest/docs/setup/getting-started/#install).
+The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [Kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
 
-If you want to try out the Kmesh L7 feature as it requires waypoint, you need to install the [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We commend to install istio ambient mode because Kmesh ads mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
 
 You can view the results of istio installation using the following command:
 
@@ -39,11 +39,9 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
 ```
 
-The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
-
 ## Install Kmesh
 
-We offer several ways to install kmesh
+We offer several ways to install Kmesh
 
 - Install from Helm
   
@@ -51,18 +49,13 @@ We offer several ways to install kmesh
 helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
 ```
 
-- Install from Yaml
+- Alternatively install from Yaml
   
 ```console
-# cd ./deploy/yaml/
-kubectl apply -f kmesh.yaml
-kubectl apply -f clusterrole.yaml
-kubectl apply -f clusterrolebinding.yaml
-kubectl apply -f serviceaccount.yaml
-kubectl apply -f l7-envoyfilter.yaml
+kubectl apply -f ./deploy/yaml/
 ```
 
-You can confirm the status of kmesh with the following command:
+You can confirm the status of Kmesh with the following command:
 
 ```console
 kubectl get pod -n kmesh-system
@@ -70,7 +63,7 @@ NAME          READY   STATUS    RESTARTS   AGE
 kmesh-v2frk   1/1     Running   0          18h
 ```
 
-View the running status of kmesh service:
+View the running status of Kmesh service:
 
 ```console
 time="2024-04-25T13:17:40Z" level=info msg="bpf Start successful" subsys=manager
@@ -87,7 +80,7 @@ time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys
 
 ## Deploy the Sample Applications
 
-Similar to istio, kmesh can be used to manage applications in a namespace by adding a label to that namespace.
+Similar to istio, Kmesh can be used to manage applications in a namespace by adding a label to that namespace.
 
 ```console
 # Enable Kmesh for the specified namespace
@@ -97,104 +90,9 @@ kubectl label namespace default istio.io/dataplane-mode=Kmesh
 Apply the following configuration to create sample applications:
 
 ```console
-kubectl apply -f -<<EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: sleep
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sleep
-  labels:
-    app: sleep
-    service: sleep
-spec:
-  ports:
-  - port: 80
-    name: http
-  selector:
-    app: sleep
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sleep
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sleep
-  template:
-    metadata:
-      labels:
-        app: sleep
-    spec:
-      terminationGracePeriodSeconds: 0
-      serviceAccountName: sleep
-      containers:
-      - name: sleep
-        image: curlimages/curl
-        command: ["/bin/sleep", "infinity"]
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - mountPath: /etc/sleep/tls
-          name: secret-volume
-      volumes:
-      - name: secret-volume
-        secret:
-          secretName: sleep-secret
-          optional: true
-EOF
-```
+kubectl apply -f ./samples/httpbin/httpbin.yaml
 
-```console
-kubectl apply -f -<<
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: httpbin
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: httpbin
-  labels:
-    app: httpbin
-    service: httpbin
-spec:
-  ports:
-  - name: http
-    port: 8000
-    targetPort: 80
-  selector:
-    app: httpbin
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpbin
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: httpbin
-      version: v1
-  template:
-    metadata:
-      labels:
-        app: httpbin
-        version: v1
-    spec:
-      serviceAccountName: httpbin
-      containers:
-      - image: docker.io/kong/httpbin
-        imagePullPolicy: IfNotPresent
-        name: httpbin
-        ports:
-        - containerPort: 80
-EOF
+kubectl apply -f ./samples/sleep/sleep.yaml
 ```
 
 Check sample applications status:
@@ -206,75 +104,67 @@ httpbin-65975d4c6f-96kgw                  1/1     Running   0          3h38m
 sleep-7656cf8794-8tp9n                    1/1     Running   0          3h38m
 ```
 
-You can determine if a pod is managed by kmesh by looking at the pod's annotation.
+You can determine if a pod is managed by Kmesh by looking at the pod's annotation.
 
 ```console
-kubectl describe po httpbin-65975d4c6f-96kgw
-Name:             httpbin-65975d4c6f-96kgw
-Namespace:        default
-Priority:         0
-Service Account:  httpbin
-Node:             kmesh-control-plane/172.18.0.2
-Start Time:       Fri, 26 Apr 2024 11:54:03 +0800
-Labels:           app=httpbin
-                  pod-template-hash=65975d4c6f
-                  version=v1
+kubectl describe po httpbin-65975d4c6f-96kgw | grep Annotations
+
 Annotations:      kmesh.net/redirection: enabled
-Status:           Running
-IP:               10.244.0.21
-IPs:
-  IP:           10.244.0.21
-Controlled By:  ReplicaSet/httpbin-65975d4c6f
 ```
 
 ## Test Sample Applications
 
-After the applications have been manage by kmesh, we need to test that they are still working properly.
+After the applications have been manage by Kmesh, we need to test that they are still working properly.
 
 ```console
-k exec deploy/sleep -- curl -s 10.244.0.21 | grep -o "<title>.*</title>"
-<title>httpbin.org</title>
+kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
+
+HTTP/1.1 200 OK
+Server: gunicorn/19.9.0
+Date: Sun, 28 Apr 2024 07:31:51 GMT
+Connection: keep-alive
+Content-Type: text/html; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Content-Length: 0
 ```
 
 Note: 10.244.0.21 is the IP of httpbin
 
 ## Clean Up
 
-If you don't want to use kmesh to govern the application anymore, you can delete the labels on the namespace and restart the pod.
+If you don't want to use Kmesh to govern the application anymore, you can delete the labels on the namespace and restart the pod.
 
 ```console
 kubectl label namespace default istio.io/dataplane-mode-
-kubectl delete po httpbin-65975d4c6f-96kgw sleep-7656cf8794-8tp9n
-kubectl describe po httpbin-65975d4c6f-h2r99
+kubectl delete pod httpbin-65975d4c6f-96kgw sleep-7656cf8794-8tp9n
+kubectl describe pod httpbin-65975d4c6f-h2r99 | grep Annotations
 
-Name:             httpbin-65975d4c6f-h2r99
-Namespace:        default
-Priority:         0
-Service Account:  httpbin
-Node:             kmesh-control-plane/172.18.0.2
-Start Time:       Fri, 26 Apr 2024 15:49:38 +0800
-Labels:           app=httpbin
-                  pod-template-hash=65975d4c6f
-                  version=v1
 Annotations:      <none>
-Status:           Running
-IP:               10.244.0.28
 ```
 
-Delete kmesh:
+Delete Kmesh:
+
+- If you installed Kmesh using helm
 
 ```console
-kubectl delete daemonset -n kmesh-system kmesh
+helm uninstall kmesh -n kmesh-system
 kubectl delete ns kmesh-system
 ```
 
-To remove the sleep and notsleep applications:
+- If you installed Kmesh using yaml:
 
 ```console
-kubectl delete svc httpbin sleep
-kubectl delete deploy httpbin sleep
-kubectl delete serviceaccount httpbin sleep
+kubectl delete -f ./deploy/yaml/
 ```
+
+To remove the sleep and httpbin applications:
+
+```console
+kubectl delete -f samples/httpbin/httpbin.yaml
+kubeclt delete -f samples/sleep/sleep.yaml
+```
+
 If you installed the Gateway API CRDs, remove them:
 
 ```console

@@ -14,7 +14,7 @@ Kmesh is a service mesh data plane software implemented based on the programmabl
 
 In the following docs, we will explain:
 
-- The [architecture](./architecture/_index.md) and highlights advantages of Kmesh.
-- The [quick start](./welcome/quickstart.md) of Kmesh.
-- The [performance](./performance/_index.md) of Kmesh.
-- The [community](./community/contribute.md) of Kmesh.
+- The [architecture](architecture/architecture) and highlights advantages of Kmesh.
+- The [quick start](setup/quickstart) of Kmesh.
+- The [performance](performance/performance) of Kmesh.
+- The [community](community/contribute) of Kmesh.

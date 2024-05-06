@@ -10,17 +10,16 @@ toc: true
 type: docs
 
 ---
-## Try Waypoint
 
 ### Before you begin
 
 Install Kmesh:
 
-Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)
+  Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)
 
 Deploy sample application:
 
-Using Kmesh manage default namespace
+  Using Kmesh manage default namespace
 
   ```
   [root@ ~]# kubectl label namespace default istio.io/dataplane-mode=Kmesh
@@ -65,7 +64,7 @@ Test boofinfo works as expected
 
 Deploy waypoint:
 
-Deploy a waypoint for service account `bookinfo-reviews`, so any traffic to service `reviews` will be mediated by that waypoint proxy
+  Deploy a waypoint for service account `bookinfo-reviews`, so any traffic to service `reviews` will be mediated by that waypoint proxy
 
   ```
   [root@ ~]# istioctl x waypoint apply --service-account bookinfo-reviews
@@ -81,7 +80,7 @@ Deploy a waypoint for service account `bookinfo-reviews`, so any traffic to serv
   sleep-9454cc476-86vgb                              1/1     Running   0          4m25s
   ```
   
-Replace the waypoint image with the Kmesh customized image. Based on istio-proxy, Kmesh adds an customized listener filter called [kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv) to connect L4 and L7.
+  Replace the waypoint image with the Kmesh customized image. Based on istio-proxy, Kmesh adds an customized listener filter called [kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv) to connect L4 and L7.
 
   ```
   [root@ ~]# kubectl get gateways.gateway.networking.k8s.io
@@ -89,7 +88,7 @@ Replace the waypoint image with the Kmesh customized image. Based on istio-proxy
   bookinfo-reviews   istio-waypoint   10.96.207.125   True         8m36s
   ```
 
-Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`. Then gateway pod will restart. Now kmesh is L7 enabled!
+  Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`. Then gateway pod will restart. Now kmesh is L7 enabled!
 
 ### Apply weight-based routing
 
@@ -134,4 +133,4 @@ Remove sample applications:
 
 Remove Kmesh:
 
-Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)
+  Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)

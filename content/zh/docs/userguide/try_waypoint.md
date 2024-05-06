@@ -10,17 +10,16 @@ toc: true
 type: docs
 
 ---
-## Waypoint尝鲜
 
 ### 开始之前
 
-部署Kmesh
+部署Kmesh：
 
-请参考[快速开始](https://kmesh.net/zh/docs/quickstart/)
+  请参考[快速开始](https://kmesh.net/zh/docs/quickstart/)
 
-部署示例应用
+部署示例应用：
 
-使用Kmesh接管default命名空间：
+  使用Kmesh接管default命名空间：
 
   ```
   [root@ ~]# kubectl label namespace default istio.io/dataplane-mode=Kmesh
@@ -65,7 +64,7 @@ type: docs
 
 部署waypoint：
 
-为service account `bookinfo-reviews` 部署一个waypoint，这样所有发往service `reviews` 的流量都将被这个waypoint proxy接管
+  为service account `bookinfo-reviews` 部署一个waypoint，这样所有发往service `reviews` 的流量都将被这个waypoint proxy接管
 
   ```
   [root@ ~]# istioctl x waypoint apply --service-account bookinfo-reviews
@@ -81,7 +80,7 @@ type: docs
   sleep-9454cc476-86vgb                              1/1     Running   0          4m25s
   ```
 
-用kmesh自定义的镜像替换waypoint的原生镜像。基于istio-proxy，Kmesh增加了一个名为[kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv)的自定义listener filter用于连接L4和L7
+  用kmesh自定义的镜像替换waypoint的原生镜像。基于istio-proxy，Kmesh增加了一个名为[kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv)的自定义listener filter用于连接L4和L7
 
   ```
   [root@ ~]# kubectl get gateways.gateway.networking.k8s.io
@@ -89,7 +88,7 @@ type: docs
   bookinfo-reviews   istio-waypoint   10.96.207.125   True         8m36s
   ```
 
-在`bookinfo-reviews` gateway的annotations当中添加sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0，将{arch}转换为所在宿主机的架构，当前可选的取值为x86和arm。在gateway pod重启之后，kmesh就具备L7能力了！
+  在`bookinfo-reviews` gateway的annotations当中添加sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0，将{arch}转换为所在宿主机的架构，当前可选的取值为x86和arm。在gateway pod重启之后，kmesh就具备L7能力了！
 
 ### 应用基于权重的路由
 
@@ -134,4 +133,4 @@ type: docs
 
 移除Kmesh：
 
-请参考[快速开始](https://kmesh.net/zh/docs/quickstart/)
+  请参考[快速开始](https://kmesh.net/zh/docs/quickstart/)

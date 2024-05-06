@@ -15,7 +15,7 @@ type: docs
 
 This document gives a brief overview of the Kmesh community roles with the requirements and responsibilities associated with them.
 
-| Role | Requirements | Responsibilities | Privileges |
+| <div style="width: 100pt">Role | Requirements | Responsibilities | Privileges |
 | -----| ---------------- | ------------ | -------|
 | [Member](#member) | Sponsor from 2 approvers, active in community, contributed to Kmesh | Welcome and guide new contributors | Kmesh GitHub organization Member |
 | [Approver](#approver) | Sponsor from 2 maintainers, has good experience and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packages in relevant repository |

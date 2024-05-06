@@ -27,3 +27,33 @@ updates:
 7. When you're ready for a review, add a comment to the PR and assign a
    reviewer/approver. See the
    [Kmesh contributor guide](https://github.com/kmesh-net/kmesh/blob/main/CONTRIBUTING.md).
+
+## Notes of Writing Documentation
+
+In the Kmesh documentation, a note is required at the beginning of each document as follows:
+
+```console
+---
+draft: false
+linktitle: XXX
+menu:
+  docs:
+    parent: XXX
+    weight: 1
+title: XXX
+toc: true
+type: docs
+
+---
+```
+
+There are four points to note:
+
+- `linktitle` is the title displayed in the menu.
+- `title` is the title displayed on the document page.
+- `parent` indicates which directory this document is contained in. For example, if you want to write a document under the `user guide`, you need to set the `parent: user guide`.
+  For the correspondence of each menu, please refer to [menus](./config/_default/menus.toml).
+  A simpler way is to directly copy the configuration of the existing documents in the directory.
+- `weight` is used to order the documents. Should avoid duplication and conflicts prevented.
+  It is also best not to use adjacent numbers to facilitate the insertion of new documents. A spacing of 5 is recommended.
+  If you want your document to always be at the end of the current directory, you can just use 99.

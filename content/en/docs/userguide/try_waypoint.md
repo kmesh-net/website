@@ -1,19 +1,25 @@
 ---
 draft: false
-linktitle: L7 Traffic Management
+linktitle: Try Waypoint
 menu:
   docs:
     parent: user guide
     weight: 1
-title: L7 Traffic Management
+title: Try Waypoint
 toc: true
 type: docs
 
 ---
-### L7 Traffic Management
+## Try Waypoint
 
-- Deploy the sample application
-  - Add default namespace to Kmesh
+### Before you begin
+
+- Install Kmesh
+
+  Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)
+
+- Deploy sample application
+  - Using Kmesh manage default namespace
 
     ```
     [root@ ~]# kubectl label namespace default istio.io/dataplane-mode=Kmesh
@@ -56,7 +62,7 @@ type: docs
     <title>Simple Bookstore App</title>
     ```
 
-- Kmesh L7
+- Deploy waypoint
 
   - Deploy a waypoint for service account `bookinfo-reviews`, so any traffic to service `reviews` will be mediated by that waypoint proxy
 
@@ -84,15 +90,47 @@ type: docs
 
     Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`. Then gateway pod will restart. Now kmesh is L7 enabled!
 
-  - Configure traffic routing to send 90% of requests to `reviews` v1 and 10% to `reviews` v2
+### Apply weight-based routing
 
-    ```
+- Configure traffic routing to send 90% of requests to `reviews` v1 and 10% to `reviews` v2
+
+  ```
+  [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-reviews-90-10.yaml
+  [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/destination-rule-reviews.yaml
+  ```
+
+- Confirm that roughly 90% of the traffic go to `reviews` v1
+
+  ```
+  [root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http:productpage:9080/productpage | grep reviews-v.-; done"
+  ```
+
+### Understanding what happend
+
+Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service account `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews` v1 and 10% to `reviews` v2 according to the route rules we set.
+
+### Cleanup
+
+- Remove the application route rules:
+
+  ```
     [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-reviews-90-10.yaml
-    [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/destination-rule-reviews.yaml
-    ```
+    [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/destination-rule-reviews.yaml  
+  ```
 
-  - Confirm that roughly 90% of the traffic go to `reviews` v1
+- Remove waypoint
 
-    ```
-    [root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http:productpage:9080/productpage | grep reviews-v.-; done"
-    ```
+  ```
+  [root@ ~]# istioctl x waypoint delete --service-account bookinfo-reviews
+  ```
+
+- Remove sample applications
+
+  ```
+  [root@ ~]# kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/platform/kube/bookinfo.yaml
+  [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/sleep/sleep.yaml
+  ```
+
+- Remove Kmesh
+
+  Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)

@@ -37,7 +37,7 @@ local-path-storage   Active   13d
 3. Deploy bookinfo:
 
 ```bash
-[root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samplesbookinfo/platform/kube/bookinfo.yaml
+[root@ ~]# kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/platform/kube/bookinfo.yaml
 ```
 
 4. Deploy sleep as curl client:
@@ -92,7 +92,7 @@ Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v
 
 ### Apply weight-based routing
 
-Configure traffic routing to send 90% of requests to `reviews` v1 and 10% to `reviews` v2
+Configure traffic routing to send 90% of requests to `reviews v1` and 10% to `reviews v2`:
 
 ```bash
 [root@ ~]# kubectl apply -f -<<EOF
@@ -136,15 +136,28 @@ spec:
 EOF
 ```
 
-Confirm that roughly 90% of the traffic go to `reviews` v1
+Confirm that roughly 90% of the traffic go to `reviews v1`
 
 ```bash
-[root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http:productpage:9080/productpage | grep reviews-v.-; done"
+[root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http://productpage:9080/productpage | grep reviews-v.-; done"
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        ...
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u> 
 ```
 
 ### Understanding what happend
 
-Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service account `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews` v1 and 10% to `reviews` v2 according to the route rules we set.
+Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service account `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews v1` and 10% to `reviews v2` according to the route rules we set.
 
 ### Cleanup
 

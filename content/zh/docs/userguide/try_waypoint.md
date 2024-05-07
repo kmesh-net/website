@@ -92,7 +92,7 @@ bookinfo-reviews   istio-waypoint   10.96.207.125   True         8m36s
 
 ### 应用基于权重的路由
 
-配置流量路由，将90%的请求发往`reviews` v1并且将其余的10%发往`reviews` v2
+配置流量路由，将90%的请求发往`reviews v1`并且将其余的10%发往`reviews v2`：
 
 ```bash
 [root@ ~]# kubectl apply -f -<<EOF
@@ -136,15 +136,28 @@ spec:
 EOF
 ```
 
-确认大概90%的流量发往了`reviews` v1
+确认大概90%的流量发往了`reviews v1`
 
 ```bash
-[root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http:productpage:9080/productpage | grep reviews-v.-; done"
+[root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http://productpage:9080/productpage | grep reviews-v.-; done"
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        ...
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v1-57c85f47fb-n9llm</u>
+        <u>reviews-v2-64776cb9bd-grnd2</u> 
 ```
 
 ### 理解原理
 
-由于`default`命名空间已经被Kmesh接管并且我们已经为service account `bookinfo-reviews`部署了waypoint，因此所有发往service `reviews`的流量都会被Kmesh转发给waypoint。Waypoint则会根据我们设置的路由规则将90%的流量发往`reviews` v1并且将其余的10%流量发往`reviews` v2。
+由于`default`命名空间已经被Kmesh接管并且我们已经为service account `bookinfo-reviews`部署了waypoint，因此所有发往service `reviews`的流量都会被Kmesh转发给waypoint。Waypoint则会根据我们设置的路由规则将90%的流量发往`reviews v1`并且将其余的10%流量发往`reviews v2`。
 
 ### 清理
 

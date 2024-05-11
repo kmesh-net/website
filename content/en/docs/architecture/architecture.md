@@ -11,11 +11,9 @@ type: docs
 
 ---
 
-![image](images/kmesh-arch.png)
+![image](/docs/architecture/kmesh-arch.svg)
 The software architecture of Kmesh consists of the following components:
 
-- kmesh-controller: The management program responsible for Kmesh lifecycle management, XDS protocol integration, observability, and other functions.
-- kmesh-api: The API interface layer provided by Kmesh, including the orchestrated API transformed from XDS and observability channels.
-- kmesh-runtime: The runtime implemented in the kernel that supports L3-L7 traffic orchestration.
-- kmesh-orchestration: The L3-L7 traffic orchestration implemented based on eBPF, including routing, canary deployments, load balancing, and more.
-- kmesh-probe: The observability probe that provides end-to-end observability capabilities.
+- Kmesh-daemon: The management program responsible for Kmesh lifecycle management, XDS protocol integration, observability, and other functions.
+- Ebpf orchestiation: The traffic orchestration implemented based on eBPF, including routing, canary deployments, load balancing, and more.
+- waypoint: Modify istio's waypoint to adapt to Kmesh protocols, responsible for L7 traffic governance.

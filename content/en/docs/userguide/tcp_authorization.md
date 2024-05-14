@@ -1,17 +1,11 @@
-
-
-
-
-
-
 ---
 draft: false
-linktitle: tcp authorization 
+linktitle: Try Waypoint
 menu:
   docs:
     parent: user guide
     weight: 2
-title: tcp authorization 
+title: Try Waypoint
 toc: true
 type: docs
 
@@ -19,7 +13,7 @@ type: docs
 
 This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
-## Before you begin
+### Before you begin
 
 - Understand the [AuthorizationPolicy](#AuthorizationPolicy)
 
@@ -74,7 +68,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
   Annotations:      kmesh.net/redirection: enabled
   ```
 
-## Configure ALLOW authorization policy
+### Configure ALLOW authorization policy
 
 - Create an "allow-by-srcip" authorization policy for the httpbin workload within the corresponding namespace, apply the policy by running the following command, which allows requests from a specified IP address. In this example, the IP address `10.244.1.46/32` corresponds to the pod `sleep-78ff5975c6-plh7r`
 
@@ -138,7 +132,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
   
 
-## Configure DENY authorization policy
+### Configure DENY authorization policy
 
 - Create a "deny-by-srcip" authorization policy for the httpbin workload within the specified namespace, which denies requests from a particular IP address, execute the following command
 
@@ -198,13 +192,13 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
   
 
-## Clean up
+### Clean up
 
 Please refer [cleanup](https://kmesh.net/en/docs/setup/quickstart/#clean-up)
 
 
 
-## AuthorizationPolicy
+### AuthorizationPolicy
 
 | Field   | Type     | Description                                                  | Required |
 | ------- | -------- | ------------------------------------------------------------ | -------- |

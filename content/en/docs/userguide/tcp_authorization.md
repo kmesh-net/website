@@ -1,10 +1,23 @@
 
 
-[TOC]
 
-# Authorization
 
-This task shows you how to set up Kmesh authorization policy.
+
+
+---
+draft: false
+linktitle: tcp authorization 
+menu:
+  docs:
+    parent: user guide
+    weight: 2
+title: tcp authorization 
+toc: true
+type: docs
+
+---
+
+This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
 ## Before you begin
 
@@ -17,6 +30,36 @@ This task shows you how to set up Kmesh authorization policy.
 - Deploy the Sample Applications
 
   Please refer [deploy applications](https://kmesh.net/en/docs/setup/quickstart/#deploy-the-sample-applications)
+
+  We need to modify the replicas o to 2 in httpbin deployment.
+
+  ```
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: httpbin
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: httpbin
+        version: v1
+    template:
+      metadata:
+        labels:
+          app: httpbin
+          version: v1
+      spec:
+        serviceAccountName: httpbin
+        containers:
+        - image: docker.io/kong/httpbin
+          imagePullPolicy: IfNotPresent
+          name: httpbin
+          ports:
+          - containerPort: 80
+  ```
+
+  
 
 - Check app status and ensure that the service application is managed by Kmesh
 

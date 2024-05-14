@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Try Waypoint
+linktitle: TCP Authorization
 menu:
   docs:
     parent: user guide
     weight: 2
-title: Try Waypoint
+title: TCP Authorization
 toc: true
 type: docs
 

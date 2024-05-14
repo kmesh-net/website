@@ -25,32 +25,38 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
   Please refer [deploy applications](https://kmesh.net/en/docs/setup/quickstart/#deploy-the-sample-applications)
 
-  We need to modify the replicas o to 2 in httpbin deployment.
+   Modify the replicas o to 2 in sleep deployment.
 
   ```
   apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: httpbin
+    name: sleep
   spec:
     replicas: 2
     selector:
       matchLabels:
-        app: httpbin
-        version: v1
+        app: sleep
     template:
       metadata:
         labels:
-          app: httpbin
-          version: v1
+          app: sleep
       spec:
-        serviceAccountName: httpbin
+        terminationGracePeriodSeconds: 0
+        serviceAccountName: sleep
         containers:
-        - image: docker.io/kong/httpbin
+        - name: sleep
+          image: curlimages/curl
+          command: ["/bin/sleep", "infinity"]
           imagePullPolicy: IfNotPresent
-          name: httpbin
-          ports:
-          - containerPort: 80
+          volumeMounts:
+          - mountPath: /etc/sleep/tls
+            name: secret-volume
+        volumes:
+        - name: secret-volume
+          secret:
+            secretName: sleep-secret
+            optional: true
   ```
 
   

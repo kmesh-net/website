@@ -52,6 +52,7 @@ helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
 - Alternatively install from Yaml
   
 ```console
+kubectl create namespace kmesh-system
 kubectl apply -f ./deploy/yaml/
 ```
 

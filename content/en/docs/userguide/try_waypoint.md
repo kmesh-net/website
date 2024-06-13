@@ -64,31 +64,57 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 6. Deploy waypoint:
 
-Deploy a waypoint for service account `bookinfo-reviews`, so any traffic to service `reviews` will be mediated by that waypoint proxy
+Deploy a waypoint for service `reviews`, so any traffic to that service will be mediated by that waypoint proxy
 
 ```bash
-[root@ ~]# istioctl x waypoint apply --service-account bookinfo-reviews
+[root@ ~]# istioctl experimental waypoint apply -n default --name reviews-svc-waypoint
+```
+
+Label the `reviews` service to use the `reviews-svc-waypoint` waypoint:
+
+```bash
+[root@ ~]# kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
 [root@ ~]# kubectl get pods
-NAME                                               READY   STATUS    RESTARTS   AGE
-bookinfo-reviews-istio-waypoint-5d544b6d54-v5tc9   1/1     Running   0          4s
-details-v1-5f4d584748-bz42z                        1/1     Running   0          4m35s
-productpage-v1-564d4686f-2rjqc                     1/1     Running   0          4m35s
-ratings-v1-686ccfb5d8-dnzkf                        1/1     Running   0          4m35s
-reviews-v1-86896b7648-fqm4z                        1/1     Running   0          4m35s
-reviews-v2-b7dcd98fb-nn42q                         1/1     Running   0          4m35s
-reviews-v3-5c5cc7b6d-q4r5h                         1/1     Running   0          4m35s
-sleep-9454cc476-86vgb                              1/1     Running   0          4m25s
+NAME                                      READY   STATUS    RESTARTS   AGE
+details-v1-cdd874bc9-xcdnj                1/1     Running   0          30m
+productpage-v1-5bb9985d4d-z8cws           1/1     Running   0          30m
+ratings-v1-6484d64bbc-pkv6h               1/1     Running   0          30m
+reviews-svc-waypoint-8cb4bdbf-9d5mj       1/1     Running   0          30m
+reviews-v1-598f9b58fc-2rw7r               1/1     Running   0          30m
+reviews-v2-5979c6fc9c-72bst               1/1     Running   0          30m
+reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
+sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 ```
   
 Replace the waypoint image with the Kmesh customized image. Based on istio-proxy, Kmesh adds an customized listener filter called [Kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv), which will parse the custom TLV protocol encoded by Kmesh and obtain the target address and metadata to connect L4 and L7.
 
 ```bash
 [root@ ~]# kubectl get gateways.gateway.networking.k8s.io
-NAME               CLASS            ADDRESS         PROGRAMMED   AGE
-bookinfo-reviews   istio-waypoint   10.96.207.125   True         8m36s
+NAME                      CLASS            ADDRESS        PROGRAMMED   AGE
+reviews-svc-waypoint      istio-waypoint   10.96.198.98   True         30m
 ```
 
 Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`. Then gateway pod will restart. Now Kmesh is L7 enabled!
+
+In addition, you can also use waypoint at namespace or pod granularity. For namespace granularity:
+
+```bash
+[root@ ~]# istioctl experimental waypoint apply -n default --enroll-namespace
+waypoint default/waypoint applied
+namespace default labeled with "istio.io/use-waypoint: waypoint"
+```
+
+Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement. For pod granularity:
+
+```bash
+[root@ ~]# istioctl experimental waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
+waypoint default/reviews-v2-pod-waypoint applied
+# Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
+[root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint=reviews-v2-pod-waypoint
+pod/reviews-v2-5b667bcbf8-spnnh labeled
+```
+
+Now any requests from pods in the Kmesh to the `reviews-v2` pod IP will be routed through `reviews-v2-pod-waypoint` waypoint for L7 processing and policy enforcement.
 
 ### Apply weight-based routing
 

@@ -66,8 +66,10 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 Deploy a waypoint for service `reviews`, so any traffic to that service will be mediated by that waypoint proxy
 
+***NOTE: There are breaking changes in waypoint capture mode between istio 1.22 and istio 1.21, so the following commands need to be run on as least istio 1.22.***
+
 ```bash
-[root@ ~]# istioctl experimental waypoint apply -n default --name reviews-svc-waypoint
+[root@ ~]# istioctl x waypoint apply -n default --name reviews-svc-waypoint
 ```
 
 Label the `reviews` service to use the `reviews-svc-waypoint` waypoint:
@@ -94,20 +96,31 @@ NAME                      CLASS            ADDRESS        PROGRAMMED   AGE
 reviews-svc-waypoint      istio-waypoint   10.96.198.98   True         30m
 ```
 
-Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`. Then gateway pod will restart. Now Kmesh is L7 enabled!
-
-In addition, you can also use waypoint at namespace or pod granularity. For namespace granularity:
+Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`.
 
 ```bash
-[root@ ~]# istioctl experimental waypoint apply -n default --enroll-namespace
+# In x86 environment.
+[root@ ~]# kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint-x86:v0.3.0
+```
+
+Then gateway pod will restart. Now Kmesh is L7 enabled!
+
+In addition, you can also use waypoint at namespace or pod granularity.
+
+#### Use waypoint at namespace granularity:
+
+```bash
+[root@ ~]# istioctl x waypoint apply -n default --enroll-namespace
 waypoint default/waypoint applied
 namespace default labeled with "istio.io/use-waypoint: waypoint"
 ```
 
-Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement. For pod granularity:
+Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement.
+
+#### Use waypoint at pod granularity:
 
 ```bash
-[root@ ~]# istioctl experimental waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
+[root@ ~]# istioctl x waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
 waypoint default/reviews-v2-pod-waypoint applied
 # Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
 [root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint=reviews-v2-pod-waypoint
@@ -197,7 +210,8 @@ Because `default` namespace has been managed by Kmesh and we have deployed a way
 2. Remove waypoint:
 
 ```bash
-[root@ ~]# istioctl x waypoint delete --service-account bookinfo-reviews
+[root@ ~]# istioctl x waypoint delete reviews-svc-waypoint
+[root@ ~]# kubectl label service reviews istio.io/use-waypoint-
 ```
 
 3. Remove sample applications:

@@ -10,7 +10,7 @@ toc: true
 type: docs
 ---
 
-Compiling Kmesh directly in the operating system requires a certain [kernel version](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) of the operating system. Therefore, in order to allow all operating systems to run Kmesh's ut, Kmesh provides two ways to do so. One to run the go unit in docker and one to run the go unit locally.
+Compiling Kmesh directly in the operating system requires a certain [OS version](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) of the operating system. Therefore, in order to allow all operating systems to run Kmesh's UT, Kmesh provides two ways to do so. One to run the go unit in docker and one to run the go unit locally.
 
 Developers of unsupported kernel version can run go unit test in docker through script. Developers of supported version can run go unit test locally through script.
 
@@ -27,10 +27,10 @@ Alternatively, you can execute the test by `make test`:
 
 ```sh
 # Run kmesh ut through docker
-make test UT_TYPE=--docker
+make test RUN_IN_CONTAINER=1
 
 # Run kmesh ut locally
-make test UT_TYPE=--local
+make test RUN_IN_CONTAINER=0
 ```
 
 ## Unit test
@@ -40,7 +40,7 @@ This section describes the ut settings for Kmesh so that developers can run unit
 Because Kmesh uses eBPF, you need to set some environment variables when running Kmesh-related Unit Tests.
 
 ```console
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:$ROOT_DIR/api/v2-c:$ROOT_DIR/bpf/deserialization_to_bpf_map
 export PKG_CONFIG_PATH=$ROOT_DIR/mk
 ```
 

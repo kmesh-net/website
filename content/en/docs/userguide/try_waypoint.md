@@ -66,7 +66,7 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 Deploy a waypoint for service `reviews`, so any traffic to that service will be mediated by that waypoint proxy
 
-***NOTE: There are breaking changes in waypoint capture mode between istio 1.22 and istio 1.21, so the following commands need to be run on as least istio 1.22.***
+***NOTE: There are breaking changes in waypoint capture mode between istio 1.22 and istio 1.21, so the following commands need to be run on at least istio 1.22.***
 
 ```bash
 [root@ ~]# istioctl x waypoint apply -n default --name reviews-svc-waypoint

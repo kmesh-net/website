@@ -10,7 +10,7 @@ toc: true
 type: docs
 ---
 
-Compiling Kmesh directly in the operating system requires a certain [OS version](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) of the operating system. Therefore, in order to allow all operating systems to run Kmesh's UT, Kmesh provides two ways to do so. One to run the go unit in docker and one to run the go unit locally.
+Compiling Kmesh directly in the operating system requires a certain [OS version](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md). Therefore, in order to allow all operating systems to run Kmesh's UT, Kmesh provides two ways to do so. One to run the go unit test in docker and one to run the go unit test locally.
 
 Developers of unsupported kernel version can run go unit test in docker through script. Developers of supported version can run go unit test locally through script.
 

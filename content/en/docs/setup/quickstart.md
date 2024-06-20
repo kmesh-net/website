@@ -132,6 +132,30 @@ Content-Length: 0
 
 Note: 10.244.0.21 is the IP of httpbin
 
+## Enable dataplane bpf log
+
+For current kmesh ebpf log, if kernel version is < 5.13, it only supports bpf log in tracepipe, else will support dump bpf log to userspace in kmesh daemon process.
+So in order to print log in kemsh dataplane, enable different log level for your need. Support 4 bpf log level:
+```
+  BPF_LOG_ERR = 0,
+  BPF_LOG_WARN = 1,
+  BPF_LOG_INFO = 2,
+  BPF_LOG_DEBUG = 3,
+``` 
+Currently default bpf log level is BPF_LOG_ERR, we can change bpf log level in every node by using below command, for example, 3 represents enable BPF_LOG_DEBUG log level:
+
+```
+kubectl exec ds/kmesh -n kmesh-system -- curl -s localhost:15200/debug/bpfLogLevel/3
+```
+Then, if kernel version < 5.13, we could see the bpf log use command: 
+```
+cat /sys/kernel/debug/tracing/trace_pipe
+```
+Otherwise, we can view the bpf log in kemsh daemon process.
+```
+kubectl logs -f -n kmesh-system ds/kmesh
+```
+
 ## Clean Up
 
 If you don't want to use Kmesh to govern the application anymore, you can delete the labels on the namespace and restart the pod.

@@ -11,7 +11,7 @@ type: docs
 
 ---
 
-End-to-End (E2E) testing is a crucial component in modern software development, designed to simulate user interactions across the entire application to ensure all components and integrations function together seamlessly. By incorporating E2E testing, we can verify that changes in code do not disrupt existing functionalities, maintaining the integrity and reliability of the system even as it evolves. 
+End-to-End (E2E) testing is a crucial component in modern software development, designed to simulate user interactions across the entire application to ensure all components and integrations function together seamlessly. By incorporating E2E testing, we can verify that changes in code do not disrupt existing functionalities, maintaining the integrity and reliability of the system even as it evolves.  Here is the guide of the E2E test.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 ---
 draft: false
-linktitle: E2E test guide
+linktitle: E2E Test Guide
 menu:
   docs:
     parent: developer guide
@@ -14,27 +14,24 @@ End-to-End (E2E) testing is a crucial component in modern software development, 
 
 ## Prerequisites
 
-The Go version in go.mod is 1.22.0
+The Go version in go.mod is 1.22.0, it is necessary to install go 1.22.
 
-- [Update the go version](https://go.dev/doc/install)
-- Use `go mod tidy`
+Components that need to be installed by the user
+
+- Docker
+- Kubectl
 
 The following components will be installed while using the shell
 
 - Kind
 - Helm
-- istioctl 
-
-Components that need to be installed by the user
-
-- [Docker](https://docs.docker.com/engine/install/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- Istioctl
 
 ## Usage
 
 To run the E2E tests, execute the `run_test.sh` script located in the `./test/e2e` directory. This script automates the following tasks:
 
-1. **Installing dependencies:** Tools like Kind, Helm, and Istioctl are installed.
+1. **Installing dependencies:** Tools like Kind, Helm, and Istioctl ...
 2. **Deploying a local image registry:** A Docker container functions as the local image registry.
 3. **Building and pushing the Kmesh image:** The custom Kmesh Docker image is built and pushed to the local registry.
 4. **Deploying Kubernetes cluster, Istio, and Kmesh:** These components are necessary for the tests and are set up in this step.
@@ -51,7 +48,7 @@ When testing locally, you may want to skip some setup steps to save time, especi
 
 ### **Example Commands**
 
-- **Full Test Run (First Time):**
+- **Full Test Run (First time):**
 
   ```bash
   ./test/e2e/run_test.sh
@@ -59,7 +56,7 @@ When testing locally, you may want to skip some setup steps to save time, especi
 
   Use this command for the initial setup and test run to ensure everything is configured correctly.
 
-- **Subsequent Test Runs (Skipping Setup):**
+- **Subsequent Test Runs (Skipping all setup and only run tests):**
 
   ```bash
   ./test/e2e/run_test.sh --only-run-tests

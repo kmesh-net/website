@@ -14,9 +14,9 @@ End-to-End (E2E) testing is a crucial component in modern software development, 
 
 ## Prerequisites
 
-The Go version in go.mod is 1.22.0, it is necessary to install go 1.22.
-
 Components that need to be installed by the user
+
+- Go
 
 - Docker
 - Kubectl
@@ -31,7 +31,7 @@ The following components will be installed while using the shell
 
 To run the E2E tests, execute the `run_test.sh` script located in the `./test/e2e` directory. This script automates the following tasks:
 
-1. **Installing dependencies:** Tools like Kind, Helm, and Istioctl ...
+1. **Installing dependencies:** Tools like Kind, Helm and Istioctl ...
 2. **Deploying a local image registry:** A Docker container functions as the local image registry.
 3. **Building and pushing the Kmesh image:** The custom Kmesh Docker image is built and pushed to the local registry.
 4. **Deploying Kubernetes cluster, Istio, and Kmesh:** These components are necessary for the tests and are set up in this step.
@@ -46,9 +46,9 @@ When testing locally, you may want to skip some setup steps to save time, especi
 - `--skip-setup`: Skips deploying the Kubernetes cluster, Istio, and Kmesh.
 - `--only-run-tests`: Skips all other steps and focuses only on deploying test applications and running E2E tests.
 
-### **Example Commands**
+### Example Commands
 
-- **Full Test Run (First time):**
+- Full Test Run (First time):
 
   ```bash
   ./test/e2e/run_test.sh
@@ -56,7 +56,7 @@ When testing locally, you may want to skip some setup steps to save time, especi
 
   Use this command for the initial setup and test run to ensure everything is configured correctly.
 
-- **Subsequent Test Runs (Skipping all setup and only run tests):**
+- Subsequent Test Runs (Skipping all setup and only run tests):
 
   ```bash
   ./test/e2e/run_test.sh --only-run-tests

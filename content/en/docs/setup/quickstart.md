@@ -20,7 +20,7 @@ Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are curr
 
 The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [Kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
 
-Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We commend to install istio ambient mode because Kmesh ads mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We commend to install istio ambient mode because Kmesh workload mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
 
 You can view the results of istio installation using the following command:
 
@@ -78,6 +78,32 @@ time="2024-04-25T13:17:41Z" level=info msg="wrote kubeconfig file /etc/cni/net.d
 time="2024-04-25T13:17:41Z" level=info msg="cni config file: /etc/cni/net.d/10-kindnet.conflist" subsys="cni installer"
 time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys=manager
 ```
+
+### Mode change
+We provide two modes: `ads` and `workload`, for users to choose from. The default mode is currently workload. If we wish to use the ads mode,  only need to modify a single startup parameter `--mode`.
+
+```shell
+# Install from Helm
+vim deploy/helm/value.yaml
+...
+kmeshDaemonArgs: "--mode=workload --enable-bypass=false --enable-bpf-log=true"
+...
+# change "--mode=workload" into "--mode=ads"
+helm install kmesh ./deploy/helm -n kmesh-system
+# or if you has installed kmesh before, use upgrade
+helm upgrade kmesh ./deploy/helm -n kmesh-system
+```
+
+```shell
+# Install from Yaml
+vim deploy/yaml/kmesh.yaml
+...
+args: ["./start_kmesh.sh --mode=workload"]
+...
+# change "--mode=workload" into "--mode=ads"
+kubectl apply -f ./deploy/yaml/
+```
+Long term we may stop maintaining the static yamls, so prefer helm install --set deploy.kmesh.containers.kmeshDaemonArgs=
 
 ## Deploy the Sample Applications
 

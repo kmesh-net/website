@@ -96,11 +96,10 @@ NAME                      CLASS            ADDRESS        PROGRAMMED   AGE
 reviews-svc-waypoint      istio-waypoint   10.96.198.98   True         30m
 ```
 
-Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0" to the `bookinfo-reviews` gateway, convert `{arch}` to the architecture of the host, current optional values are `x86` and `arm`.
+Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint:latest" to the `bookinfo-reviews` gateway.
 
 ```bash
-# In x86 environment.
-[root@ ~]# kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint-x86:v0.3.0
+[root@ ~]# kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
 ```
 
 Then gateway pod will restart. Now Kmesh is L7 enabled!

@@ -68,22 +68,27 @@ Let's start from setting up the required environment. You can follow the steps b
     Now, you are ready to deploy Kmesh in your local cluster. Feel free to follow the [Kmesh Quick Start](https://kmesh.net/en/docs/setup/quickstart/).
 ## Develop Kmesh in Kind
 You can follow the steps below to develop in kind:
-+ Build your code locally:
-    ```shell
-    make build
+1. Build your code and docker image locally:
     ```
-    This will start a docker container named `kmesh-build` to build your code. 
-+ Build your docker image locally:
-    ```shell
-    docker build --build-arg arch=amd64 -f build/docker/kmesh.dockerfile -t $image_name .
+    make docker
     ```
-    You should specify the `image_name`.
-+ Load the image to each cluster node
+    This will start a docker container named `kmesh-build` to build your code. Then, it will build the corresponding docker image.
+    You can also do this separately:
+   1. Build your code locally:
+       ```shell
+       make build
+       ``` 
+   2. Build your docker image locally:
+       ```shell
+       docker build --build-arg arch=amd64 -f build/docker/kmesh.dockerfile -t $image_name .
+       ```
+       You should specify the `image_name`.
+2. Load the image to each cluster node
     ```shell
     kind load docker-image $image_name --name $cluster_name
     ```
     You should specify the `image_name` and `cluster_name`.
-+ Edit the Kmesh daemonset:
+3. Edit the Kmesh daemonset:
     Kmesh daemons are run as kubernetes `Daemonset`. You should modify the config of the daemonset, triggering a re-deployment.
     ```shell
     kubectl edit ds kmesh -n kmesh-system
@@ -93,7 +98,7 @@ You can follow the steps below to develop in kind:
     ```shell
     kubectl get po -n kmesh-system -w
     ```
-+ Check logs
+4. Check logs
     You can check the logs of a Kmesh daemon by:
     ```shell
     kubectl logs $kmesh_pod_name -n kmesh-system
@@ -111,7 +116,7 @@ You can follow the steps below to develop in kind:
     ```
     bpftool prog tracelog
     ```
-+ Cleanup
+5. Cleanup
     The build process will modify some config-related files, if you want to push your code to github, please use:
     ```shell
     make clean

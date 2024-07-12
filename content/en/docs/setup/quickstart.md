@@ -16,7 +16,7 @@ This guide lets you quickly install Kmesh.
 
 ## Preparation
 
-Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly build a Kubernetes cluster (We provide a [document](./develop_with_kind.md) for developing and deploying Kmesh using kind). Of course, you can also use minikube and other ways to create Kubernetes clusters.
+Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly build a Kubernetes cluster (We provide a [document](https://kmesh.net/en/docs/setup/develop_with_kind/) for developing and deploying Kmesh using kind). Of course, you can also use minikube and other ways to create Kubernetes clusters.
 
 The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [Kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
 

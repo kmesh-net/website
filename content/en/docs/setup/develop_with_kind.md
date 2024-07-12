@@ -58,14 +58,14 @@ Let's start from setting up the required environment. You can follow the steps b
     ```shell
     istioctl install
     ```
-    If you want to use `kmesh` in `workload` mode, you should deploy `istio` in [ambient mode](https://istio.io/latest/docs/ambient/overview/), by adding an extra flag:
+    If you want to use `Kmesh` in `workload` mode, you should deploy `istio` in [ambient mode](https://istio.io/latest/docs/ambient/overview/), by adding an extra flag:
     ```shell
     istioctl install --set profile=ambient 
     ```
 + Install kubectl
     Please follow the official guide: [Install and Set Up kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/).
 + Deploy Kmesh
-    Now, you are ready to deploy kmesh in your local cluster. Feel free to follow the [Kmesh Quick Start](https://kmesh.net/en/docs/setup/quickstart/).
+    Now, you are ready to deploy Kmesh in your local cluster. Feel free to follow the [Kmesh Quick Start](https://kmesh.net/en/docs/setup/quickstart/).
 ## Develop Kmesh in Kind
 You can follow the steps below to develop in kind:
 + Build your code locally:
@@ -83,22 +83,22 @@ You can follow the steps below to develop in kind:
     kind load docker-image $image_name --name $cluster_name
     ```
     You should specify the `image_name` and `cluster_name`.
-+ Edit the kmesh daemonset:
++ Edit the Kmesh daemonset:
     Kmesh daemons are run as kubernetes `Daemonset`. You should modify the config of the daemonset, triggering a re-deployment.
     ```shell
     kubectl edit ds kmesh -n kmesh-system
     ```
     This will open an editor, you can modify the image here.
-    You can check whether kmesh daemons are all running by:
+    You can check whether the Kmesh daemons are all running by:
     ```shell
     kubectl get po -n kmesh-system -w
     ```
 + Check logs
-    You can check the logs of a kmesh daemon by:
+    You can check the logs of a Kmesh daemon by:
     ```shell
     kubectl logs $kmesh_pod_name -n kmesh-system
     ```
-    `kmesh_pod_name` is the name of a specified kmesh pod.
+    `kmesh_pod_name` is the name of a specified Kmesh pod.
     You can change the logger level by:
     ```shell
     kubectl exec -it $kmesh_pod_name -n kmesh-system -- kmesh-daemon log --set default:debug

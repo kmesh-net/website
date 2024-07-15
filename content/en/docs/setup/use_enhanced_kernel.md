@@ -21,7 +21,7 @@ You can follow the steps below to use enhanced kernel:
 + Download `openEuler 23.03` image on: https://repo.openeuler.org/openEuler-23.03/ISO/.
 + Install the operation system: Here, we take [VMware](https://www.vmware.com/products/workstation-pro/html.html) for example (you can also use other VM management tools). 
 
-    ![](./images/install_openEuler.png)
+    ![image](/docs/setup/install_openEuler.png)
 
     Notice that `openEuler 23.03`'s kernel version is **6.1.19**. So you should select `其他 Linux 6.x 内核 64位`(`Linux 6.x kernel 64bit`). 
 

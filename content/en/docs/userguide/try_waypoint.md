@@ -4,7 +4,7 @@ linktitle: Try Waypoint
 menu:
   docs:
     parent: user guide
-    weight: 2
+    weight: 3
 title: Try Waypoint
 toc: true
 type: docs

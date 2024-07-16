@@ -12,8 +12,6 @@ description: >
   This guide provides an example for deploying and developing Kmesh.
 
 ---
-# Kmesh Deploy and Develop in Kind
-
 [Kind](https://github.com/kubernetes-sigs/kind) is a convenient tool for quickly deploying kubernetes cluster locally. We can use `kind` to create an `istio` cluster and deploy `kmesh`.
 
 ## Deploy Kmesh in Kind

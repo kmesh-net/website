@@ -113,13 +113,13 @@ kmesh_tcp_connections_opened_total
 The results will be similar to:
 
 <div align="center">
-<img src="images/prometheus-table.png" width="800" />
+<img src="/docs/userguide/metric/prometheus-table.png" width="1400" />
 </div>
 
 You can also see the query results graphically by selecting the Graph tab underneath the Execute button.
 
 <div align="center">
-<img src="images/prometheus-graph.png" width="800" />
+<img src="/docs/userguide/metric/prometheus-graph.png" width="1400" />
 </div>
 
 ### Cleanup

@@ -32,5 +32,5 @@ Test a group of Fortio performance data by using the number of concurrent connec
 -rw-r--r--. 1 root root 6.1K Nov 5 17:39 fortio_perf_test.csv
 ```
 
-## Performace
+## Performance
 ![perf_test](/docs/performance/fortio_performance_test.png)

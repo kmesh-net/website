@@ -28,7 +28,7 @@ The Kmesh needs to be compiled and built in the Linux environment with the Kmesh
   You can check the docker version to make sure that docker is installed.
 
   ```sh
-  docker verison 
+  docker version 
   Client: Docker Engine - Community
   Version:           26.0.1
   API version:       1.45
@@ -95,7 +95,7 @@ Code compilation
 
   Note that if you use script to compile, you need to make sure that your os system version is one that [Kmesh supports system](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md)!
 
-When Kmesh compliation is finish, the build artifacts will be output to the `out` directory.
+When Kmesh compilation is finish, the build artifacts will be output to the `out` directory.
 
 ```bash
 ls out/amd64/

@@ -20,7 +20,7 @@ Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are curr
 
 The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [Kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
 
-Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We commend to install istio ambient mode because Kmesh ads mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We recommend installing istio ambient mode because Kmesh ads mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
 
 You can view the results of istio installation using the following command:
 

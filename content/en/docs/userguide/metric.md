@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Querying Metrics from Prometheus
+linktitle: Querying L4 Metrics from Prometheus
 menu:
   docs:
     parent: user guide
     weight: 4
-title: Querying Metrics from Prometheus
+title: Querying L4 Metrics from Prometheus
 toc: true
 type: docs
 
@@ -26,7 +26,7 @@ annotations:
     prometheus.io/scrape: "true"
 ```
 
-2. Using Kmesh manage default namespace
+2. Using Kmesh to manage `default` namespace
 
 ```console
 kubectl label namespace default istio.io/dataplane-mode=Kmesh
@@ -55,7 +55,7 @@ default              sleep-bc9998558-pbfvk                         1/1     Runni
 default              tcp-echo-7f676db574-mzmql                     1/1     Running   0          7m
 ```
 
-Note: Confirm that sleep and tcp-echo are indeed [managed by kmesh](https://kmesh.net/en/docs/setup/quickstart/#deploy-the-sample-applications).
+**Note:** Confirm that sleep and tcp-echo are indeed [managed by kmesh](https://kmesh.net/en/docs/setup/quickstart/#deploy-the-sample-applications).
 
 ### Querying Metrics from Prometheus
 
@@ -68,11 +68,11 @@ Metrics monitored by Kmesh L4 at this stage:
 |kmesh_tcp_received_bytes_total|The size of total bytes received during request in case of a TCP connection|
 |kmesh_tcp_sent_bytes_total|The size of total bytes sent during response in case of a TCP connection|
 
-Here's how to view these metrics throught Prometheus:
+Here's how to view these metrics through Prometheus:
 
 **1. Verify that the prometheus service is running in your cluster.**
 
-In Kubernetes environments, execute the following command:
+In Kubernetes environment, execute the following command:
 
 ```console
 kubectl -n kmesh-system get svc prometheus
@@ -81,7 +81,7 @@ NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
 prometheus   ClusterIP   10.96.18.252   <none>        9090/TCP   24h
 ```
 
-**2. Send traffic to the mesh.**
+**2. Applications in the mesh establish a TCP link.**
 
 Establish a TCP link between `sleep` and `tcp-echo` with the `nc` command:
 

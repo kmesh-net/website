@@ -5,8 +5,8 @@ title: "Accelerating ServiceMesh Data Plane Based on Sockmap"
 subtitle: ""
 summary: "ServiceMesh data plane performance improved by 15% based on sockmap."
 authors: [Kmesh Admin]
-tags: [intruduce]
-categories: [Gerneral]
+tags: [introduce]
+categories: [General]
 date: 2023-07-01T09:47:24+08:00
 lastmod: 2023-07-01T09:47:24+08:00
 featured: false

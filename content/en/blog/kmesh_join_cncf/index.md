@@ -63,7 +63,7 @@ Kmesh also provides an advanced mode that enhances L7 traffic management by sepa
 
 **Therefore, we firmly believe that the optimal architecture of the sidecarless mode is combining eBPF technology with waypoint. This approach aims to reduce resource overhead and latency. Specifically, eBPF handles L4 routing and straightforward L7 traffic management on nodes, while more complex L7 protocols are routed to waypoint for comprehensive management.**
 
-### vContributing to the Community
+### Contributing to the Community
 
 Kmesh, initiated by Huawei and incubated in the openEuler community, is currently hosted on GitHub as an independent project. It offers users traffic management technical solutions with exceptional performance.
 

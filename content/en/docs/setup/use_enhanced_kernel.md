@@ -12,8 +12,6 @@ description: >
   This guide provides an example for using enhanced kernel.
 
 ---
-# Use Enhanced Kernel in Kmesh
-
 Some features of kmesh depend on enhanced kernel (e.g., L7 traffic control in ads mode). To utilize it, you can use `openEuler 23.03`, which natively supports all features.
 
 You can follow the steps below to use enhanced kernel:

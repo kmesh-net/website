@@ -5,8 +5,8 @@ title: "Kmesh: High-performance service mesh data plane"
 subtitle: ""
 summary: "The sidecarless servicemesh is implemented based on OS, reducing the forwarding latency by 60%."
 authors: [Kmesh Admin]
-tags: [intruduce]
-categories: [Gerneral]
+tags: [introduce]
+categories: [General]
 date: 2023-07-08T10:05:09+08:00
 lastmod: 2023-07-08T10:05:09+08:00
 featured: false
@@ -123,7 +123,7 @@ It is worth noting that we also tested the performance of service-to-service com
 
 As the next-generation technology for cloud-native environments, a service mesh provides transparent service governance for applications. However, the proxy architecture introduces additional latency overhead, which has become a critical challenge for widespread adoption of service meshes. Kmesh proposes a new approach by offloading traffic governance to the operating system using a programmable kernel. By doing so, Kmesh significantly improves the performance of the service mesh data plane. It offers a fresh perspective for the development of the service mesh data plane.
 
-## refrence
+## reference
 
 [https://linkerd.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one](https://linkerd.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one)
 

@@ -77,5 +77,5 @@ Forwarding from 0.0.0.0:3000 -> 3000
 Visit `Dashboards>Kmesh>Kmesh Service Dashboard`:
 
 <div align="center">
-<img src="/docs/userguide/pics/grafana.png" width="1400" />
+<img src="/docs/userguide/grafana.png" width="1400" />
 </div>

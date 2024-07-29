@@ -15,7 +15,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
 ### Before you begin
 
-- Understand the [AuthorizationPolicy](https://kmesh.net/en/docs/userguide/tcp_authorization/#authorizationpolicy)
+- Understand the [AuthorizationPolicy](#authorizationpolicy)
 
 - Install Kmesh
 

@@ -1,15 +1,17 @@
 ---
 draft: false
-linktitle: Try Waypoint
+linktitle: Install Waypoint
 menu:
   docs:
     parent: user guide
     weight: 2
-title: Try Waypoint
+title: Install Waypoint
 toc: true
 type: docs
 
 ---
+
+To try capabilities of Kmesh L7, this is the basic doc to install waypoint.
 
 ### Preparation
 
@@ -33,7 +35,7 @@ kube-public          Active   13d
 kube-system          Active   13d   
 local-path-storage   Active   13d   
 ```
- 
+
 3. Deploy bookinfo:
 
 ```bash
@@ -76,19 +78,9 @@ Label the `reviews` service to use the `reviews-svc-waypoint` waypoint:
 
 ```bash
 [root@ ~]# kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
-[root@ ~]# kubectl get pods
-NAME                                      READY   STATUS    RESTARTS   AGE
-details-v1-cdd874bc9-xcdnj                1/1     Running   0          30m
-productpage-v1-5bb9985d4d-z8cws           1/1     Running   0          30m
-ratings-v1-6484d64bbc-pkv6h               1/1     Running   0          30m
-reviews-svc-waypoint-8cb4bdbf-9d5mj       1/1     Running   0          30m
-reviews-v1-598f9b58fc-2rw7r               1/1     Running   0          30m
-reviews-v2-5979c6fc9c-72bst               1/1     Running   0          30m
-reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
-sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 ```
-  
-Replace the waypoint image with the Kmesh customized image. Based on istio-proxy, Kmesh adds an customized listener filter called [Kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv), which will parse the custom TLV protocol encoded by Kmesh and obtain the target address and metadata to connect L4 and L7.
+
+You can use`kubectl get pods` to see all the pods except waypoint are ready. Then replace the waypoint image with the Kmesh customized image. Based on istio-proxy, Kmesh adds an customized listener filter called [Kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv), which will parse the custom TLV protocol encoded by Kmesh and obtain the target address and metadata to connect L4 and L7.
 
 ```bash
 [root@ ~]# kubectl get gateways.gateway.networking.k8s.io
@@ -104,7 +96,20 @@ Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint:latest" 
 
 Then gateway pod will restart. Now Kmesh is L7 enabled!
 
-In addition, you can also use waypoint at namespace or pod granularity.
+```bash
+[root@ ~]# kubectl get pods
+NAME                                      READY   STATUS    RESTARTS   AGE
+details-v1-cdd874bc9-xcdnj                1/1     Running   0          30m
+productpage-v1-5bb9985d4d-z8cws           1/1     Running   0          30m
+ratings-v1-6484d64bbc-pkv6h               1/1     Running   0          30m
+reviews-svc-waypoint-8cb4bdbf-9d5mj       1/1     Running   0          30m
+reviews-v1-598f9b58fc-2rw7r               1/1     Running   0          30m
+reviews-v2-5979c6fc9c-72bst               1/1     Running   0          30m
+reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
+sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
+```
+
+In addition, you can also use waypoint at namespace or pod granularity. But these are not used in following tasks.
 
 #### Use waypoint at namespace granularity:
 
@@ -128,75 +133,6 @@ pod/reviews-v2-5b667bcbf8-spnnh labeled
 
 Now any requests from pods in the Kmesh to the `reviews-v2` pod IP will be routed through `reviews-v2-pod-waypoint` waypoint for L7 processing and policy enforcement.
 
-### Apply weight-based routing
-
-Configure traffic routing to send 90% of requests to `reviews v1` and 10% to `reviews v2`:
-
-```bash
-[root@ ~]# kubectl apply -f -<<EOF
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: reviews
-spec:
-  hosts:
-    - reviews
-  http:
-  - route:
-    - destination:
-        host: reviews
-        subset: v1
-      weight: 90
-    - destination:
-        host: reviews
-        subset: v2
-      weight: 10
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: reviews
-spec:
-  host: reviews
-  trafficPolicy:
-    loadBalancer:
-      simple: RANDOM
-  subsets:
-  - name: v1
-    labels:
-      version: v1
-  - name: v2
-    labels:
-      version: v2
-  - name: v3
-    labels:
-      version: v3
-EOF
-```
-
-Confirm that roughly 90% of the traffic go to `reviews v1`
-
-```bash
-[root@ ~]# kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http://productpage:9080/productpage | grep reviews-v.-; done"
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v2-64776cb9bd-grnd2</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        ...
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v2-64776cb9bd-grnd2</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v1-57c85f47fb-n9llm</u>
-        <u>reviews-v2-64776cb9bd-grnd2</u> 
-```
-
-### Understanding what happend
-
-Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service account `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews v1` and 10% to `reviews v2` according to the route rules we set.
-
 ### Cleanup
 
 1. Remove the application route rules:
@@ -205,6 +141,8 @@ Because `default` namespace has been managed by Kmesh and we have deployed a way
 [root@ ~]# kubectl delete virtualservice reviews
 [root@ ~]# kubectl delete destinationrules reviews
 ```
+
+If you are **not** planning to explore any follow-on tasks, go on with the cleanup steps
 
 2. Remove waypoint:
 

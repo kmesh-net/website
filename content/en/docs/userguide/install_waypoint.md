@@ -4,7 +4,7 @@ linktitle: Install Waypoint
 menu:
   docs:
     parent: user guide
-    weight: 2
+    weight: 3
 title: Install Waypoint
 toc: true
 type: docs
@@ -111,7 +111,7 @@ sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 
 In addition, you can also use waypoint at namespace or pod granularity. But these are not used in following tasks.
 
-#### Use waypoint at namespace granularity:
+#### Install waypoint per namespace:
 
 ```bash
 [root@ ~]# istioctl x waypoint apply -n default --enroll-namespace
@@ -121,7 +121,25 @@ namespace default labeled with "istio.io/use-waypoint: waypoint"
 
 Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement.
 
-#### Use waypoint at pod granularity:
+#### Install waypoint per service:
+
+1. Apply the waypoint for the service:
+
+```bash
+[root@ ~]# istioctl x waypoint apply -n default --name reviews-service-waypoint --for service
+waypoint default/reviews-service-waypoint applied
+```
+
+2. Label the service to use the specific waypoint:
+
+```bash
+[root@ ~]# kubectl label service reviews istio.io/use-waypoint=reviews-service-waypoint
+service/reviews labeled
+```
+
+The `reviews` service is labeled to route traffic through the `reviews-service-waypoint` for L7 processing and policy enforcement.
+
+#### Install waypoint per pod:
 
 ```bash
 [root@ ~]# istioctl x waypoint apply -n default --name reviews-v2-pod-waypoint --for workload

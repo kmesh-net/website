@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Try Traffic Management
+linktitle: Try Request Routing
 menu:
   docs:
     parent: user guide
     weight: 5
-title: Try Traffic Management
+title: Try Request Routing
 toc: true
 type: docs
 
@@ -146,11 +146,11 @@ EOF
 
 - On the `/productpage` of the Bookinfo app, log in as user `jason`. The star ratings appear next to each review.
 
-![Request Routing1](\docs\user guide\Request Routing1.png)
+![Request Routing1](\docs\user_guide\request_routing1.png)
 
 - Log in as another user. Refresh the browser. Now the stars are gone. This is because traffic is routed to `reviews:v1` for all users except Jason.
 
-![Request Routing2](\docs\user guide\Request Routing2.png)
+![Request Routing2](\docs\user_guide\request_routing2.png)
 
 ### Understanding what happened
 

@@ -14,7 +14,7 @@ type: docs
 
 ### Preparation
 
-- install Kmesh, refer [install-kmesh|Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+- install Kmesh, refer [install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
 
 Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation) in following steps
 

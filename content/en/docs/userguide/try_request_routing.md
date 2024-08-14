@@ -14,7 +14,14 @@ type: docs
 
 ### Preparation
 
-Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+- install Kmesh, refer [install-kmesh|Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+
+Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation) in following steps
+
+- Deploy sample application
+- Deploy bookinfo
+- Deploy sleep as curl client
+- Install service granulairty waypoint
 
 ### Apply version1 routing
 
@@ -57,22 +64,15 @@ spec:
       version: v3
 EOF
 ```
+You have configured all the `reviews` service to route to the `reviews-v1` version.
 
-2. Display the defined routes with the following command:
-
-```bash
-kubectl get virtualservices -o yaml
-```
-
-You have configured Kmesh to route to the `v1` version of the Bookinfo microservices, most importantly the `reviews` service version 1.
-
-3. Confirm that all the traffic go to `reviews v1
+2. Confirm that all the traffic go to `reviews-v1`
 
 ```bash
 kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http://productpage:9080/productpage | grep reviews-v.-; done"
 ```
 
-4. If successful, the output should look like the following:
+3. If successful, the output should look like the following:
 
 ```bash
 <u>reviews-v1-598f9b58fc-jc25r</u>
@@ -146,15 +146,15 @@ EOF
 
 - On the `/productpage` of the Bookinfo app, log in as user `jason`. The star ratings appear next to each review.
 
-![Request Routing1](\docs\user_guide\request_routing1.png)
+![Request Routing1](/docs/user_guide/request_routing1.png)
 
 - Log in as another user. Refresh the browser. Now the stars are gone. This is because traffic is routed to `reviews:v1` for all users except Jason.
 
-![Request Routing2](\docs\user_guide\request_routing2.png)
+![Request Routing2](/docs/user_guide/request_routing2.png)
 
 ### Understanding what happened
 
-In this task, you used Kmesh to send 100% of the traffic to the `v1` version of each of the Bookinfo services. You then set a rule to selectively send traffic to version `v2` of the `reviews` service based on a custom `end-user` header added to the request by the `productpage` service.
+In this task, you used Kmesh to send 100% of the traffic to the `v1` version of each of `reviews` services. You then set a rule to selectively send traffic to version `v2` of the `reviews` service based on a custom `end-user` header added to the request by the `productpage` service.
 
 ### Cleanup
 

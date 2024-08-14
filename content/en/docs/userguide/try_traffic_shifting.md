@@ -15,7 +15,14 @@ type: docs
 
 ### Preparation
 
-Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+- install Kmesh, refer [install-kmesh|Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+
+Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation) in following steps
+
+- Deploy sample application
+- Deploy bookinfo
+- Deploy sleep as curl client
+- Install service granulairty waypoint
 
 ### Apply weight-based routing
 
@@ -84,7 +91,7 @@ Confirm that roughly 90% of the traffic go to `reviews v1`
 
 ### Understanding what happend
 
-Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service account `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews v1` and 10% to `reviews v2` according to the route rules we set.
+Because `default` namespace has been managed by Kmesh and we have deployed a waypoint proxy for service `bookinfo-reviews`, so all traffic sent to service `reviews` will be forwarded to waypoint by Kmesh. Waypoint will send 90% of requests to `reviews v1` and 10% to `reviews v2` according to the route rules we set.
 
 ### Cleanup
 

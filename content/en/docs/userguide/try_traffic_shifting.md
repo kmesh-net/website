@@ -15,14 +15,15 @@ type: docs
 
 ### Preparation
 
-- install Kmesh, refer [install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+Refer [Install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
 
-Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation) in following steps
+- install Kmesh, 
 
-- Deploy sample application
-- Deploy bookinfo
-- Deploy sleep as curl client
-- Install service granulairty waypoint
+Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+
+- Make default namespace managed by Kmesh
+- Deploy bookinfo as sample application and sleep as cur client
+- Install service granularity waypoint for reviews service
 
 ### Apply weight-based routing
 

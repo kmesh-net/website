@@ -14,14 +14,16 @@ type: docs
 
 ### Preparation
 
-- install Kmesh, refer [install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+Refer [Install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
 
-Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation) in following steps
+- install Kmesh, 
 
-- Deploy sample application
-- Deploy bookinfo
-- Deploy sleep as curl client
-- Install service granulairty waypoint
+Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+
+- Make default namespace managed by Kmesh
+- Deploy bookinfo as sample application and sleep as cur client
+- Install service granularity waypoint for reviews service
+
 
 ### Apply version1 routing
 
@@ -64,7 +66,7 @@ spec:
       version: v3
 EOF
 ```
-You have configured all the `reviews` service to route to the `reviews-v1` version.
+You have configured that all traffic sent to the `reviews` service to route to the `v1` version.
 
 2. Confirm that all the traffic go to `reviews-v1`
 
@@ -154,7 +156,7 @@ EOF
 
 ### Understanding what happened
 
-In this task, you used Kmesh to send 100% of the traffic to the `v1` version of each of `reviews` services. You then set a rule to selectively send traffic to version `v2` of the `reviews` service based on a custom `end-user` header added to the request by the `productpage` service.
+In this task, you used Kmesh to send 100% of the traffic to the `v1` version of each of `reviews` services. You then overwrite the rule to selectively send traffic to version `v2` of the `reviews` service based on a custom `end-user` header added to the request by the `productpage` service.
 
 ### Cleanup
 

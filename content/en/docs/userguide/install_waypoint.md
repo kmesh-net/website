@@ -64,7 +64,7 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 <title>Simple Bookstore App</title>
 ```
 
-6. Deploy waypoint:
+### Install waypoint:
 
 #### Install waypoint in service granularity:
 
@@ -90,7 +90,7 @@ NAME                      CLASS            ADDRESS        PROGRAMMED   AGE
 reviews-svc-waypoint      istio-waypoint   10.96.198.98   True         30m
 ```
 
-**image replacement**: Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint:latest" to the `bookinfo-reviews` gateway.
+**image replacement**: Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint:latest" to the `reviews-svc-waypoint` gateway.
 
 ```bash
 [root@ ~]# kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
@@ -111,7 +111,6 @@ reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
 sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 ```
 
-In addition, you can also use waypoint at namespace or pod granularity. But these are not used in following tasks.
 
 #### Install waypoint in namespace granularity:
 
@@ -151,7 +150,7 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 #### Remove waypoint in namespace granularity
 
 ```bash
-[root@ ~]# istioctl x waypoint delete reviews-svc-waypoint
+[root@ ~]# istioctl x waypoint delete reviews-ns-waypoint
 [root@ ~]# kubectl label namespace default istio.io/use-waypoint-
 ```
 

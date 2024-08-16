@@ -25,7 +25,7 @@ Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_way
 - Install service granularity waypoint for reviews service
 
 
-### Apply version1 routing
+### Apply version-based routing
 
 1. Run the following command to create the route rules:
 
@@ -91,7 +91,7 @@ kubectl exec deploy/sleep -- sh -c "for i in \$(seq 1 100); do curl -s http://pr
         <u>reviews-v1-598f9b58fc-jc25r</u>
 ```
 
-### Apply user-identity-based
+### Apply user-identity-based routing
 
 Next, you will change the route configuration so that all traffic from a specific user is routed to a specific service version. In this case, all traffic from a user named Jason will be routed to the service `reviews:v2`.
 

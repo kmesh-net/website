@@ -66,6 +66,8 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 ### Install waypoint:
 
+Waypoints can be used at three granularities: namespace, service and pod. Also you could install multiple waypoints with different granularities under the same namespace.
+
 #### Install waypoint in service granularity:
 
 Deploy a waypoint for service `reviews`, so any traffic to that service will be mediated by that waypoint proxy
@@ -127,7 +129,7 @@ Then any requests from any pods using the Kmesh, to any service running in `defa
 #### Install waypoint in pod granularity:
 
 ```bash
-[root@ ~]# istioctl x waypoint apply -n default --name reviews-v2-pod-waypoint
+[root@ ~]# istioctl x waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
 waypoint default/reviews-v2-pod-waypoint applied
 # Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
 [root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint=reviews-v2-pod-waypoint
@@ -150,7 +152,7 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 #### Remove waypoint in namespace granularity
 
 ```bash
-[root@ ~]# istioctl x waypoint delete reviews-ns-waypoint
+[root@ ~]# istioctl x waypoint delete default-ns-waypoint
 [root@ ~]# kubectl label namespace default istio.io/use-waypoint-
 ```
 

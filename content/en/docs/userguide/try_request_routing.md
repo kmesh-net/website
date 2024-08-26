@@ -20,7 +20,7 @@ type: docs
 
 3. Install service granularity waypoint for reviews service
 
-The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+*The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)*
 
 ### Apply version-based routing
 

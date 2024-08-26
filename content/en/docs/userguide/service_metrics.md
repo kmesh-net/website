@@ -19,7 +19,7 @@ type: docs
 
 3. Install namespace granularity waypoint for default namespace
 
-The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+*The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)*
 
 4. Deploy prometheus and garafana:
 

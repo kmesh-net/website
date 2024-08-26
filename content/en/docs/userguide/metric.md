@@ -61,12 +61,25 @@ default              tcp-echo-7f676db574-mzmql                     1/1     Runni
 
 Metrics monitored by Kmesh L4 at this stage:
 
+**Workload:**
+
 |Name|Describe|
 |---|---|
-|kmesh_tcp_connections_opened_total|The total number of TCP connections opened|
-|kmesh_tcp_connections_closed_total|The total number of TCP connections closed|
-|kmesh_tcp_received_bytes_total|The size of total bytes received during request in case of a TCP connection|
-|kmesh_tcp_sent_bytes_total|The size of total bytes sent during response in case of a TCP connection|
+|kmesh_tcp_workload_connections_opened_total|The total number of TCP connections opened to a workload|
+|kmesh_tcp_workload_connections_closed_total|The total number of TCP connections closed to a workload|
+|kmesh_tcp_workload_received_bytes_total|The size of the total number of bytes received in response to a workload over a TCP connection|
+|kmesh_tcp_workload_sent_bytes_total|The size of the total number of bytes sent in response to a workload over a TCP connection|
+|kmesh_tcp_workload_conntections_failed_total|The total number of TCP connections failed to a workload|
+
+**Service:**
+
+|Name|Describe|
+|---|---|
+|kmesh_tcp_connections_opened_total|The total number of TCP connections opened to a service|
+|kmesh_tcp_connections_closed_total|The total number of TCP connections closed to a service|
+|kmesh_tcp_received_bytes_total|The size of the total number of bytes reveiced in response to a service over a TCP connection|
+|kmesh_tcp_sent_bytes_total|The size of the total number of bytes sent in response to a service over a TCP connection|
+|kmesh_tcp_conntections_failed_total|The total number of TCP connections failed to a service|
 
 Here's how to view these metrics through Prometheus:
 

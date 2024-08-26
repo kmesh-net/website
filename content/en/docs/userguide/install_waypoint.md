@@ -124,6 +124,12 @@ waypoint default/default-ns-waypoint applied
 namespace/default labeled
 ```
 
+***NOTE: Also need to replace the original image of waypoint with the Kmesh customized image.***
+
+```bash
+[root@ ~]# kubectl annotate gateway default-ns-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
+```
+
 Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement.
 
 #### Install waypoint in pod granularity:
@@ -134,6 +140,12 @@ waypoint default/reviews-v2-pod-waypoint applied
 # Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
 [root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint=reviews-v2-pod-waypoint
 pod/reviews-v2-5b667bcbf8-spnnh labeled
+```
+
+***NOTE: Also need to replace the original image of waypoint with the Kmesh customized image.***
+
+```bash
+[root@ ~]# kubectl annotate gateway reviews-v2-pod-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
 ```
 
 Now any requests from pods in the Kmesh to the `reviews-v2` pod IP will be routed through `reviews-v2-pod-waypoint` waypoint for L7 processing and policy enforcement.

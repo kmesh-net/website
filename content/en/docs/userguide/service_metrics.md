@@ -4,7 +4,7 @@ linktitle: Use Grafana to visualize service metrics
 menu:
   docs:
     parent: user guide
-    weight: 2
+    weight: 9
 title: Use Grafana to visualize service metrics
 toc: true
 type: docs
@@ -13,17 +13,15 @@ type: docs
 
 ### Preparation
 
-Refer [Install-kmesh | Quick Start | Kmesh](https://kmesh.net/en/docs/setup/quickstart/#install-kmesh)
+1. Make default namespace managed by Kmesh
 
-- install Kmesh, 
+2. Deploy bookinfo as sample application and sleep as curl client
 
-Refer [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
+3. Install namespace granularity waypoint for default namespace
 
-- Make default namespace managed by Kmesh
-- Deploy bookinfo as sample application and sleep as cur client
-- Install namespace granularity waypoint for default namespace
+The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)
 
-Deploy prometheus and garafana:
+4. Deploy prometheus and garafana:
 
 ```bash
 [root@ ~]# kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/prometheus.yaml

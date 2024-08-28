@@ -10,9 +10,9 @@ summary: "Kernel-Level Traffic Management Engine, Bring Ultimate Performance Exp
 
 authors: [Kmesh Admin]
 
-tags: [intruduce]
+tags: [introduce]
 
-categories: [Gerneral]
+categories: [General]
 
 date: 2024-03-08T10:05:09+08:00
 

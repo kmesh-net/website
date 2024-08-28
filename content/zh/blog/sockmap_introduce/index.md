@@ -5,8 +5,8 @@ title: "ebpf提升ServiceMesh服务体验的探索"
 subtitle: ""
 summary: "基于sockmap实现服务网格数据面转发时延降低15%"
 authors: [Kmesh Admin]
-tags: [intruduce]
-categories: [Gerneral]
+tags: [introduce]
+categories: [General]
 date: 2023-07-01T09:47:24+08:00
 lastmod: 2023-07-01T09:47:24+08:00
 featured: false

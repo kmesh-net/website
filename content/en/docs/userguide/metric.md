@@ -137,9 +137,9 @@ You can also see the query results graphically by selecting the Graph tab undern
 
 ### Cleanup
 
-Disable port-forward.
+1.Disable port-forward.
 
-cleanup Prometheus:
+2.Cleanup Prometheus:
 
 ```console
 kubectl delete -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/prometheus.yaml

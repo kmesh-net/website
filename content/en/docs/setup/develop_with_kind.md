@@ -78,7 +78,7 @@ You can follow the steps below to develop in kind:
        ``` 
    2. Build your docker image locally:
        ```shell
-       docker build --build-arg arch=amd64 -f build/docker/kmesh.dockerfile -t $image_name .
+       docker build --build-arg arch=amd64 -f build/docker/dockerfile -t $image_name .
        ```
        You should specify the `image_name`.
 2. Load the image to each cluster node

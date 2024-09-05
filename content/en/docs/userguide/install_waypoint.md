@@ -181,3 +181,9 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 [root@ ~]# kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/platform/kube/bookinfo.yaml
 [root@ ~]# kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/sleep/sleep.yaml
 ```
+
+3. Remove default namespace from Kmesh:
+
+```bash
+[root@ ~]# kubectl label namespace default istio.io/dataplane-mode-
+```

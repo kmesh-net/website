@@ -14,9 +14,15 @@ type: docs
 
 ### Preparation
 
-- Set up application, refer preparation [Try Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/try_waypoint/#preparation)
+1. Make default namespace managed by Kmesh
 
-- Apply application version routing by either performing the [request routing task or by running the following commands:
+2. Deploy bookinfo as sample application and sleep as curl client
+
+3. Install service granularity waypoint for reviews service
+
+*The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)*
+
+4. Apply application version routing by running the following commands:
 
   ```bash
   kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-all-v1.yaml

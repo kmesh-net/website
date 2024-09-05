@@ -18,7 +18,7 @@ type: docs
 
 2. Deploy bookinfo as sample application and sleep as curl client
 
-3. Install service granularity waypoint for reviews service
+3. Install service granularity waypoint for reviews and ratings service
 
 *The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)*
 
@@ -115,7 +115,6 @@ In this case, you expect the page to load immediately and display the `Ratings s
 
 ```bash
 kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-all-v1.yaml
-
 ```
 
 2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](https://kmesh.net/en/docs/userguide/install_waypoint/#cleanup) instructions to shutdown the application.

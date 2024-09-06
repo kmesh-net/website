@@ -9,34 +9,53 @@ title: Kmesh resource consumption
 toc: true
 type: docs
 ---
-# 1. Environment setup
+# 1. Background Information
+eBPF programs consume a certain amount of CPU and memory resources during their execution, which may affect the performance of other applications. To gain a deeper understanding of Kmesh’s resource consumption under different loads, we conducted several CPU and memory stress tests. These tests aim to evaluate the limits of CPU and memory consumption of Kmesh in real-world usage scenarios.
+
+**This documentation is based on Kmesh 0.4 ads mode**
+# 2. Environment setup
 ![resource_env](images/resource_test_env.png)
 
 - K8S version: v1.27
-- Kmesh version: 0.4
+- Kmesh version: 0.4 ads mode
 - Kernel version: 5.10
 - Node flavor: 8U16G
-- testing tool: fortio
-- metric collecting tools: top, bpftop
+- Testing tool: fortio
+- Metric collecting tools: [bpftop](https://github.com/Netflix/bpftop), [inspektor-gadget](https://github.com/inspektor-gadget/inspektor-gadget)
 
 
-# 2. Test case 1 - POD with CPU limit scenario，collect Kmesh eBPF CPU usage
-## 2.1 Deploy 1 App A and set App A POD's CPU limit，then generage load and collect Kmesh eBPF CPU usage
+# 3. Test case 1 - POD with CPU limit scenario，collect Kmesh eBPF CPU usage
+## 3.1 Deploy 1 App A and set App A POD's CPU limit，then generage load and collect Kmesh eBPF CPU usage
 ![resource_test1](images/resource_test1.png)
 
 Set the CPU limit for App A to 1 (1 CPU), and collect corresponding Kmesh eBPF CPU consumption.
 
 **Note: With the system having 8 cores and a CPU limit of 1, it means the POD can consume up to 12.5% of the CPU.**
 
+Generate load using the fortio client.
+```sh
+#!/bin/bash
+
+client_address=`kubectl get pod | grep fortio-client | awk {'print $1'}`
+echo "$client_address" | xargs -P 0 -I {} kubectl exec -it {} -- fortio load -quiet -c 1500 -t 100s -qps 0 -keepalive=false fortio-server.default.svc.cluster.local:80
+```
+
+Collect CPU usage using [bpftop](https://github.com/Netflix/bpftop)
+```sh
+$ ./bpftop
+```
+
 Testing result：
 ![resource_result1](images/resource_test_result1.png)
 
-**Results and conclusions: When APP A uses up 1 CPU, the user space occupies 4%, the kernel space occupies 7.4%, totaling 11.4% of CPU consumption, which is less than the POD CPU limit of 12.5%. There are two possible reasons.**
+the 12.99% in the figure above means that 12.99% of one CPU core was consumed.
+
+**Results and Conclusion: When APP A fully utilizes one CPU core, the eBPF program consumes 1.73% of the CPU, which is less than the POD CPU limit of 12.5%. There are two possible reasons.**
 
 - APP A and Kmesh eBPF share the POD CPU limit, with Kmesh eBPF CPU being restricted by the POD CPU limit.
-- It is possible that due to the high performance of eBPF, APP A is not generating enough load to cause eBPF to exceed the CPU limit, further experiments in section 2.2 are needed.
+- It is possible that due to the high performance of eBPF, APP A is not generating enough load to cause eBPF to exceed the CPU limit, further experiments in section 3.2 are needed.
 
-## 2.2 Deploy multiple instances of App A, set a fixed CPU limit, generate load, and collect the corresponding Kmesh eBPF CPU consumption.
+## 3.2 Deploy multiple instances of App A, set a fixed CPU limit, generate load, and collect the corresponding Kmesh eBPF CPU consumption.
 ![resource_test2](images/resource_test2.png)
 
 Start 4 instances of App A, with a CPU limit of 250m for each instance, totaling 1 CPU for all 4 instances.
@@ -44,27 +63,30 @@ Start 4 instances of App A, with a CPU limit of 250m for each instance, totaling
 Testing result：
 ![resource_result2](images/resource_test_result2.png)
 
-When App A consumes 1 CPU, the user space occupies 4.4%, the kernel space occupies 7.7%, totaling 12.1% CPU usage. This is less than the POD CPU limit of 12.5%.
+the 13.42% in the figure above means that 13.42% of one CPU core was consumed.
 
-**Results and Conclusion: When App A consumes 1 CPU, the user space occupies 4.4%, the kernel space occupies 7.7%, totaling 12.1% CPU usage, which is less than the POD CPU limit of 12.5%. To further validate this conclusion, Experiment 2.3 will be conducted.**
 
-## 2.3 Based on test 2.2, modify the eBPF code to decrease its performance, causing it to consume more CPU. Observe if it can exceed the POD CPU limit.
+**Results and Conclusion: When APP A fully utilizes one CPU, the eBPF program consumes 1.81% of the CPU, which is less than the POD CPU limit of 12.5%. To further verify this conclusion, experiment 3.3 will be conducted.**
+
+## 3.3 Based on test 2.2, modify the eBPF code to decrease its performance, causing it to consume more CPU. Observe if it can exceed the POD CPU limit.
 
 Add for loop in Kmesh eBPF code：
 ```c
-for (i;0;i<10000;i++) {}
+for (i=0;i<65535;i++) {
+    bpf_printk("increase cpu usage");
+}
 ```
 
 Testing result：
 ![resource_result3](images/resource_test_result3.png)
 
-When APP A fully utilizes 1 CPU, the user space consumes 3.9% CPU, while the kernel space consumes 8.3%, totaling 12.2% CPU usage, which is still below the POD CPU limit (12.5%). Through multiple rounds of testing, the total CPU consumption of APP A and eBPF is always less than the POD CPU limit.
+When APP A fully utilizes one CPU, the eBPF program consumes up to 12.1% of the CPU, which is still less than the POD CPU limit of 12.5%. After multiple rounds of testing, the eBPF’s CPU consumption is always below the POD CPU limit.
 
 
 **Conclusion: Kmesh eBPF and APP share the POD CPU limit, with Kmesh eBPF CPU being limited by the POD CPU limit.**
 
-# 3. Test case 2 - Scenario where POD CPU limit is not set, test the consumption of Kmesh eBPF CPU.
-## 3.1 Scenario where the POD CPU limit is not set, test the Kmesh eBPF CPU limit.
+# 4. Test case 2 - Scenario where POD CPU limit is not set, test the consumption of Kmesh eBPF CPU.
+## 4.1 Scenario where the POD CPU limit is not set, test the Kmesh eBPF CPU limit.
 ![resource_test3](images/resource_test3.png)
 
 Create 8 instances of APP A, set the CPU limit to unlimited. Gradually modify the number of processes generating load for APP A until the node's CPU usage reaches 100%, collect the CPU usage of Kmesh eBPF.
@@ -84,7 +106,7 @@ The total CPU of the system is 8 cores, which is equivalent to 8000m. When there
 - **APP A consumes much more CPU than eBPF, so it is not possible to overload eBPF. In a scenario tested with Fortio, Kmesh eBPF consumes a maximum of 9.5% CPU.**
 - **Further testing is needed to determine the maximum CPU consumption limit for eBPF itself.**
 
-## 3.2 eBPF CPU stress test, by adding infinite loops/large for loops in the eBPF code to boost CPU usage.
+## 4.2 eBPF CPU stress test, by adding infinite loops/large for loops in the eBPF code to boost CPU usage.
 The [eBPF official documentation](https://ebpf-docs.dylanreimerink.nl/linux/concepts/verifier/) points out that eBPF programs have a robust security mechanism that automatically detects infinite loops and strictly limits the number of iterations in for loops. In the current Kernel version (v5.10), eBPF programs support a maximum of 65535 iterations in for loops.
 
 Therefore, add 65535 for loops in the code and test it.
@@ -103,12 +125,19 @@ When the CPU of the node is running at 100%, Kmesh eBPF consumes approximately 9
 **Conclusion: In the Kmesh eBPF component, when adding support for a maximum number of for loop scenarios, eBPF can consume all CPU resources. However, the kernel's security mechanisms ensure the stable operation of the system.**
 
 
-# 4. Kmesh eBPF Memory limit test
+# 5. Kmesh eBPF Memory limit test
 The memory consumption of eBPF has an upper limit: as stated in the [official documentation](https://ebpf-docs.dylanreimerink.nl/linux/concepts/resource-limit/), this limit is set through the `memory.max` setting in cGroup configurations.
 
 However, based on the current implementation of Kmesh, memory is allocated at the start of Kmesh, and does not increase during runtime. To verify the memory usage, the following test was conducted.
 
-## 4.1 Create 1, 100, and 1000 services respectively in the cluster, and record the eBPF memory consumption.
+## 5.1 Create 1, 100, and 1000 services respectively in the cluster, and record the eBPF memory consumption.
+
+Collect eBPF memory consumption using [inspektor gadget](https://github.com/inspektor-gadget/inspektor-gadget)
+
+Monitoring eBPF memory usage using command `kubectl gadget top ebpf`
+
+![resource_result_memory](images/resource_test_memory.png)
+
 Testing result:
 |service number|eBPF Memory usage|
 |--|--|
@@ -118,5 +147,5 @@ Testing result:
 
 **Test results: The eBPF memory consumption of Kmesh is 23MB and remains constant, regardless of the number of services.**
 
-## 4.2 Create a service APP A in the cluster, generate load, and observe eBPF memory consumption
+## 5.2 Create a service APP A in the cluster, generate load, and observe eBPF memory consumption
 **Test results: Kmesh eBPF memory consumption is 23MB and remains constant, regardless of the load**

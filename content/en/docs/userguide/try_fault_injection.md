@@ -20,15 +20,26 @@ type: docs
 
 3. Install service granularity waypoint for reviews and ratings service
 
+
+```bash
+istioctl x waypoint apply -n default --name reviews-svc-waypoint
+kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
+kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
+
+istioctl x waypoint apply -n default --name ratings-svc-waypoint
+kubectl label service ratings istio.io/use-waypoint=ratings-svc-waypoint
+kubectl annotate gateway ratings-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
+```
+
 *The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation)*
 
 4. Apply application version routing by running the following commands:
 
-  ```bash
-  kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-all-v1.yaml
+```bash
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-all-v1.yaml
   
-  kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
-  ```
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+```
   
 - With the above configuration, this is how requests flow:
   - `productpage` → `reviews:v2` → `ratings` (only for user `jason`)
@@ -43,13 +54,33 @@ Note that the `reviews:v2` service has a 10s hard-coded connection timeout for c
 1. Create a fault injection rule to delay traffic coming from the test user `jason`.
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
-```
-
-2. Confirm the rule was created:
-
-```bash
-kubectl get virtualservice ratings -o yaml
+kubectl apply -f - <<EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: jason
+    fault:
+      delay:
+        percentage:
+          value: 100.0
+        fixedDelay: 7s
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+  - route:
+    - destination:
+        host: ratings
+        subset: v1
+EOF
 ```
 
 Allow several seconds for the new rule to propagate to all pods.
@@ -64,7 +95,7 @@ Allow several seconds for the new rule to propagate to all pods.
 
    `Sorry, product reviews are currently unavailable for this book.`
 
-3. View the web page response times
+3. View the web page response time:
 
 ![Fault_Injection1](/docs/user_guide/fault_injection1.png)
 
@@ -94,7 +125,35 @@ In this case, you expect the page to load immediately and display the `Ratings s
 
 1. Create a fault injection rule to send an HTTP abort for user `jason`:
 
-`kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml`
+```bash
+kubectl apply -f - <<EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: jason
+    fault:
+      abort:
+        percentage:
+          value: 100.0
+        httpStatus: 500
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+  - route:
+    - destination:
+        host: ratings
+        subset: v1
+EOF
+```
 
 
 ### Testing the abort configuration
@@ -114,7 +173,7 @@ In this case, you expect the page to load immediately and display the `Ratings s
 1. Remove the application routing rules:
 
 ```bash
-kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.21/samples/bookinfo/networking/virtual-service-all-v1.yaml
+kubectl delete virtualservice ratings
 ```
 
 2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](https://kmesh.net/en/docs/userguide/install_waypoint/#cleanup) instructions to shutdown the application.

@@ -4,7 +4,7 @@ linktitle: Querying L4 Metrics from Prometheus
 menu:
   docs:
     parent: user guide
-    weight: 4
+    weight: 3
 title: Querying L4 Metrics from Prometheus
 toc: true
 type: docs

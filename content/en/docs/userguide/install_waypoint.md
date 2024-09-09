@@ -4,7 +4,7 @@ linktitle: Install Waypoint
 menu:
   docs:
     parent: user guide
-    weight: 3
+    weight: 4
 title: Install Waypoint
 toc: true
 type: docs

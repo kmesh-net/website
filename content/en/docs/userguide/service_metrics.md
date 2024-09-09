@@ -4,7 +4,7 @@ linktitle: Use Grafana to visualize service metrics
 menu:
   docs:
     parent: user guide
-    weight: 9
+    weight: 19
 title: Use Grafana to visualize service metrics
 toc: true
 type: docs

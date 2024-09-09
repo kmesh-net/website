@@ -4,7 +4,7 @@ linktitle: Install Waypoint
 menu:
   docs:
     parent: user guide
-    weight: 3
+    weight: 4
 title: Install Waypoint
 toc: true
 type: docs
@@ -64,7 +64,7 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 <title>Simple Bookstore App</title>
 ```
 
-### Install waypoint:
+### Install waypoint
 
 Waypoints can be used at three granularities: namespace, service and pod. Also you could install multiple waypoints with different granularities under the same namespace.
 

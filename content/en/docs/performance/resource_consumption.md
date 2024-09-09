@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Kmesh resource consumption
+linktitle: Kmesh Resource Consumption
 menu:
   docs:
     parent: performance
     weight: 2
-title: Kmesh resource consumption
+title: Kmesh Resource Consumption
 toc: true
 type: docs
 ---

@@ -4,7 +4,7 @@ linktitle: Try Request Timeouts
 menu:
   docs:
     parent: user guide
-    weight: 8
+    weight: 9
 title: Try Request Timeouts
 toc: true
 type: docs

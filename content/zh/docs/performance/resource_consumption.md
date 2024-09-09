@@ -14,7 +14,7 @@ eBPF程序在运行过程中会消耗一定的CPU和内存资源，这可能会�
 
 **本测试基于Kmesh 0.4版本的ads模式进行。**
 # 2. 测试环境
-![resource_env](images/resource_test_env.png)
+![resource_env](/docs/performance/resource_test_env.png)
 
 - K8S version: v1.27
 - Kmesh version: 0.4 ads 模式
@@ -26,7 +26,7 @@ eBPF程序在运行过程中会消耗一定的CPU和内存资源，这可能会�
 
 # 3. 测试用例1 - POD CPU设置limit场景，测试Kmesh eBPF CPU 消耗
 ## 3.1 启动1个App A实例并固定App A POD的CPU limit，并生成负载，收集相应的Kmesh eBPF CPU消耗
-![resource_test1](images/resource_test1.png)
+![resource_test1](/docs/performance/resource_test1.png)
 
 设置App A的CPU limit为1(1个CPU)，并收集相应Kmesh的eBPF CPU消耗。
 
@@ -47,23 +47,23 @@ $ ./bpftop
 
 测试结果：
 
-![resource_result1](images/resource_test_result1.png)
+![resource_result1](/docs/performance/resource_test_result1.png)
 
 图中消耗12.99%指的是消耗了1个CPU核心的12.99%
 
-**结果与结论：当APP A跑满1个CPU时，eBPF程序消耗CPU 1.73%, 小于POD CPU limit 12.5%，有两个可能原因**
+**结果与结论：当APP A跑满1个CPU时，eBPF程序消耗CPU 1.73%(总共消耗1个核心的13.9%，相当于8个核心的1.73%), 小于POD CPU limit 12.5%，有两个可能原因**
 
 - APP A + Kmesh eBPF共用POD CPU limit， Kmesh eBPF CPU受限于POD CPU limit
 - 可能由于eBPF的性能过好，APP A不足以生成足够的负载，使eBPF消耗超过limit的CPU，需进一步进行3.2实验
 
 ## 3.2 启动多个App A实例，固定CPU limit，并生成负载，收集相应的Kmesh eBPF CPU消耗
-![resource_test2](images/resource_test2.png)
+![resource_test2](/docs/performance/resource_test2.png)
 
 启动了4个APP A实例，每个实例CPU limit设置为250m，4个实例共1个CPU
 
 测试结果：
 
-![resource_result2](images/resource_test_result2.png)
+![resource_result2](/docs/performance/resource_test_result2.png)
 
 图中消耗13.42%指的是消耗了1个CPU核心的13.42%
 
@@ -74,14 +74,33 @@ $ ./bpftop
 
 在Kmesh eBPF代码中增加for循环：
 ```c
-for (i=0;i<65535;i++) {
-    bpf_printk("increase cpu usage");
+SEC("cgroup/connect4")
+int cgroup_connect4_prog(struct bpf_sock_addr *ctx)
+{
+    struct kmesh_context kmesh_ctx = {0};
+    kmesh_ctx.ctx = ctx;
+    kmesh_ctx.orig_dst_addr.ip4 = ctx->user_ip4;
+    kmesh_ctx.dnat_ip.ip4 = ctx->user_ip4;
+    kmesh_ctx.dnat_port = ctx->user_port;
+
+    if (handle_kmesh_manage_process(&kmesh_ctx) || !is_kmesh_enabled(ctx)) {
+        return CGROUP_SOCK_OK;
+    }
+
+    // Add for loop to increase CPU usage
+    int i;
+    for (i=0;i<65535;i++) {
+        bpf_printk("increase cpu usage");
+    }
+
+    int ret = sock4_traffic_control(ctx);
+    return CGROUP_SOCK_OK;
 }
 ```
 
 测试结果：
 
-![resource_result3](images/resource_test_result3.png)
+![resource_result3](/docs/performance/resource_test_result3.png)
 
 当APP A跑满1个CPU时，eBPF程序最多消耗12.1% CPU， 仍然小于POD CPU limit(12.5%)，经多轮测试，eBPF的CPU消耗永远小于POD CPU limit
 
@@ -90,7 +109,7 @@ for (i=0;i<65535;i++) {
 
 # 4. 测试用例2 - POD CPU没有设置limit场景，测试Kmesh eBPF CPU 消耗
 ## 4.1 POD CPU没有设置limit场景，测试Kmesh eBPF CPU limit
-![resource_test3](images/resource_test3.png)
+![resource_test3](/docs/performance/resource_test3.png)
 
 创建8个APP A实例，设置为CPU limit无上限。 逐步修改APP A生成负载的进程数直到节点的CPU使用率为100%，收集Kmesh eBPF的CPU使用率。
 测试结果(8核CPU总共8000m):
@@ -113,15 +132,33 @@ for (i=0;i<65535;i++) {
 
 因此在代码中加入65535个for循环，并测试
 ```c
-int i;
-for (i=0;i<65535;i++) {
-    bpf_printk("increase cpu usage");
+SEC("cgroup/connect4")
+int cgroup_connect4_prog(struct bpf_sock_addr *ctx)
+{
+    struct kmesh_context kmesh_ctx = {0};
+    kmesh_ctx.ctx = ctx;
+    kmesh_ctx.orig_dst_addr.ip4 = ctx->user_ip4;
+    kmesh_ctx.dnat_ip.ip4 = ctx->user_ip4;
+    kmesh_ctx.dnat_port = ctx->user_port;
+
+    if (handle_kmesh_manage_process(&kmesh_ctx) || !is_kmesh_enabled(ctx)) {
+        return CGROUP_SOCK_OK;
+    }
+
+    // Add for loop to increase CPU usage
+    int i;
+    for (i=0;i<65535;i++) {
+        bpf_printk("increase cpu usage");
+    }
+
+    int ret = sock4_traffic_control(ctx);
+    return CGROUP_SOCK_OK;
 }
 ```
 
 测试结果:
 
-![resource_result4](images/resource_test_result4.png)
+![resource_result4](/docs/performance/resource_test_result4.png)
 
 当该节点CPU跑满100%。 Kmesh eBPF消耗约99.3% CPU。
 此压测持续10分钟，测试期间内核以及集群内服务仍然稳定运行
@@ -139,7 +176,7 @@ eBPF的内存消耗是有上限的：[官网文档](https://ebpf-docs.dylanreime
 
 通过`kubectl gadget top ebpf`命令监测eBPF内存占用
 
-![resource_result_memory](images/resource_test_memory.png)
+![resource_result_memory](/docs/performance/resource_test_memory.png)
 
 测试结果：
 |服务数|eBPF Memory usage|

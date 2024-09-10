@@ -17,7 +17,7 @@ type: docs
 
 1. Make default namespace managed by Kmesh
 
-2. Deploy bookinfo as sample application and sleep as curl client
+2. Deploy bookinfo as sample application
 
 3. Install service granularity waypoint for reviews service
 
@@ -109,7 +109,7 @@ EOF
 
 In this task, you used Kmesh to set the request timeout for calls to the `reviews` microservice to half a second. By default the request timeout is disabled. Since the `reviews` service subsequently calls the `ratings` service when handling requests, you used Kmesh to inject a 2 second delay in calls to `ratings` to cause the `reviews` service to take longer than half a second to complete and consequently you could see the timeout in action.
 
-You observed that instead of displaying reviews, the Bookinfo product page (which calls the `reviews` service to populate the page) displayed the message: Sorry, product reviews are currently unavailable for this book. This was the result of it receiving the timeout error from the `reviews` service.
+You observed that instead of displaying reviews, the Bookinfo product page (which calls the `reviews` service to populate the page) displayed the message: "Sorry, product reviews are currently unavailable for this book". This was the result of it receiving the timeout error from the `reviews` service.
 
 If you examine the [fault injection task](https://kmesh.net/en/docs/userguide/try_fault_injection/), you’ll find out that the `productpage` microservice also has its own application-level timeout (3 seconds) for calls to the `reviews` microservice. Notice that in this task you used an Kmesh route rule to set the timeout to half a second. Had you instead set the timeout to something greater than 3 seconds (such as 4 seconds) the timeout would have had no effect since the more restrictive of the two takes precedence.
 

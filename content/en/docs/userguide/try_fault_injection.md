@@ -4,7 +4,7 @@ linktitle: Try Fault Injection
 menu:
   docs:
     parent: user guide
-    weight: 10
+    weight: 8
 title: Try Fault Injection
 toc: true
 type: docs

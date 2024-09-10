@@ -169,7 +169,7 @@ kubectl apply -f samples/fortio/netutils.yaml
   < Server: 2
   ```
 
-### Understanding what happend
+### Understanding what happened
 
 If the user request header is not configured, V1 will be used. If the Jason request header is configured, V2 will be used.
 

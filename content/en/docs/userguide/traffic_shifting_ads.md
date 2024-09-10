@@ -159,7 +159,7 @@ kubectl apply -f samples/fortio/netutils.yaml
   < Server: 2
   ```
 
-### Understanding what happend
+### Understanding what happened
 
 In this task you migrated traffic from an old to new version of the `fortio` service using kmesh’s weighted routing feature.
 

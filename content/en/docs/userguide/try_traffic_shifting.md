@@ -102,3 +102,7 @@ kubectl delete destinationrules reviews
 ```
 
 2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](https://kmesh.net/en/docs/userguide/install_waypoint/#cleanup) instructions to remove waypoint and shutdown the application.
+
+### Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qX6qFfk4Z4k" frameborder="0" allowfullscreen></iframe>

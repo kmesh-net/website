@@ -105,4 +105,4 @@ kubectl delete destinationrules reviews
 
 ### Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qX6qFfk4Z4k" frameborder="0" allowfullscreen></iframe>
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/qX6qFfk4Z4k" frameborder="0" allowfullscreen></iframe>

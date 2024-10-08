@@ -11,51 +11,87 @@ title: Governance
 toc: true
 type: docs
 ---
+# Kmesh Project Governance
 
-## Principles
+Kmesh is a high-performance and low overhead service mesh data plane based on eBPF and programmable kernel.
+This governance explains how the project is run.
 
-- **Open**: Kmesh is open source community.
-- **Neutral**: Kmesh is neutral in determining the various operating systems supported.
-- **Transparent and accessible**: Work and collaboration should be done in public.
-  Changes to the Kmesh organization, Kmesh code repositories.
-- **Merit**: Ideas and contributions are accepted according to their technical merit
-  and alignment with project objectives, scope and design principles.
+- [Kmesh Project Governance](#kmesh-project-governance)
+  - [Values](#values)
+  - [Membership](#membership)
+  - [Meetings](#meetings)
+  - [Code of Conduct](#code-of-conduct)
+  - [Security Response Team](#security-response-team)
+  - [Voting](#voting)
+  - [Modifying this Charter](#modifying-this-charter)
 
-## Community Membership
+## Values
 
-See [community membership](membership.md)
+The Kmesh and its leadership embrace the following values:
 
+- Openness: Communication and decision-making happens in the open and is discoverable for future
+  reference. As much as possible, all discussions and work take place in public
+  forums and open repositories.
 
-## Community Groups
+- Fairness: All stakeholders have the opportunity to provide feedback and submit
+  contributions, which will be considered on their merits.
 
-### Special Interest Groups (SIGs)
+- Community over Product or Company: Sustaining and growing our community takes
+  priority over shipping code or sponsors' organizational goals. Each
+  contributor participates in the project as an individual.
 
-The Kmesh project is organized primarily into Special Interest Groups, or SIGs. Each SIG is comprised of individuals from multiple companies and organizations, with a common purpose of advancing the project with respect to a specific topic.
+- Inclusivity: We innovate through different perspectives and skill sets, which
+  can only be accomplished in a welcoming and respectful environment.
 
-The goal is to enable a distributed decision structure and code ownership, as well as providing focused forums for getting work done, making decisions, and on-boarding new Contributors. Every identifiable part of the project(e.g. repository, subdirectory, API, test, issue, PR) is intended to be owned by some SIG.
+- Participation: Responsibilities within the project are earned through
+  participation, and there is a clear path up the contributor ladder into leadership
+  positions.
 
+## Membership
 
-#### SIG Chairs
+The [Community Membership](./membership.md)
+outlines responsibilities and requirements for different roles in Kmesh.
 
-SIGs must have at least one, and may have up to two SIG chairs at any given time. SIG chairs are intended to be organizers and facilitators, responsible for the operation of the SIG and for communication and coordination with the other SIGs, and the broader community.
+Currently, the approvers are the governing body for the project. This may
+change as the community grows, such as by adopting an elected steering committee.
 
-#### SIG Charter
+## Meetings
 
-Each SIG must have a charter that specifies its scope (topics, sub-systems, code repos and directories), responsibilities, and areas of authority, how members and roles of authority/leadership are selected/granted, how decisions are made, and how conflicts are resolved.
+Regular meetings are described at [Community Meeting](https://github.com/kmesh-net/community/blob/main/README.md#community-meeting).
 
-SIGs should be relatively free to customize or change how they operate, within some broad guidelines and constraints imposed by cross-SIG processes (e.g., the release process) and assets (e.g., the Kmesh repo).
+approvers will also have closed meetings in order to discuss security reports
+or Code of Conduct violations. Such meetings should be scheduled by any
+approvers on receipt of a security issue or CoC report. All current approvers
+must be invited to such closed meetings, except for any approvers who is
+accused of a CoC violation.
 
-A primary reason that SIGs exist is as forums for collaboration. Much work in a SIG should stay local within that SIG. However, SIGs must communicate in the open, ensure other SIGs and community members can find meeting notes, discussions, designs, and decisions, and periodically communicate a high-level summary of the SIG's work to the community. SIGs are also responsible to:
+## Code of Conduct
 
-- Meet regularly, at least monthly
-- Keep up-to-date meeting notes, linked from the SIG's page in the community repo
-- Announce meeting agenda and minutes after each meeting, on the Kmesh mailing list and/or slack or other channel.
-- Ensure the SIG's decision making is archived somewhere public
-- Report activity in overall community meetings
-- Participate in release planning meetings, retrospective, etc (if relevant)
-- Actively triage issues, PRs, test failures, etc. related to code and tests owned by the SIG
-- Use the above forums as the primary means of working, communicating, and collaborating, as opposed to private emails and meetings.
+[Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)
+violations by community members will be referred to the CNCF Code of Conduct
+Committee. Should the CNCF CoC Committee need to work with the project on resolution, the
+approvers will appoint a non-involved contributor to work with them.
 
-## Credits
+## Security Response Team
 
-Sections of this documents have been borrowed from [Kubernetes governance](https://github.com/kubernetes/community/blob/master/governance.md).
+The approvers will appoint a Security Response Team to handle security reports.
+This committee may simply consist of the approvers Council themselves.  If this
+responsibility is delegated, the approvers will appoint a team of at least two contributors to handle it. The approvers will review who is assigned to this
+at least once a year.
+
+The Security Response Team is responsible for handling all reports of security
+holes and breaches according to the [security policy](https://github.com/kmesh-net/community/blob/main/security-team/SECURITY.md).
+
+## Voting
+
+While most business in Kmesh is conducted by "[lazy consensus](https://community.apache.org/committers/lazyConsensus.html)", periodically the approvers may need to vote on specific actions or changes.
+A vote can be taken on [the developer mailing list](https://groups.google.com/forum/#!forum/kmesh) or
+[community repo issue](https://github.com/kmesh-net/community/issues/new/choose) for security or conduct matters. Votes may also be taken at [the developer meeting](https://github.com/kmesh-net/community/blob/main/README.md#community-meeting).
+Any approvers may demand a vote be taken.
+
+Most votes require a simple majority of all approvers to succeed, except where
+otherwise noted. Two-thirds majority votes mean at least two-thirds of all existing approvers.
+
+## Modifying this Charter
+
+Changes to this Governance and its supporting documents may be approved by a 2/3 vote of the Approvers.

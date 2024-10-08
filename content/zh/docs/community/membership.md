@@ -18,9 +18,9 @@ type: docs
 | 角色 | 要求 | 工作职责 | 权限 |
 | -----| ---------------- | ------------ | -------|
 | [Member](#member) | Sponsor from 2 approvers, active in community, contributed to Kmesh | Welcome and guide new contributors | Kmesh GitHub organization Member |
+| [Reviewer](#reviewer) | Review contributions from other members | History of review and authorship in a subproject | Review contributions from community members |  Read access to specific packages in relevant repository |
 | [Approver](#approver) | Sponsor from 2 maintainers, has good experience and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packages in relevant repository |
 | [Maintainer](#maintainer) | Sponsor from 2 owners, shown good technical judgement in feature design/development and PR review | Participate in release planning and feature development/maintenance | Top level write access to relevant repository. Name entry in Maintainers file of the repository |
-| [Owner](#owner) | Sponsor from 3 owners, helps drive the overall Kmesh project | Drive the overall technical roadmap of the project and set priorities of activities in release planning | Kmesh GitHub organization Admin access |
 
 **注**：所有Kmesh社区成员都必须遵守Kmesh【行为准则】。
 
@@ -89,29 +89,6 @@ type: docs
 - 存储库的维护人员文件中的名称条目
 - 参与并推动多种功能的设计/开发
 
-## 所有者
-
-所有者是帮助推动项目整体方向的维护人员。
-对Kmesh及相关领域有深刻理解，推动发布规划达成重大共识
-
-### 需求
-
-- 来自3个所有者的赞助商
-- 至少2个月的维护人员
-- 由项目所有者提名
-- 没有任何项目所有者反对
-- 帮助推动整个项目
-
-### 职责和权限
-
-- 为整个项目做出技术决策
-- 推动项目总体技术路线图
-- 在发布计划中设置活动的优先级
-- 指导和指导所有其他社区成员
-- 确保所有社区成员都遵守行为准则
-- 尽管授予管理员对所有存储库的访问权限，但请确保所有PR都经过正确审查和合并
-- 可以根据需要获得对相关存储库的管理员访问权限
-- 参与并推动多种功能的设计/开发
 
 **注**：这些角色仅适用于Kmesh github组织和存储库。目前，Kmesh没有正式的程序来审查和接受这些角色。我们很快就会想出一个程序。
 

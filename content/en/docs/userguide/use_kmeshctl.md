@@ -1,11 +1,11 @@
 ---
 draft: false
-linktitle: Use kmeshctl
+linktitle: Kmeshctl Usage
 menu:
   docs:
     parent: user guide
     weight: 20
-title: Use kmeshctl
+title: Kmeshctl Usage
 toc: true
 type: docs
 
@@ -121,7 +121,7 @@ kmeshctl waypoint generate --namespace default
 kmeshctl waypoint list --namespace default
 ```
 
-#### kmeshctl waypoint apply
+1. kmeshctl waypoint apply
 
 Apply a waypoint configuration to the cluster
 
@@ -142,7 +142,7 @@ kmeshctl waypoint apply --namespace default --wait
 kmesh waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
 ```
 
-#### kmeshctl waypoint delete
+2. kmeshctl waypoint delete
 
 Delete a waypoint configuration from the cluster
 
@@ -166,7 +166,7 @@ kmeshctl waypoint delete waypoint-name1 waypoint-name2 --namespace default
 kmeshctl waypoint delete --all --namespace default
 ```
 
-#### kmeshctl waypoint generate
+3. kmeshctl waypoint generate
 
 Generate a waypoint configuration as YAML
 
@@ -184,7 +184,7 @@ kmeshctl waypoint generate --namespace default
 kmeshctl waypoint generate --for service -n default
 ```
 
-#### kmeshctl waypoint list
+4. kmeshctl waypoint list
 
 List managed waypoint configurations in the cluster
 
@@ -202,7 +202,7 @@ kmeshctl waypoint list --namespace default
 kmeshctl waypoint list -A
 ```
 
-#### kmeshctl waypoint status
+5. kmeshctl waypoint status
 
 Show the status of waypoints for the namespace provided or default namespace if none is provided
 

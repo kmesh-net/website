@@ -190,4 +190,4 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 
 ### Demo
 
-<iframe width="1200" height="700" src="https://www.youtube.com/watch?v=GFq6wH5JR2A" frameborder="0" allowfullscreen></iframe>
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/_mnPQU5SSFo" frameborder="0" allowfullscreen></iframe>

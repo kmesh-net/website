@@ -175,4 +175,4 @@ kubectl delete virtualservice ratings
 
 ### Demo
 
-<iframe width="1200" height="700" src="https://www.youtube.com/watch?v=GFq6wH5JR2A" frameborder="0" allowfullscreen></iframe>
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/tWgRaU_Zw8I" frameborder="0" allowfullscreen></iframe>

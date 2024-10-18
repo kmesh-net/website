@@ -187,3 +187,7 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 ```bash
 [root@ ~]# kubectl label namespace default istio.io/dataplane-mode-
 ```
+
+### Demo
+
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/_mnPQU5SSFo" frameborder="0" allowfullscreen></iframe>

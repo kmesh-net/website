@@ -173,3 +173,6 @@ kubectl delete virtualservice ratings
 
 2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](https://kmesh.net/en/docs/userguide/install_waypoint/#cleanup) instructions to shutdown the application.
 
+### Demo
+
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/tWgRaU_Zw8I" frameborder="0" allowfullscreen></iframe>

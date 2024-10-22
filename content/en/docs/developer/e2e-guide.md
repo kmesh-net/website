@@ -46,6 +46,16 @@ When testing locally, you may want to skip some setup steps to save time, especi
 - `--skip-setup`: Skips deploying the Kubernetes cluster, Istio, and Kmesh.
 - `--only-run-tests`: Skips all other steps and focuses only on deploying test applications and running E2E tests.
 
+You might need different kinds of tests. 
+- `--cluster`: Allows specifying a pre-existing KinD cluster by name.
+- `--ipv6`: Enables creating a KinD cluster with IPv6 networking.
+
+In some cases, you might want to clean up some resources after the tests, while in other cases, you might want to skip cleaning up test applications for further usage. The following flags are available to customize cleanup.
+- `--cleanup`: Cleans up the KinD cluster and local registry after tests are completed.
+- `--skip-cleanup-apps`: Skips the cleanup of test applications after the tests have been executed.
+
+You can also directly use `go test` command-line arguments when running the tests. Some detailed examples are provided in the next part.
+
 ### Example Commands
 
 - Full Test Run (First time):
@@ -62,6 +72,27 @@ When testing locally, you may want to skip some setup steps to save time, especi
   ./test/e2e/run_test.sh --only-run-tests
   ```
 
-## How to add test case
+- Specifying a Pre-existing KinD Cluster:
 
-TODO TODO
+  ```bash
+  ./test/e2e/run_test.sh --cluster <KinD-Cluster-Name>
+  ```
+- Cleanup the KinD Cluster or Docker Registry After Tests
+
+  ```bash
+  ./test/e2e/run_test.sh --cleanup
+  ```
+
+You can directly use go test command-line arguments when running the tests. For example, you can filter specific tests, or control other aspects of the testing process directly from the command line.
+
+- Selecting Specific Test Cases:
+
+  ```bash
+  ./test/e2e/run_test.sh --select-cases TestSpecificCase
+  ```
+
+- Controlling Test Verbosity
+
+  ```bash
+  ./test/e2e/run_test.sh -v
+  ```

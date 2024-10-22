@@ -10,9 +10,9 @@ toc: true
 type: docs
 ---
 # 1. Background Information
-eBPF programs consume a certain amount of CPU and memory resources during their execution, which may affect the performance of other applications. To gain a deeper understanding of Kmesh’s resource consumption under different loads, we conducted several CPU and memory stress tests. These tests aim to evaluate the limits of CPU and memory consumption of Kmesh in real-world usage scenarios.
+eBPF programs consume a certain amount of CPU and memory resources during their execution. To gain a deeper understanding of Kmesh’s resource consumption under different loads, we conducted several CPU and memory stress tests. These tests aim to evaluate the limits of CPU and memory consumption of Kmesh in real-world usage scenarios.
 
-**This documentation is based on Kmesh 0.4 ads mode**
+**This documentation is based on Kmesh 0.4 kernel-native mode**
 # 2. Environment setup
 ![resource_env](/docs/performance/resource_test_env.png)
 
@@ -53,7 +53,7 @@ the 12.99% in the figure above means that 12.99% of one CPU core was consumed.
 **Results and Conclusion: When APP A fully utilizes one CPU core, the eBPF program consumes 1.73%(totally 13.9% usage of one CPU core  == 1.73% of 8 CPU cores) of the CPU, which is less than the POD CPU limit of 12.5%. There are two possible reasons.**
 
 - APP A and Kmesh eBPF share the POD CPU limit, with Kmesh eBPF CPU being restricted by the POD CPU limit.
-- It is possible that due to the high performance of eBPF, APP A is not generating enough load to cause eBPF to exceed the CPU limit, further experiments in section 3.2 are needed.
+- This indicates eBPF CPU cost is fairly small compared to application itself, APP A is not generating enough load to cause eBPF to exceed the CPU limit, further experiments in section 3.2 are needed.
 
 ## 3.2 Deploy multiple instances of App A, set a fixed CPU limit, generate load, and collect the corresponding Kmesh eBPF CPU consumption.
 ![resource_test2](/docs/performance/resource_test2.png)

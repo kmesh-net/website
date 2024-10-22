@@ -10,9 +10,9 @@ toc: true
 type: docs
 ---
 # 1. 背景信息
-eBPF程序在运行过程中会消耗一定的CPU和内存资源，这可能会影响到其他应用程序的性能。为了深入了解Kmesh在不同负载下的资源消耗情况，我们进行了多项CPU与内存摸高测试。这些测试旨在评估Kmesh在实际使用场景中的CPU和内存消耗极限。
+eBPF程序在运行过程中会消耗一定的CPU和内存资源。为了深入了解Kmesh在不同负载下的资源消耗情况，我们进行了多项CPU与内存摸高测试。这些测试旨在评估Kmesh在实际使用场景中的CPU和内存消耗极限。
 
-**本测试基于Kmesh 0.4版本的ads模式进行。**
+**本测试基于Kmesh 0.4版本的kernel-native模式进行。**
 # 2. 测试环境
 ![resource_env](/docs/performance/resource_test_env.png)
 

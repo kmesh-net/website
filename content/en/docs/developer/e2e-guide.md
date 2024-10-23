@@ -45,6 +45,11 @@ When testing locally, you may want to skip some setup steps to save time, especi
 - `--skip-build`: Skips building and pushing the Kmesh image to the local image registry.
 - `--skip-setup`: Skips deploying the Kubernetes cluster, Istio, and Kmesh.
 - `--only-run-tests`: Skips all other steps and focuses only on deploying test applications and running E2E tests.
+- `--cluster`: Allows specifying a pre-existing KinD cluster by name.
+- `--ipv6`: Enables creating a KinD cluster with IPv6 networking and run E2E tests on it.
+- `--cleanup`: Cleans up the KinD cluster and local registry after tests are completed.
+- `--skip-cleanup-apps`: Skips the cleanup of test applications after the tests have been executed.
+- Directly use `go test` command-line arguments when running the tests
 
 ### Example Commands
 
@@ -62,6 +67,50 @@ When testing locally, you may want to skip some setup steps to save time, especi
   ./test/e2e/run_test.sh --only-run-tests
   ```
 
-## How to add test case
+You might need different kinds of tests. 
 
-TODO
+- Specifying a Pre-existing KinD Cluster:
+
+  ```bash
+  ./test/e2e/run_test.sh --cluster <KinD-Cluster-Name>
+  ```
+
+- Create a IPv6 KinD cluster and Run Tests:
+
+  ```bash
+  ./test/e2e/run_test.sh --ipv6
+  ```
+
+In some cases, you might want to clean up some resources after the tests, while in other cases, you might want to skip cleaning up test applications for further usage.
+
+- Cleanup the KinD Cluster and Docker Registry After Tests:
+
+  ```bash
+  ./test/e2e/run_test.sh --cleanup
+  ```
+
+- Skip the Cleanup of Test Applications After Tests:
+
+  ```bash
+  ./test/e2e/run_test.sh --skip-cleanup-apps
+  ```
+
+You can also directly use go test command-line arguments when running the tests. For example, you can filter specific tests, or control other aspects of the testing process directly from the command line.
+
+- Selecting Specific Test Cases:
+
+  ```bash
+  ./test/e2e/run_test.sh --only-run-tests -run "TestServices"
+  ```
+
+- Controlling Test Verbosity
+
+  ```bash
+  ./test/e2e/run_test.sh -v
+  ```
+
+- Repeat Test Cases Multiple Times.
+
+  ```bash
+  ./test/e2e/run_test.sh -count=3
+  ```

@@ -25,7 +25,7 @@ eBPF programs consume a certain amount of CPU and memory resources during their 
 
 
 # 3. Test case 1 - POD with CPU limit scenario，collect Kmesh eBPF CPU usage
-## 3.1 Deploy 1 App A and set App A POD's CPU limit，then generage load and collect Kmesh eBPF CPU usage
+## 3.1 Deploy 1 App A and set App A POD's CPU limit，then generate load and collect Kmesh eBPF CPU usage
 ![resource_test1](/docs/performance/resource_test1.png)
 
 Set the CPU limit for App A to 1 (1 CPU), and collect corresponding Kmesh eBPF CPU consumption.

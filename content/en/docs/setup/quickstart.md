@@ -39,6 +39,43 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
 ```
 
+### Only install Istiod
+
+Installing ambient mode istio by above steps will install additional istio components.
+
+The process of installing only `istiod` as the control plane for Kmesh is provided next.
+
+- **Install Istio CRDs:**
+
+```console
+helm repo add istio https://istio-release.storage.googleapis.com/charts
+helm repo update
+```
+
+To install the chart with the release name `istio-base`:
+
+```console
+kubectl create namespace istio-system
+helm install istio-base istio/base -n istio-system
+```
+
+- **Install Istiod:**
+
+To install the chart with the release name `istiod`:
+
+```console
+helm install istiod istio/istiod --namespace istio-system --set pilot.env.PILOT_ENABLE_AMBIENT=true
+```
+
+**Note:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod!
+
+After installing istiod, it's time to install Kubernetes Gateway API CRDs.
+
+```console
+kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
+  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
+```
+
 ## Install Kmesh
 
 We offer several ways to install Kmesh

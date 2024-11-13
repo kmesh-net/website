@@ -3,5 +3,5 @@
 # see https://www.netlify.com/docs/redirects/ #
 # test at https://play.netlify.com/redirects  #
 ###############################################
-# Redirect golang vanity imports for volcano.sh
+# Redirect golang vanity imports for kmesh.net
 /kmesh/* go-get=1 /golang/kmesh.html 200

@@ -83,7 +83,7 @@ We offer several ways to install Kmesh
 - Install from Helm
   
 ```console
-helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
+helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
 ```
 
 - Alternatively install from Yaml

@@ -24,68 +24,49 @@ We strongly recommend that you first read https://istio.io/latest/docs/tasks/tra
 Currently, Istio's ambient mode only supports specifying a fixed locality load balancing policy by configuring specific fields. This includes two modes: PreferClose and Local.
 
 1. PreferClose: A failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routingPreference.
-```
-&workloadapi.LoadBalancing{
-	// Prefer endpoints in close zones, but allow spilling over to further endpoints where required.
-	RoutingPreference: []workloadapi.LoadBalancing_Scope{
-		workloadapi.LoadBalancing_NETWORK,
-		workloadapi.LoadBalancing_REGION,
-		workloadapi.LoadBalancing_ZONE,
-		workloadapi.LoadBalancing_SUBZONE,
-	},
-	Mode: workloadapi.LoadBalancing_FAILOVER,
-}
-```
   - With `spec.trafficDistribution`（k8s >= beta [1.31.0](https://kubernetes.io/docs/concepts/services-networking/service/), isito  >= [1.23.1](https://istio.io/latest/news/releases/1.23.x/announcing-1.23/)）
 ```
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-  namespace: default
 spec:
   trafficDistribution: # spec.trafficDistribution
     preferClose: true
 ```
-  - With annotation [todo: need to verify the feasibility.]
+  - With annotation
 ```
-apiVersion: v1
-kind: Service
 metadata:
   annotations:
     networking.istio.io/traffic-distribution: PreferClose
 ```
-todo: 没有在istio的api.annotation找到traffic-distribution这个标签，但是istio的server.go显示了通过这个字段配置策略的可能性。
 
 2. Local: A strict mode that only matches the current NODE.
-```
-&workloadapi.LoadBalancing{
-  // Only allow endpoints on the same node.
-  RoutingPreference: []workloadapi.LoadBalancing_Scope{
-    workloadapi.LoadBalancing_NODE,
-  },
-  Mode: workloadapi.LoadBalancing_STRICT,
-}
-```
+
 - spec.internalTrafficPolicy: Local (k8s >= beta 1.24 or >= 1.26)
 ```
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-  namespace: default
 spec:
   internalTrafficPolicy: Local
 ```
 
 #### Experimental Testing
 - Prepare the environment: Refer to https://kmesh.net/en/docs/setup/develop_with_kind/
+  - we prepare three nodes in the cluster.
   - istio >= 1.23.1
   - k8s >= 1.31.0
 - Ensure sidecar injection is disabled: `kubectl label namespace default istio-injection-`
 - Required images:
   - docker.io/istio/examples-helloworld-v1
   - curlimages/curl
+
+```
+kind create cluster --image=kindest/node:v1.31.0 --config=- <<EOF
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: ambient
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+EOF
+  ```
 
 1. Assign locality information to the node.
 ```
@@ -94,9 +75,14 @@ kubectl label node ambient-worker topology.kubernetes.io/zone=zone1
 kubectl label node ambient-worker topology.kubernetes.io/subzone=subzone1
 ```
 ```
+kubectl label node ambient-worker topology.kubernetes.io/region=region
+kubectl label node ambient-worker topology.kubernetes.io/zone=zone1
+kubectl label node ambient-worker topology.kubernetes.io/subzone=subzone2
+```
+```
 kubectl label node ambient-worker2 topology.kubernetes.io/region=region
 kubectl label node ambient-worker2 topology.kubernetes.io/zone=zone2
-kubectl label node ambient-worker2 topology.kubernetes.io/subzone=subzone2
+kubectl label node ambient-worker2 topology.kubernetes.io/subzone=subzone3
 ```
 
 2. start test servers
@@ -164,27 +150,27 @@ kubectl apply -n sample -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-region.zone2.subzone2
+  name: helloworld-region.zone1.subzone2
   labels:
     app: helloworld
-    version: region.zone2.subzone2
+    version: region.zone1.subzone2
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: helloworld
-      version: region1.zone2.subzone2
+      version: region1.zone1.subzone2
   template:
     metadata:
       labels:
         app: helloworld
-        version: region1.zone2.subzone2
+        version: region1.zone1.subzone2
     spec:
       containers:
       - name: helloworld
         env:
         - name: SERVICE_VERSION
-          value: region1.zone2.subzone2
+          value: region1.zone1.subzone2
         image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:
@@ -194,6 +180,45 @@ spec:
         - containerPort: 5000
       nodeSelector:
         kubernetes.io/hostname: ambient-worker2
+EOF
+```
+
+- Start a service instance on the ambient-worker3.
+```
+kubectl apply -n sample -f - <<EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-region.zone2.subzone3
+  labels:
+    app: helloworld
+    version: region.zone2.subzone3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld
+      version: region1.zone2.subzone3
+  template:
+    metadata:
+      labels:
+        app: helloworld
+        version: region1.zone2.subzone3
+    spec:
+      containers:
+      - name: helloworld
+        env:
+        - name: SERVICE_VERSION
+          value: region1.zone2.subzone3
+        image: docker.io/istio/examples-helloworld-v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+      nodeSelector:
+        kubernetes.io/hostname: ambient-worker3
 EOF
 ```
 
@@ -235,10 +260,74 @@ spec:
 EOF
 ```
 
-- test
+- Test the access.
 ```
 kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
 ```
 The output is from the helloworld-region.zone1.subzone1 that is currently co-located on the ambient-worker.
 
-You can follow the above process to create more complex tests.
+
+- Remove the service on the ambient-worker and test Failover.
+```
+kubectl get deployment
+# list of name
+kubectl delete deployment <name> # name of the pod on the ambient-worker
+```
+
+```
+kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+```
+
+The output is helloworld-region.zone1.subzone2, and a failover of the traffic has occurred.
+
+- Relabel the locality of the ambient-worker3 same as the worker2 and test. 
+```
+kubectl label node ambient-worker3 topology.kubernetes.io/region=region
+kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone1
+kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone2
+```
+re-apply the development pod, and run test:
+```
+kubectl apply -n sample -f - <<EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-region.zone1.subzone2-worker3
+  labels:
+    app: helloworld
+    version: region.zone1.subzone2-worker3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld
+      version: region1.zone1.subzone2-worker3
+  template:
+    metadata:
+      labels:
+        app: helloworld
+        version: region1.zone1.subzone2-worker3
+    spec:
+      containers:
+      - name: helloworld
+        env:
+        - name: SERVICE_VERSION
+          value: region1.zone1.subzone2-worker3
+        image: docker.io/istio/examples-helloworld-v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+      nodeSelector:
+        kubernetes.io/hostname: ambient-worker3
+EOF
+```
+
+test multi times:
+```
+kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+```
+
+The output randomly shows helloworld-region.zone1.subzone2 and helloworld-region.zone1.subzone2-worker3.

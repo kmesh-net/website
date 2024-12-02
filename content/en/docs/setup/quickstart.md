@@ -4,7 +4,7 @@ linktitle: Quick Start
 menu:
   docs:
     parent: setup
-    weight: 5
+    weight: 2
 title: Quick Start
 toc: true
 type: docs
@@ -16,11 +16,8 @@ This guide lets you quickly install Kmesh.
 
 ## Preparation
 
-Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26, 1.27, 1.28 are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly build a Kubernetes cluster (We provide a [document](https://kmesh.net/en/docs/setup/develop_with_kind/) for developing and deploying Kmesh using kind). Of course, you can also use minikube and other ways to create Kubernetes clusters.
-
-The complete Kmesh capability depends on the OS enhancement. Check whether the execution environment is in the [OS list](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md) supported by Kmesh. For other OS environments, see [Kmesh Compilation and Building](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_compile.md).You can also try the [Kmesh image in compatibility mode](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md) in other OS environments.For information on various Kmesh images, please refer to the [detailed document](https://github.com/kmesh-net/kmesh/blob/main/build/docker/README.md).
-
-Currently, Kmesh connects to the Istio control plane. Before starting Kmesh, install the Istio control plane software. We recommend installing istio ambient mode because Kmesh ads mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26+ are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly provide a Kubernetes cluster (We provide a [document](https://kmesh.net/en/docs/setup/develop_with_kind/) for developing and deploying Kmesh using kind). Of course, you can also use [minikube](https://minikube.sigs.k8s.io/docs/) and other ways to create Kubernetes clusters.
+Currently, Kmesh makes use of [istio](https://istio.io/) as its control plane. Before installing Kmesh, please install the Istio control plane. We recommend installing istio ambient mode because Kmesh `dual-engine` mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
 
 You can view the results of istio installation using the following command:
 
@@ -80,7 +77,7 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 
 We offer several ways to install Kmesh
 
-- Install from Helm
+- 1. Install from Helm
   
 ```console
 helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
@@ -118,14 +115,14 @@ time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys
 
 ## Deploy the Sample Applications
 
-Similar to istio, Kmesh can be used to manage applications in a namespace by adding a label to that namespace.
+Kmesh can manage pods in a namespace with a label `istio.io/dataplane-mode=Kmesh`, and meanwhile the pod should have no `istio.io/dataplane-mode=none` label.
 
 ```console
 # Enable Kmesh for the specified namespace
 kubectl label namespace default istio.io/dataplane-mode=Kmesh
 ```
 
-Apply the following configuration to create sample applications:
+Apply the following configuration to deploy sleep and httpbin:
 
 ```console
 kubectl apply -f ./samples/httpbin/httpbin.yaml
@@ -133,7 +130,7 @@ kubectl apply -f ./samples/httpbin/httpbin.yaml
 kubectl apply -f ./samples/sleep/sleep.yaml
 ```
 
-Check sample applications status:
+Check the applications status:
 
 ```console
 kubectl get pod 
@@ -142,7 +139,7 @@ httpbin-65975d4c6f-96kgw                  1/1     Running   0          3h38m
 sleep-7656cf8794-8tp9n                    1/1     Running   0          3h38m
 ```
 
-You can determine if a pod is managed by Kmesh by looking at the pod's annotation.
+You can confirm if a pod is managed by Kmesh by looking at the pod's annotation.
 
 ```console
 kubectl describe po httpbin-65975d4c6f-96kgw | grep Annotations
@@ -150,9 +147,9 @@ kubectl describe po httpbin-65975d4c6f-96kgw | grep Annotations
 Annotations:      kmesh.net/redirection: enabled
 ```
 
-## Test Sample Applications
+## Test Service Access
 
-After the applications have been manage by Kmesh, we need to test that they are still working properly.
+After the applications have been manage by Kmesh, we can test that they can still communicate successfully.
 
 ```console
 kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
@@ -171,7 +168,7 @@ Note: 10.244.0.21 is the IP of httpbin
 
 ## Clean Up
 
-If you don't want to use Kmesh to govern the application anymore, you can delete the labels on the namespace and restart the pod.
+If you don't want to use Kmesh to manage the application anymore, you can remove the labels from the namespace.
 
 ```console
 kubectl label namespace default istio.io/dataplane-mode-

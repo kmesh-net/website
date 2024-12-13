@@ -75,14 +75,14 @@ kubectl label node ambient-worker topology.kubernetes.io/zone=zone1
 kubectl label node ambient-worker topology.kubernetes.io/subzone=subzone1
 ```
 ```
-kubectl label node ambient-worker topology.kubernetes.io/region=region
-kubectl label node ambient-worker topology.kubernetes.io/zone=zone1
-kubectl label node ambient-worker topology.kubernetes.io/subzone=subzone2
-```
-```
 kubectl label node ambient-worker2 topology.kubernetes.io/region=region
-kubectl label node ambient-worker2 topology.kubernetes.io/zone=zone2
-kubectl label node ambient-worker2 topology.kubernetes.io/subzone=subzone3
+kubectl label node ambient-worker2 topology.kubernetes.io/zone=zone1
+kubectl label node ambient-worker2 topology.kubernetes.io/subzone=subzone2
+```
+```
+kubectl label node ambient-worker3 topology.kubernetes.io/region=region
+kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone2
+kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 ```
 
 2. start test servers
@@ -262,9 +262,12 @@ EOF
 
 - Test the access.
 ```
-kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+$ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
 ```
 The output is from the helloworld-region.zone1.subzone1 that is currently co-located on the ambient-worker.
+```
+$ Hello version: region.zone1.subzone1, instance: helloworld-region.zone1.subzone1-6d6fdfd856-9dhv8
+```
 
 
 - Remove the service on the ambient-worker and test Failover.
@@ -279,6 +282,9 @@ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.na
 ```
 
 The output is helloworld-region.zone1.subzone2, and a failover of the traffic has occurred.
+```
+$ Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
+```
 
 - Relabel the locality of the ambient-worker3 same as the worker2 and test. 
 ```
@@ -286,7 +292,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/region=region
 kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone1
 kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone2
 ```
-re-apply the development pod, and run test:
+delete helloworld-region.zone2.subzone3 and re-apply the development pod as follows, then run test:
 ```
 kubectl apply -n sample -f - <<EOF
 apiVersion: apps/v1
@@ -331,3 +337,10 @@ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.na
 ```
 
 The output randomly shows helloworld-region.zone1.subzone2 and helloworld-region.zone1.subzone2-worker3.
+```
+$ Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
+$ Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
+$ Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
+$ Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
+$ Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
+```

@@ -120,18 +120,18 @@ spec:
   selector:
     matchLabels:
       app: helloworld
-      version: region1.zone1.subzone1
+      version: region.zone1.subzone1
   template:
     metadata:
       labels:
         app: helloworld
-        version: region1.zone1.subzone1
+        version: region.zone1.subzone1
     spec:
       containers:
       - name: helloworld
         env:
         - name: SERVICE_VERSION
-          value: region1.zone1.subzone1
+          value: region.zone1.subzone1
         image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:
@@ -159,18 +159,18 @@ spec:
   selector:
     matchLabels:
       app: helloworld
-      version: region1.zone1.subzone2
+      version: region.zone1.subzone2
   template:
     metadata:
       labels:
         app: helloworld
-        version: region1.zone1.subzone2
+        version: region.zone1.subzone2
     spec:
       containers:
       - name: helloworld
         env:
         - name: SERVICE_VERSION
-          value: region1.zone1.subzone2
+          value: region.zone1.subzone2
         image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:
@@ -198,18 +198,18 @@ spec:
   selector:
     matchLabels:
       app: helloworld
-      version: region1.zone2.subzone3
+      version: region.zone2.subzone3
   template:
     metadata:
       labels:
         app: helloworld
-        version: region1.zone2.subzone3
+        version: region.zone2.subzone3
     spec:
       containers:
       - name: helloworld
         env:
         - name: SERVICE_VERSION
-          value: region1.zone2.subzone3
+          value: region.zone2.subzone3
         image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:
@@ -307,18 +307,18 @@ spec:
   selector:
     matchLabels:
       app: helloworld
-      version: region1.zone1.subzone2-worker3
+      version: region.zone1.subzone2-worker3
   template:
     metadata:
       labels:
         app: helloworld
-        version: region1.zone1.subzone2-worker3
+        version: region.zone1.subzone2-worker3
     spec:
       containers:
       - name: helloworld
         env:
         - name: SERVICE_VERSION
-          value: region1.zone1.subzone2-worker3
+          value: region.zone1.subzone2-worker3
         image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:

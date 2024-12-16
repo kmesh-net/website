@@ -8,7 +8,7 @@ authors: [Kuromesi]
 tags: [introduce]
 categories: [General]
 date: 2024-11-27T11:33:00+08:00
-lastmod: 2024-11-27T11:33:00+08:00
+lastmod: 2024-12-14T10:37:00+08:00
 featured: false
 draft: false
 
@@ -190,6 +190,42 @@ kubectl get virtualservices -o yaml
 # kind: List
 # metadata:
 #   resourceVersion: ""
+```
+
+### 为服务部署 Waypoint
+您可以通过执行以下命令，为 default 命名空间部署 Waypoint 用于代理 service 级别七层的访问流量。
+
+```shell
+kubectl apply -f - <<EOF 
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  labels:
+    istio.io/waypoint-for: service
+  name: fortio-waypoint
+  namespace: default
+spec:
+  gatewayClassName: istio-waypoint
+  listeners:
+  - name: mesh
+    port: 15008
+    protocol: HBONE
+EOF
+```
+
+执行以下命令，为 fortio service 启用 Waypoint 代理。
+
+```shell
+kubectl label service fortio istio.io/use-waypoint=fortio-waypoint
+```
+
+执行以下命令，查看当前 Waypoint 状态。
+
+```shell
+kubectl get gateway.gateway.networking.k8s.io
+
+# NAME              CLASS            ADDRESS          PROGRAMMED   AGE
+# fortio-waypoint   istio-waypoint   192.168.227.95   True         8m37s
 ```
 
 ### 发起测试流量

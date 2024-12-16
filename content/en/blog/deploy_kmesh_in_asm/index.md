@@ -8,7 +8,7 @@ authors: [Kuromesi]
 tags: [introduce]
 categories: [General]
 date: 2024-11-27T11:33:00+08:00
-lastmod: 2024-11-27T11:33:00+08:00
+lastmod: 2024-12-14T10:37:00+08:00
 featured: false
 draft: false
 
@@ -190,6 +190,42 @@ kubectl get virtualservices -o yaml
 # kind: List
 # metadata:
 #   resourceVersion: ""
+```
+
+### Deploy Waypoint for Fortio Service
+You can deploy Waypoint to handle service-level layer 7 traffic by executing the following command in the default namespace.
+
+```shell
+kubectl apply -f - <<EOF 
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  labels:
+    istio.io/waypoint-for: service
+  name: fortio-waypoint
+  namespace: default
+spec:
+  gatewayClassName: istio-waypoint
+  listeners:
+  - name: mesh
+    port: 15008
+    protocol: HBONE
+EOF
+```
+
+Run the following enable Waypoint for fortio service.
+
+```shell
+kubectl label service fortio istio.io/use-waypoint=fortio-waypoint
+```
+
+Run the following command to check the current Waypoint status.
+
+```shell
+kubectl get gateway.gateway.networking.k8s.io
+
+# NAME              CLASS            ADDRESS          PROGRAMMED   AGE
+# fortio-waypoint   istio-waypoint   192.168.227.95   True         8m37s
 ```
 
 ### Start Test Traffic

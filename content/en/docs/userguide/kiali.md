@@ -19,9 +19,9 @@ type: docs
 
 3. \[optional\] Install service granularity waypoint for service `reviews`.
 
-*The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/en/docs/userguide/install_waypoint/#preparation). When installing Istio, we recommend installing Istio ambient mode instead of only installing Istiod, because Kiali currently depends on Istio components to work.*
+*The above steps could refer to [Install Waypoint | Kmesh](https://istio.io/latest/docs/ambient/install/istioctl/). When installing Istio, we recommend installing Istio ambient mode instead of only installing Istiod, because Kiali currently depends on Istio components to work.*
 
-4. Deploy prometheus that record Kmesh metrics as Istio standard metrics
+4. Deploy prometheus that record Kmesh metrics as Istio standard metrics.
 
 *This Prometheus addon leveages the Prometheus recording rules and relabeling confugurations to convert Kmesh L4 metrics into Istio standard metrics, so that Kiali could visualize these metrics.*
 
@@ -50,13 +50,15 @@ kubectl port-forward --address 0.0.0.0 svc/kiali 20001:20001 -n kmesh-system
 Forwarding from 0.0.0.0:20001 -> 20001
 ```
 
-2. View the traffic graph in Kiali from browser
+2. View the traffic graph in Kiali from browser.
 
 Visit `Traffic Graph` panel. Select the `default` namespace at the top of left.
 
 <div align="center">
 <img src="/docs/userguide/kiali.png" width="1400" />
 </div>
+
+*In this traffic topology graph, the blue lines represent TCP traffic, which is proxied by Kmesh, while the green lines represent HTTP traffic, which is proxied by Waypoint. For more information about Kiali's traffic topology graph, please refer to [Kiali's documentation](https://kiali.io/docs/features/topology/).*
 
 ### Cleanup
 

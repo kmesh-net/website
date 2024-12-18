@@ -23,7 +23,7 @@ type: docs
 
 4. Deploy prometheus that record Kmesh metrics as Istio standard metrics.
 
-*This Prometheus addon leveages the Prometheus recording rules and relabeling confugurations to convert Kmesh L4 metrics into Istio standard metrics, so that Kiali could visualize these metrics.*
+*This Prometheus addon leveages the Prometheus recording rules and relabeling configurations to convert Kmesh L4 metrics into Istio standard metrics, so that Kiali could visualize these metrics.*
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/prometheus_recording_istio.yaml

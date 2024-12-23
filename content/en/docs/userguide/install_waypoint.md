@@ -70,6 +70,7 @@ Waypoints can be used at three granularity: namespace, service and pod. And you 
 Below we will learn how to deploy different waypoints for different granularity. We can use `kmeshctl waypoint` subcommands to generate or apply waypoint.
 
 To enable a namespace, service or Pod to use a waypoint, add the `istio.io/use-waypoint` label with a value of the waypoint name.
+We can also specify a customized waypoint image with `--image`, by default this default to `ghcr.io/kmesh-net/waypoint:{VERSION}`
 
 #### Configure a waypoint for a specific service:
 

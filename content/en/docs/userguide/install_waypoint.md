@@ -11,7 +11,7 @@ type: docs
 
 ---
 
-If you want to make use of kmesh L7 features, this is the prerequisites to install waypoint.
+If you want to make use of Kmesh L7 features, this is the prerequisites to install waypoint.
 
 ### Preparation
 
@@ -69,15 +69,15 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 Waypoints can be used at three granularity: namespace, service and pod. And you could also install multiple waypoints at different granularity within a namespace.
 Below we will learn how to deploy different waypoints for different granularity. We can use `kmeshctl waypoint` subcommands to generate or apply waypoint.
 
-To enable a namespace, service or Pod to use a waypoint, add the `istio.io/use-waypoint` label with a value of the waypoint name.
+To enable a namespace, service or pod to use a waypoint, add the `istio.io/use-waypoint` label with a value of the waypoint name.
 We can also specify a customized waypoint image with `--image`, by default this default to `ghcr.io/kmesh-net/waypoint:{VERSION}`
 
 #### Configure a waypoint for a specific service:
 
-Deploy a waypoint `reviews-svc-waypoint` for service `reviews`, so any traffic to `reviews` from a client managed by kmesh will be mediated by the waypoint proxy
+Deploy a waypoint `reviews-svc-waypoint` for service `reviews`, so any traffic to `reviews` from a client managed by Kmesh will be mediated by the waypoint proxy
 
 ```bash
-[root@ ~]# kmeshctl waypoint generate --for service -n default --name=reviews-svc-waypoint
+[root@ ~]# kmeshctl waypoint apply --for service -n default --name=reviews-svc-waypoint
 
 waypoint default/reviews-svc-waypoint applied
 ```
@@ -108,7 +108,7 @@ sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 
 #### Configure waypoint for a specific namespace:
 
-Deploy a waypoint for the `default` with default name `waypoint`. By specifying `--enroll-namespace`, the namespace will be labeled with `istio.io/use-waypoint=waypoint`
+Deploy a waypoint for the `default` namespace with default name `waypoint`. By specifying `--enroll-namespace`, the namespace will be labeled with `istio.io/use-waypoint=waypoint`
 
 ```bash
 [root@ ~]# kmeshctl waypoint apply -n default --enroll-namespace
@@ -128,11 +128,6 @@ waypoint default/reviews-v2-pod-waypoint applied
 pod/reviews-v2-5b667bcbf8-spnnh labeled
 ```
 
-***NOTE: If you need to replace the original image of waypoint with the Kmesh customized image.***
-
-```bash
-[root@ ~]# kubectl annotate gateway reviews-v2-pod-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
-```
 Now any requests from pods in the Kmesh to the `reviews-v2` pod IP will be routed through `reviews-v2-pod-waypoint` waypoint for L7 processing and policy enforcement.
 
 ### Cleanup

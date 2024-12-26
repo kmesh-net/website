@@ -31,7 +31,7 @@ root@master:~/kmesh# ./kmeshctl log <$kmeshnode1> --set bpf:debug
 
 #### Configure deny authorization policy
 
-##### Configure deny  port authorization policy
+##### Configure destination port deny authorization policy
 
 Create a "deny-by-dstport" authorization policy for the Fortio workload in the appropriate namespace and apply the policy by running the following command, which denies requests from the specified port address. In this example, traffic sent to port 8080 is denied
 
@@ -40,7 +40,7 @@ root@master:~/kmesh# cat deny-by-dstport.yaml
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
- name: test-policy
+ name: deny-by-dstport
 spec:
  selector:
    matchLabels:
@@ -72,11 +72,11 @@ Specific information will also be printed in the logs recorded by Kmesh
 ```shell
 root@master:~/kmesh# kubectl logs -f  kmesh-vlxhd -n kmesh-system
 ... ...
-time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] INFO: port 8080 in destination_ports, matched" subsys=ebpf
-time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] INFO: rule matched, action: DENY" subsys=ebpf
+time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: port 8080 in destination_ports, matched" subsys=ebpf
+time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 ```
 
-##### Configure deny  source ip authorization policy
+##### Configure source ip deny authorization policy
 
 ```shell
 root@master:~# cat deny-by-srcip.yaml
@@ -117,12 +117,12 @@ Specific information will also be printed in the logs recorded by Kmesh
 ```shell
 root@master:~/kmesh# kubectl logs -f  kmesh-vlxhd -n kmesh-system
 ... ...
-time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] INFO: rule matched, action: DENY" subsys=ebpf
+time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 time="2024-12-26T15:06:14+08:00" level=info msg="[AUTH] DEBUG: no ports configured, matching by default" subsys=ebpf
 time="2024-12-26T15:06:14+08:00" level=info msg="[AUTH] DEBUG: IPv4 match srcip: Rule IP: af40124, Prefix Length: 32, Target IP: af40124\n" subsys=ebpf
 ```
 
-##### Configure deny destination ip authorization policy
+##### Configure destination ip deny authorization policy
 
 ```shell
 root@master:~/kmesh# cat deny-by-dstip.yaml
@@ -158,7 +158,7 @@ Specific information will also be printed in the logs recorded by Kmesh
 ```shell
 root@master:~/kmesh# kubectl logs -f  kmesh-vlxhd -n kmesh-system
 ... ...
-time="2024-12-26T15:05:22+08:00" level=info msg="[AUTH] INFO: rule matched, action: DENY" subsys=ebpf
+time="2024-12-26T15:05:22+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] DEBUG: no ports configured, matching by default" subsys=ebpf
 time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] DEBUG: IPv4 match dstip: Rule IP: af40024, Prefix Length: 32, Target IP: af40024\n" subsys=ebpf
 ```

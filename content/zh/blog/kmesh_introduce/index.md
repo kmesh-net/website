@@ -5,8 +5,8 @@ title: "Kmesh: 高性能服务网格数据面"
 subtitle: ""
 summary: "基于ebpf + 可编程内核实现的sidecarless服务网格，服务转发时延降低60%+"
 authors: [Kmesh Admin]
-tags: [intruduce]
-categories: [Gerneral]
+tags: [introduce]
+categories: [General]
 date: 2023-07-08T10:05:09+08:00
 lastmod: 2023-07-08T10:05:09+08:00
 featured: false
@@ -137,7 +137,7 @@ Kmesh的主要部件包括：
 
 服务网格作为云原生的下一代技术，为应用提供透明服务治理的同时，因其代理架构引入额外时延开销，已成为网格应用推广的关键；Kmesh从OS视角，提出了一种基于可编程内核的服务网格数据面，通过将流量治理能力下沉OS，大幅提升网格数据面性能，为网格数据面的发展提供了一种全新思路。
 
-# refrence
+# reference
 
 [https://linkerd.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one](https://linkerd.io/2017/04/25/whats-a-service-mesh-and-why-do-i-need-one)
 

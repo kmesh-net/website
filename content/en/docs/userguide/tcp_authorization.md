@@ -15,17 +15,17 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 
 ### Before you begin
 
-- Understand the [AuthorizationPolicy](#AuthorizationPolicy)
+- Understand the [AuthorizationPolicy](#authorizationpolicy)
 
 - Install Kmesh
 
   Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/)
 
-- Deploy the Sample Applications
+- Deploy the Sample Applications and let them be managed by Kmesh
 
   Please refer [deploy applications](https://kmesh.net/en/docs/setup/quickstart/#deploy-the-sample-applications)
 
-   Modify the replicas o to 2 in sleep deployment.
+   Modify the replicas to 2 in sleep deployment.
 
   ```
   apiVersion: apps/v1
@@ -64,13 +64,12 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 - Check app status and ensure that the service application is managed by Kmesh
 
   ```log
-  kubectl get pod 
-  NAME                                      READY   STATUS    RESTARTS   AGE
   kubectl get pod  -o wide | grep sleep
+  NAME                                      READY   STATUS    RESTARTS   AGE
   sleep-78ff5975c6-phhll                      1/1     Running            0          30h   10.244.2.22   ambient-worker    <none>           <none>
   sleep-78ff5975c6-plh7r                      1/1     Running            0          30h   10.244.1.46   ambient-worker2   <none>           <none>
   
-  kubectl describe po httpbin-65975d4c6f-96kgw | grep Annotations
+  kubectl describe pod httpbin-65975d4c6f-96kgw | grep Annotations
   Annotations:      kmesh.net/redirection: enabled
   ```
 
@@ -103,7 +102,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 - Verify whether requests from the corresponding IP are being allowed.
 
   ```log
-  kubectl exec sleep-78ff5975c6-plh7r -c sleep -- curl  http://httpbin:8000/headers
+  kubectl exec sleep-78ff5975c6-plh7r -- curl  http://httpbin:8000/headers
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                    Dload  Upload   Total   Spent    Left  Speed
     0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0{
@@ -121,7 +120,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 - Verify if requests from other IPs are being denied.
 
   ```
-  kubectl exec sleep-78ff5975c6-phhll -c sleep -- curl  http://httpbin:8000/headers
+  kubectl exec sleep-78ff5975c6-phhll -- curl  http://httpbin:8000/headers
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                    Dload  Upload   Total   Spent    Left  Speed
     0   105    0     0    0     0      0      0 --:--:--  0:01:00 --:--:--     0
@@ -165,7 +164,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 - Verify whether requests from the corresponding IP are being denied.
 
   ```
-  kubectl exec sleep-78ff5975c6-plh7r -c sleep -- curl  "http://httpbin:8000/headers"
+  kubectl exec sleep-78ff5975c6-plh7r -- curl  "http://httpbin:8000/headers"
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                    Dload  Upload   Total   Spent    Left  Speed
     0   105    0     0    0     0      0      0 --:--:--  0:01:04 --:--:--     0
@@ -175,7 +174,7 @@ This task shows you how to set up authorization policy for TCP traffic in Kmesh.
 - Verify if requests from other IPs are being allowed.
 
   ```
-  kubectl exec sleep-78ff5975c6-phhll -c sleep -- curl  "http://httpbin:8000/headers"
+  kubectl exec sleep-78ff5975c6-phhll -- curl  "http://httpbin:8000/headers"
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                    Dload  Upload   Total   Spent    Left  Speed
     0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0{

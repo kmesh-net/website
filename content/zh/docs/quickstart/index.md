@@ -42,7 +42,7 @@ type: docs
   -  Helm安装方式
 
    ```sh
-  [root@ ~]# helm install kmesh ./deploy/helm -n kmesh-system --create-namespace
+  [root@ ~]# helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
    ```
 
   - Yaml安装方式

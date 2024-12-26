@@ -18,9 +18,9 @@ This document gives a brief overview of the Kmesh community roles with the requi
 | <div style="width: 100pt">Role | Requirements | Responsibilities | Privileges |
 | -----| ---------------- | ------------ | -------|
 | [Member](#member) | Sponsor from 2 approvers, active in community, contributed to Kmesh | Welcome and guide new contributors | Kmesh GitHub organization Member |
+| [Reviewer](#reviewer) | Review contributions from other members | History of review and authorship in a subproject | Review contributions from community members |  Read access to specific packages in relevant repository |
 | [Approver](#approver) | Sponsor from 2 maintainers, has good experience and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packages in relevant repository |
 | [Maintainer](#maintainer) | Sponsor from 2 owners, shown good technical judgement in feature design/development and PR review | Participate in release planning and feature development/maintenance | Top level write access to relevant repository. Name entry in Maintainers file of the repository |
-| [Owner](#owner) | Sponsor from 3 owners, helps drive the overall Kmesh project | Drive the overall technical roadmap of the project and set priorities of activities in release planning | Kmesh GitHub organization Admin access |
 
 **Note :** It is mandatory for all Kmesh community members to follow Kmesh [Code of Conduct].
 
@@ -50,6 +50,32 @@ reviewing issues/PRs or participate in community discussions on slack/mailing li
 - Guide new contributors to relevant docs/files
 - Help/Motivate new members in contributing to Kmesh
 
+## Reviewer
+
+Reviewers are able to review code for quality and correctness on some part of a
+subproject. They are knowledgeable about both the codebase and software
+engineering principles.
+
+### Requirements
+- member for at least 1 months
+- Primary reviewer for at least 5 PRs to the codebase
+- Reviewed or merged at least 10 substantial PRs to the codebase
+- Knowledgeable about the codebase
+- Sponsored by a subproject approver
+- With no objections from other approvers
+- Done through PR to update the OWNERS file
+- May either self-nominate, be nominated by an approver in this subproject.
+
+### Responsibilities and privileges
+
+- Code reviewer status may be a precondition to accepting large code contributions
+- Responsible for project quality control
+- Focus on code quality and correctness, including testing and factoring
+- May also review for more holistic issues, but not a requirement
+- Expected to be responsive to review requests
+- Assigned PRs to review related to subproject of expertise
+- Assigned test bugs related to subproject of expertise
+- May get a badge on PR and issue comments
 
 ## Approver
 
@@ -97,31 +123,7 @@ Has overall knowledge of the project and features in the project.
 - Name entry in Maintainers file of the repository
 - Participate & Drive design/development of multiple features
 
-## Owner
-
-Owners are maintainers who have helped drive the overall project direction.
-Has deep understanding of Kmesh and related domain and facilitates major agreement in release planning
-
-### Requirements
-
-- Sponsor from 3 owners
-- Maintainer for at least 2 months
-- Nominated by a project owner
-- Not opposed by any project owner
-- Helped in driving the overall project
-
-### Responsibilities and Privileges
-
-- Make technical decisions for the overall project
-- Drive the overall technical roadmap of the project
-- Set priorities of activities in release planning
-- Guide and mentor all other community members
-- Ensure all community members are following Code of Conduct
-- Although given admin access to all repositories, make sure all PRs are properly reviewed and merged
-- May get admin access to relevant repository based on requirement
-- Participate & Drive design/development of multiple features
-
-
 **Note :** These roles are applicable only for Kmesh github organization and repositories. Currently Kmesh doesn't have a formal process for review and acceptance into these roles. We will come-up with a process soon.
 
 [two-factor authentication]: (https://help.github.com/articles/about-two-factor-authentication)
+[Maintainers]: (https://github.com/kmesh-net/kmesh/blob/main/MAINTAINERS.md)

@@ -86,6 +86,10 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 ```
 
 2. start test servers
+- create `sample` namespace
+```
+kubectl create namespace sample
+```
 - run a service
 ```
 kubectl apply -n sample -f - <<EOF
@@ -262,7 +266,7 @@ EOF
 
 - Test the access.
 ```
-$ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
 ```
 The output is from the helloworld-region.zone1.subzone1 that is currently co-located on the ambient-worker.
 ```
@@ -272,13 +276,11 @@ $ Hello version: region.zone1.subzone1, instance: helloworld-region.zone1.subzon
 
 - Remove the service on the ambient-worker and test Failover.
 ```
-kubectl get deployment
-# list of name
-kubectl delete deployment <name> # name of the pod on the ambient-worker
+kubectl delete deployment -n sample helloworld-region.zone1.subzone1
 ```
 
 ```
-kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
 ```
 
 The output is helloworld-region.zone1.subzone2, and a failover of the traffic has occurred.
@@ -288,12 +290,13 @@ $ Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzon
 
 - Relabel the locality of the ambient-worker3 same as the worker2 and test. 
 ```
-kubectl label node ambient-worker3 topology.kubernetes.io/region=region
-kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone1
-kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone2
+kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone1 --overwrite
+kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone2 --overwrite
 ```
 delete helloworld-region.zone2.subzone3 and re-apply the development pod as follows, then run test:
 ```
+kubectl delete deployment -n sample helloworld-region.zone2.subzone3
+
 kubectl apply -n sample -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
@@ -333,7 +336,7 @@ EOF
 
 test multi times:
 ```
-kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
+kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
 ```
 
 The output randomly shows helloworld-region.zone1.subzone2 and helloworld-region.zone1.subzone2-worker3.

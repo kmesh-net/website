@@ -112,9 +112,10 @@ Deploy a waypoint for the `default` namespace with default name `waypoint`. By s
 
 ```bash
 [root@ ~]# kmeshctl waypoint apply -n default --enroll-namespace
-
-waypoint default/default-ns-waypoint applied
+waypoint default/waypoint applied
+namespace default labels with "istio.io/use-waypoint: waypoint"
 ```
+
 #### Configure waypoint for a specific pod:
 
 Deploy a waypoint called reviews-v2-pod-waypoint for the `reviews-v2-5979c6fc9c-72bst` pod.

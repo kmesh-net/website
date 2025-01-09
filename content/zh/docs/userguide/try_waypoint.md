@@ -103,16 +103,16 @@ Waypoint可以在三个粒度级别使用：命名空间、服务和Pod。您还
     ```
 - 为特定命名空间配置waypoint:
 
-    为default命名空间部署一个名为waypoint的航路点。通过指定`--enroll-namespace`，该命名空间将被打上标签`istio.io/use-waypoint=waypoint`。
+    为default命名空间部署一个名为`waypoint`的waypoint。通过指定`--enroll-namespace`，该命名空间将被打上标签`istio.io/use-waypoint=waypoint`。
     ```bash
     [root@ ~]# kmeshctl waypoint apply -n default --enroll-namespace
-
-    waypoint default/default-ns-waypoint applied
+    waypoint default/waypoint applied
+    namespace default labels with "istio.io/use-waypoint: waypoint"
     ```
 
 - 为特定pod配置waypoint:
 
-    为reviews-v2-5979c6fc9c-72bst Pod部署一个名为reviews-v2-pod-waypoint的航路点。
+    为reviews-v2-5979c6fc9c-72bst Pod部署一个名为reviews-v2-pod-waypoint的waypoint。
 
     ```bash
     [root@ ~]# kmeshctl waypoint apply -n default --name reviews-v2-pod-waypoint --for workload

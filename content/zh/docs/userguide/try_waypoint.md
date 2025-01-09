@@ -11,6 +11,8 @@ type: docs
 
 ---
 
+如果想使用Kmesh双引擎模式的七层治理功能，请参考本文档安装waypoint。
+
 ### 准备
 
 1. 部署Kmesh：
@@ -64,31 +66,61 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 6. 部署waypoint：
 
-为service account `bookinfo-reviews` 部署一个waypoint，这样所有发往service `reviews` 的流量都将被这个waypoint proxy接管
+Waypoint可以在三个粒度级别使用：命名空间、服务和Pod。您还可以在一个命名空间内以不同粒度安装多个waypoint。 以下是我们将学习如何为不同粒度部署不同waypoint的方法。我们可以使用`kmeshctl waypoint`子命令生成waypoint。
 
-```bash
-[root@ ~]# istioctl x waypoint apply --service-account bookinfo-reviews
-[root@ ~]# kubectl get pods
-NAME                                               READY   STATUS    RESTARTS   AGE
-bookinfo-reviews-istio-waypoint-5d544b6d54-v5tc9   1/1     Running   0          4s
-details-v1-5f4d584748-bz42z                        1/1     Running   0          4m35s
-productpage-v1-564d4686f-2rjqc                     1/1     Running   0          4m35s
-ratings-v1-686ccfb5d8-dnzkf                        1/1     Running   0          4m35s
-reviews-v1-86896b7648-fqm4z                        1/1     Running   0          4m35s
-reviews-v2-b7dcd98fb-nn42q                         1/1     Running   0          4m35s
-reviews-v3-5c5cc7b6d-q4r5h                         1/1     Running   0          4m35s
-sleep-9454cc476-86vgb                              1/1     Running   0          4m25s
-```
+要配置命名空间、服务或Pod waypoint，请添加带有waypoint名称的`istio.io/use-waypoint`标签。 我们还可以使用`--image`指定自定义的waypoint镜像，默认情况下，这个镜像为ghcr.io/kmesh-net/waypoint:{VERSION}。
 
-用Kmesh自定义的镜像替换waypoint的原生镜像。基于istio-proxy，Kmesh增加了一个名为[Kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv)的自定义listener filter，它会解析Kmesh编码的自定义TLV协议，从中获取目标地址以及元数据，从而能够连接L4和L7
+- 为特定服务配置waypoint:
 
-```bash
-[root@ ~]# kubectl get gateways.gateway.networking.k8s.io
-NAME               CLASS            ADDRESS         PROGRAMMED   AGE
-bookinfo-reviews   istio-waypoint   10.96.207.125   True         8m36s
-```
+    为服务reviews部署waypoint reviews-svc-waypoint，这样任何由Kmesh管理的客户端访问reviews的流量都会通过waypoint代理进行处理。
 
-在`bookinfo-reviews` gateway的annotations当中添加sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint-{arch}:v0.3.0，将{arch}转换为所在宿主机的架构，当前可选的取值为x86和arm。在gateway pod重启之后，Kmesh就具备L7能力了！
+    ```bash
+    [root@ ~]# kmeshctl waypoint apply --for service -n default --name=reviews-svc-waypoint
+
+    waypoint default/reviews-svc-waypoint applied
+    ```
+
+    为服务打上标签，使用刚创建的waypoint
+
+    ```bash
+    [root@ ~]# $ kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
+
+    service/reviews labeled
+    ```
+    Waypoint 运行后, Kmesh 七层治理就绪!
+
+    ```bash
+    [root@ ~]# kubectl get pods
+    NAME                                      READY   STATUS    RESTARTS   AGE
+    details-v1-cdd874bc9-xcdnj                1/1     Running   0          30m
+    productpage-v1-5bb9985d4d-z8cws           1/1     Running   0          30m
+    ratings-v1-6484d64bbc-pkv6h               1/1     Running   0          30m
+    reviews-svc-waypoint-8cb4bdbf-9d5mj       1/1     Running   0          30m
+    reviews-v1-598f9b58fc-2rw7r               1/1     Running   0          30m
+    reviews-v2-5979c6fc9c-72bst               1/1     Running   0          30m
+    reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
+    sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
+    ```
+- 为特定命名空间配置waypoint:
+
+    为default命名空间部署一个名为waypoint的航路点。通过指定`--enroll-namespace`，该命名空间将被打上标签`istio.io/use-waypoint=waypoint`。
+    ```bash
+    [root@ ~]# kmeshctl waypoint apply -n default --enroll-namespace
+
+    waypoint default/default-ns-waypoint applied
+    ```
+
+- 为特定pod配置waypoint:
+
+    为reviews-v2-5979c6fc9c-72bst Pod部署一个名为reviews-v2-pod-waypoint的航路点。
+
+    ```bash
+    [root@ ~]# kmeshctl waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
+    waypoint default/reviews-v2-pod-waypoint applied
+    # Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
+    [root@ ~]# kubectl label pod reviews-v2-5979c6fc9c-72bst istio.io/use-waypoint=reviews-v2-pod-waypoint
+    pod/reviews-v2-5b667bcbf8-spnnh labeled
+    ```
 
 ### 应用基于权重的路由
 

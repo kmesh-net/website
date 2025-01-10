@@ -11,7 +11,7 @@ type: docs
 
 ---
 
-To try capabilities of Kmesh L7, this is the basic doc to install waypoint.
+If you want to make use of Kmesh L7 features, this is the prerequisites to install waypoint.
 
 ### Preparation
 
@@ -57,7 +57,7 @@ reviews-v3-5c5cc7b6d-q4r5h       1/1     Running   0          72s
 sleep-9454cc476-86vgb            1/1     Running   0          62s
 ```
 
-5. Test boofinfo works as expected:
+5. Test bookinfo works as expected:
 
 ```bash
 [root@ ~]# kubectl exec deploy/sleep -- curl -s http://productpage:9080/ | grep -o "<title>.*</title>"
@@ -66,39 +66,31 @@ sleep-9454cc476-86vgb            1/1     Running   0          62s
 
 ### Install waypoint
 
-Waypoints can be used at three granularities: namespace, service and pod. Also you could install multiple waypoints with different granularities under the same namespace.
+Waypoints can be used at three granularity: namespace, service and pod. And you could also install multiple waypoints at different granularity within a namespace.
+Below we will learn how to deploy different waypoints for different granularity. We can use `kmeshctl waypoint` subcommands to generate or apply waypoint.
 
-#### Install waypoint in service granularity:
+To enable a namespace, service or pod to use a waypoint, add the `istio.io/use-waypoint` label with a value of the waypoint name.
+We can also specify a customized waypoint image with `--image`, by default this default to `ghcr.io/kmesh-net/waypoint:{VERSION}`
 
-Deploy a waypoint for service `reviews`, so any traffic to that service will be mediated by that waypoint proxy
+#### Configure a waypoint for a specific service:
 
-***NOTE: There are breaking changes in waypoint capture mode between istio 1.22 and istio 1.21, so the following commands need to be run on at least istio 1.22.***
-
-```bash
-[root@ ~]# istioctl x waypoint apply -n default --name reviews-svc-waypoint
-```
-
-Label the `reviews` service to use the `reviews-svc-waypoint` waypoint:
+Deploy a waypoint `reviews-svc-waypoint` for service `reviews`, so any traffic to `reviews` from a client managed by Kmesh will be mediated by the waypoint proxy
 
 ```bash
-[root@ ~]# kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
+[root@ ~]# kmeshctl waypoint apply --for service -n default --name=reviews-svc-waypoint
+
+waypoint default/reviews-svc-waypoint applied
 ```
 
-You can use `kubectl get pods` to see all the pods except waypoint are ready. **Then replace the waypoint image with the Kmesh customized image.** Based on istio-proxy, Kmesh adds an customized listener filter called [Kmesh_tlv](https://github.com/kmesh-net/waypoint/tree/master/source/extensions/filters/listener/kmesh_tlv), which will parse the custom TLV protocol encoded by Kmesh and obtain the target address and metadata to connect L4 and L7.
+Label the `reviews` service to use `reviews-svc-waypoint` waypoint:
 
 ```bash
-[root@ ~]# kubectl get gateways.gateway.networking.k8s.io
-NAME                      CLASS            ADDRESS        PROGRAMMED   AGE
-reviews-svc-waypoint      istio-waypoint   10.96.198.98   True         30m
+[root@ ~]# $ kubectl label service reviews istio.io/use-waypoint=reviews-svc-waypoint
+
+service/reviews labeled
 ```
 
-**image replacement**: Add annotation "sidecar.istio.io/proxyImage: ghcr.io/kmesh-net/waypoint:latest" to the `reviews-svc-waypoint` gateway.
-
-```bash
-[root@ ~]# kubectl annotate gateway reviews-svc-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
-```
-
-Then gateway pod will restart. Now Kmesh is L7 enabled!
+After the waypoint is up and running, Kmesh L7 is enabled!
 
 ```bash
 [root@ ~]# kubectl get pods
@@ -114,38 +106,27 @@ sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 ```
 
 
-#### Install waypoint in namespace granularity:
+#### Configure waypoint for a specific namespace:
+
+Deploy a waypoint for the `default` namespace with default name `waypoint`. By specifying `--enroll-namespace`, the namespace will be labeled with `istio.io/use-waypoint=waypoint`
 
 ```bash
-[root@ ~]#  istioctl x waypoint apply -n default --name default-ns-waypoint
-waypoint default/default-ns-waypoint applied
-
-[root@ ~]#  kubectl label namespace default istio.io/use-waypoint=default-ns-waypoint
-namespace/default labeled
+[root@ ~]# kmeshctl waypoint apply -n default --enroll-namespace
+waypoint default/waypoint applied
+namespace default labels with "istio.io/use-waypoint: waypoint"
 ```
 
-***NOTE: Also need to replace the original image of waypoint with the Kmesh customized image.***
+#### Configure waypoint for a specific pod:
+
+Deploy a waypoint called reviews-v2-pod-waypoint for the `reviews-v2-5979c6fc9c-72bst` pod.
+
 
 ```bash
-[root@ ~]# kubectl annotate gateway default-ns-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
-```
-
-Then any requests from any pods using the Kmesh, to any service running in `default` namespace, will be routed through that waypoint for L7 processing and policy enforcement.
-
-#### Install waypoint in pod granularity:
-
-```bash
-[root@ ~]# istioctl x waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
+[root@ ~]# kmeshctl waypoint apply -n default --name reviews-v2-pod-waypoint --for workload
 waypoint default/reviews-v2-pod-waypoint applied
 # Label the `reviews-v2` pod to use `reviews-v2-pod-waypoint` waypoint.
-[root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint=reviews-v2-pod-waypoint
+[root@ ~]# kubectl label pod reviews-v2-5979c6fc9c-72bst istio.io/use-waypoint=reviews-v2-pod-waypoint
 pod/reviews-v2-5b667bcbf8-spnnh labeled
-```
-
-***NOTE: Also need to replace the original image of waypoint with the Kmesh customized image.***
-
-```bash
-[root@ ~]# kubectl annotate gateway reviews-v2-pod-waypoint sidecar.istio.io/proxyImage=ghcr.io/kmesh-net/waypoint:latest
 ```
 
 Now any requests from pods in the Kmesh to the `reviews-v2` pod IP will be routed through `reviews-v2-pod-waypoint` waypoint for L7 processing and policy enforcement.
@@ -156,22 +137,22 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 
 1. Remove waypoint:
 
-#### Remove waypoint in service granularity
+#### Remove waypoint for service
 ```bash
-[root@ ~]# istioctl x waypoint delete reviews-svc-waypoint
+[root@ ~]# kmeshctl waypoint delete reviews-svc-waypoint
 [root@ ~]# kubectl label service reviews istio.io/use-waypoint-
 ```
-#### Remove waypoint in namespace granularity
+#### Remove waypoint for namespace
 
 ```bash
-[root@ ~]# istioctl x waypoint delete default-ns-waypoint
+[root@ ~]# kmeshctl waypoint delete waypoint
 [root@ ~]# kubectl label namespace default istio.io/use-waypoint-
 ```
 
-#### Remove waypoint in pod granularity
+#### Remove waypoint for pod
 
 ```bash
-[root@ ~]# istioctl x waypoint delete reviews-v2-pod-waypoint
+[root@ ~]# kmeshctl waypoint delete reviews-v2-pod-waypoint
 [root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint-
 ```
 

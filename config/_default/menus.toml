@@ -25,30 +25,30 @@
 
 # Right Menu
 [[main_right]]
-  name = "<i class=\"fab fa-github-alt\" style=\"color: #333; font-size: 1rem; line-height: 1.25\"></i>"
-  post = ""
+  name = "<i class=\"fab fa-github\" style=\"color: #333; font-size: 1rem; line-height: 1.25\"></i>"
+  post = "" # No post needed
   url = "https://github.com/kmesh-net/kmesh"
   weight = 10
 
 [[main_right]]
-  name = "<i class=\"fab fa-twitter\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+  name = "<i class=\"fab fa-twitter\" style=\"color: #1DA1F2; font-size: 1rem; line-height: 1.25\"></i>"
   post = ""
   url = "https://twitter.com/Kmesh_net"
   weight = 20
 
-#[[main_right]]
-#  name = "<i class=\"fab fa-slack\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
-#  post = ""
-#  url = "https://app.slack.com/client/T08PSQ7BQ/C052JRURD8V?selected_team_id=T08PSQ7BQ"
-#  weight = 30
+[[main_right]]
+  name = "<i class=\"fab fa-slack\" style=\"background: linear-gradient(to right, #36C5F0 49.9%, #2EB67D 50.1%) top, linear-gradient(to right, #E01E5A 49.9%, #ECB22E 50.1%) bottom; background-size: 100% 50%; background-repeat: no-repeat; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1rem; line-height: 1.25\"></i>"
+  post = ""
+  url = "https://app.slack.com/client/T08PSQ7BQ/C06BU2GB8NL"
+  weight = 30
 
 [[main_right]]
-  name = "<i class=\"fab fa-weixin\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+  name = "<i class=\"fab fa-weixin\" style=\"color: #1AAD19; font-size: 1rem; line-height: 1.25\"></i>"
   post = ""
   url = "https://blog.51cto.com/u_15127420/4992806"
   weight = 40
 
-# Documentation
+# Documentation Links
 [[docs]]
   name = "Welcome"
   weight = 5
@@ -67,7 +67,7 @@
 [[docs]]
   name = "User Guide"
   weight = 16
-  identifier = "user guide"
+  identifier = "user_guide"
 
 [[docs]]
   name = "Performance"
@@ -77,7 +77,7 @@
 [[docs]]
   name = "Developer Guide"
   weight = 25
-  identifier = "developer guide"
+  identifier = "developer_guide"
 
 [[docs]]
   name = "Community"

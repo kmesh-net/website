@@ -4,7 +4,7 @@ linktitle: Use Bypass Feature in Kmesh
 menu:
   docs:
     parent: user guide
-    weight: 19
+    weight: 21
 title: Use Bypass Feature in Kmesh
 toc: true
 type: docs
@@ -31,7 +31,7 @@ The bypass feature in Kmesh allows you to temporarily remove mesh service from t
 Before using the bypass feature, ensure you have:
 
 - A running Kubernetes cluster
-- Kmesh installed and configured
+- Kmesh installed and configured (see [Quick Start Guide](https://kmesh.net/en/docs/setup/quickstart/))
 - Pods with sidecar injection enabled
 - Administrative access to the cluster
 

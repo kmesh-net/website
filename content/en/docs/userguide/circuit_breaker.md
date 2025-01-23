@@ -1,253 +1,216 @@
 ---
 draft: false
-linktitle:  Circuit Breaker
+linktitle: Circuit Breaker
 menu:
   docs:
     parent: user guide
     weight: 22
-title: Use Circuit Breaker 
+title: Circuit Breaker
 toc: true
 type: docs
 ---
 
-### Preparation
+This task shows you how to configure circuit breakers in KMesh using Fortio for load testing.
 
-1. Ensure KMesh is installed in your Kubernetes cluster (see [Quick Start Guide](https://kmesh.net/en/docs/setup/quickstart/))
+### Before you begin
 
-2. Deploy a sample microservice application
+- Install KMesh
+  Please refer [quickstart](https://kmesh.net/en/docs/setup/quickstart/) and change into ads mode
 
-3. Verify the default namespace is managed by KMesh
 
-### Circuit Breaker Configuration
+### Deploy the test applications
 
-##### Deploy a Sample Application
-
-Let's use a simple microservice setup to demonstrate circuit breaking:
-
-```bash
-kubectl apply -f - <<EOF
+1. Create the test service:
+```yaml
+# sample-app.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-service
+  name: test-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: sample-service
+      app: test-service
   template:
     metadata:
       labels:
-        app: sample-service
+        app: test-service
     spec:
       containers:
-      - name: service
-        image: your-service-image
+      - name: test-service
+        image: nginx:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-service
+  name: test-service
 spec:
   selector:
-    app: sample-service
+    app: test-service
   ports:
   - port: 80
-    targetPort: 8080
-EOF
 ```
 
-##### Apply Circuit Breaker Configuration
-
-Configure circuit breaker to limit connections and requests:
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: kmesh.net/v1alpha1
-kind: CircuitBreaker
-metadata:
-  name: sample-service-circuit-breaker
-spec:
-  service: sample-service
-  rules:
-    - priority: HIGH
-      maxConnections: 100
-      maxPendingRequests: 50
-      maxRequests: 200
-      maxRetries: 3
-EOF
-```
-
-### Verify Circuit Breaker Functionality
-
-Use a load testing tool to simulate traffic and observe circuit breaker behavior:
-
-```bash
-# Install hey load testing tool
-go install github.com/rakyll/hey@latest
-
-# Generate load
-hey -n 1000 -c 50 http://sample-service/endpoint
-```
-
-### Monitoring Circuit Breaker Metrics
-
-Check circuit breaker metrics and logs:
-
-```bash
-# View KMesh circuit breaker logs
-kubectl logs -n kmesh -l app=kmesh circuit-breaker
-
-# Get circuit breaker statistics
-kmesh get circuit-breaker-stats sample-service
-```
-
-### Understanding the Circuit Breaker Mechanism
-
-When the circuit breaker is activated:
-- New connections are rejected
-- Existing connections are maintained
-- Service is protected from overload
-
-### Circuit Breaker Configuration Options
-
-| Parameter           | Description                          | Default    |
-|--------------------|--------------------------------------|------------|
-| priority           | Request routing priority             | DEFAULT    |
-| maxConnections     | Maximum concurrent connections       | Unlimited  |
-| maxPendingRequests | Maximum pending requests in queue    | Unlimited  |
-| maxRequests        | Maximum concurrent requests          | Unlimited  |
-| maxRetries         | Maximum retry attempts               | Unlimited  |
-
-### Technical Implementation Details
-
-##### Data Structures
-
-Circuit Breaker configuration in Protocol Buffers:
-
-```protobuf
-message CircuitBreakers {
-  RoutingPriority priority = 1;
-  uint32 max_connections = 2;
-  uint32 max_pending_requests = 3;
-  uint32 max_requests = 4;
-  uint32 max_retries = 5;
-  uint32 max_connection_pools = 7;
-}
-```
-
-Connection Tracking Structure:
-
-```c
-struct cluster_stats {
-    __u32 active_connections;
-};
-
-struct cluster_stats_key {
-    __u64 netns_cookie;
-    __u32 cluster_id;
-};
-```
-
-##### Connection Management Workflow
-
-Connection Binding Logic:
-
-```c
-static inline int on_cluster_sock_bind(
-    ctx_buff_t *ctx, 
-    const Cluster__Cluster *cluster
-) {
-    // Check if connection limits are exceeded
-    if (stats->active_connections >= cbs->max_connections) {
-        // Reject connection
-        return -1;
-    }
-    // Bind socket to cluster
-    return 0;
-}
-```
-
-### Advanced Configuration Example
-
+2. Deploy Fortio load tester:
 ```yaml
-apiVersion: kmesh.net/v1alpha1
-kind: CircuitBreaker
+# fortio.yaml
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: complex-service-circuit-breaker
+  name: fortio
 spec:
-  services:
-    - name: service-a
-      rules:
-        - priority: HIGH
-          maxConnections: 50
-    - name: service-b
-      rules:
-        - priority: MEDIUM
-          maxConnections: 100
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortio
+  template:
+    metadata:
+      labels:
+        app: fortio
+    spec:
+      containers:
+      - name: fortio
+        image: fortio/fortio
+        ports:
+        - containerPort: 8080
+```
+
+### Configure circuit breaker
+
+Apply the circuit breaker configuration:
+```yaml
+# circuit-breaker.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: test-circuit-breaker
+spec:
+  host: test-service
+  trafficPolicy:
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 5s
+      baseEjectionTime: 30s
+```
+
+Apply the configurations:
+```bash
+kubectl apply -f sample-app.yaml
+kubectl apply -f fortio.yaml
+kubectl apply -f circuit-breaker.yaml
+```
+
+
+
+### Monitor circuit breaker behavior
+
+Monitor metrics:
+```bash
+# View Fortio metrics
+kubectl logs deploy/fortio
+
+# Check service status
+kubectl get pods -w
+```
+
+### Testing Scenarios
+
+#### 4.1 Basic Load Test
+```bash
+# Normal load
+kubectl exec -it deploy/fortio -- \
+fortio load -c 1 -qps 10 -t 30s http://test-service
+```
+
+#### 4.2 Circuit Breaker Test
+```bash
+# Heavy load to trigger circuit breaker
+kubectl exec -it deploy/fortio -- \
+fortio load -c 5 -qps 100 -t 30s http://test-service
+
+# Verify circuit breaker status
+kubectl get destinationrule test-circuit-breaker -o yaml
+
+# Simulate service failure
+kubectl scale deployment test-service --replicas=0
+```
+#### 4.3 Recovery Test
+```bash
+# Restore service
+kubectl scale deployment test-service --replicas=1
+
+# Test recovery
+kubectl exec -it deploy/fortio -- \
+fortio load -c 2 -qps 20 -t 30s http://test-service
+```
+
+### Analyzing Results
+
+#### 6.1 Fortio Results
+```bash
+# View test results
+kubectl logs deploy/fortio
+
+# Get detailed metrics
+kubectl exec -it deploy/fortio -- /usr/bin/fortio report
+```
+
+#### 6.2 System Metrics
+```bash
+# Check pod status
+kubectl get pods -w
+
+# View circuit breaker configuration
+kubectl get destinationrule test-circuit-breaker -o yaml
+```
+
+### Understanding what happened
+
+The circuit breaker configuration:
+- Limits concurrent HTTP requests
+- Ejects hosts after 3 consecutive errors
+- Keeps circuit open for 30 seconds
+- Monitors service health every 5 seconds
+
+When the service is overloaded:
+1. Circuit breaker trips after threshold breach
+2. Subsequent requests are blocked
+3. Service recovers after baseEjectionTime
+4. Normal traffic flow resumes
+
+### Clean up
+
+Remove test components:
+```bash
+kubectl delete -f sample-app.yaml
+kubectl delete -f fortio.yaml
+kubectl delete -f circuit-breaker.yaml
 ```
 
 ### Troubleshooting
 
-##### Common Issues
-- Unexpected connection rejections
-- High error rates
-- Performance degradation
-
-##### Debugging Steps
-
+If you encounter issues:
+1. Check pod status:
 ```bash
-# Check circuit breaker configuration
-kubectl describe circuitbreaker sample-service-circuit-breaker
-
-# View detailed logs
-kubectl logs -n kmesh -l app=kmesh circuit-breaker -c circuit-breaker
-
-# Check cluster status
-kmesh get clusters
+kubectl get pods
+kubectl describe pod <pod-name>
 ```
 
-### Best Practices
-
-1. Start with conservative limits
-2. Gradually adjust based on service performance
-3. Monitor circuit breaker metrics
-4. Use priority-based configurations
-
-### Performance Considerations
-
-- Kernel-native implementation
-- Minimal overhead
-- Lock-free atomic updates
-- eBPF map-based tracking
-
-### Cleanup
-
-Remove the circuit breaker and sample application:
-
+2. Check circuit breaker configuration:
 ```bash
-kubectl delete circuitbreaker sample-service-circuit-breaker
-kubectl delete deployment sample-service
-kubectl delete service sample-service
+kubectl get destinationrule
+kubectl describe destinationrule test-circuit-breaker
 ```
 
-### Limitations
-
-- Currently focuses on TCP connections
-- Kernel version dependencies
-- Per-cluster granularity
-
-### Sample Code Snippet
-
-```go
-// Circuit Breaker Configuration Example
-circuitBreaker := &CircuitBreakers{
-    Priority:           RoutingPriority_HIGH,
-    MaxConnections:     100,
-    MaxPendingRequests: 50,
-    MaxRequests:        200,
-    MaxRetries:         3,
-}
+3. View application logs:
+```bash
+kubectl logs deploy/test-service
+kubectl logs deploy/fortio
 ```

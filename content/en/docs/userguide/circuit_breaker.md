@@ -83,21 +83,18 @@ spec:
 Apply the circuit breaker configuration:
 ```yaml
 # circuit-breaker.yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
+apiVersion: kmesh.net/v1alpha1
+kind: CircuitBreaker
 metadata:
   name: test-circuit-breaker
 spec:
-  host: test-service
-  trafficPolicy:
-    connectionPool:
-      http:
-        http1MaxPendingRequests: 1
-        maxRequestsPerConnection: 1
-    outlierDetection:
-      consecutive5xxErrors: 3
-      interval: 5s
-      baseEjectionTime: 30s
+  service: test-service
+  rules:
+    - priority: HIGH
+      maxConnections: 10
+      maxPendingRequests: 5
+      maxRequests: 20
+      maxRetries: 3
 ```
 
 Apply the configurations:

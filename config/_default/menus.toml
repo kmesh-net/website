@@ -30,6 +30,14 @@
   url = "https://github.com/kmesh-net/kmesh"
   weight = 10
 
+# Right Menu
+[[main_right]]
+  name = "<i class=\"fab fa-youtube\" style=\"color: #FF0000; font-size: 1rem; line-height: 1.25\"></i>"
+  post = ""
+  url = "https://www.youtube.com/@Kmesh-traffic"
+  weight = 10
+
+
 [[main_right]]
   name = "<i class=\"fab fa-twitter\" style=\"color: #1DA1F2; font-size: 1rem; line-height: 1.25\"></i>"
   post = ""

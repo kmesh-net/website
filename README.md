@@ -28,6 +28,47 @@ updates:
    reviewer/approver. See the
    [Kmesh contributor guide](https://github.com/kmesh-net/kmesh/blob/main/CONTRIBUTING.md).
 
+---
+## How to Install
+
+The Kmesh website is built using the **Hugo static site generator**. Follow these steps to install and run it:
+
+### 1. Prerequisites
+- Ensure you have the **specific version of Hugo**: `hugo_extended_0.90.0`.
+- Download the required version based on your operating system:
+  [Hugo Releases](https://github.com/gohugoio/hugo/releases).
+
+### 2. Installation Steps
+1. Download the appropriate `hugo_extended_0.90.0` binary for your operating system.
+2. Extract the downloaded archive (if compressed).
+3. Add the `hugo` binary to your system's PATH:
+   - **Linux/macOS**: Move the binary to `/usr/local/bin/`.
+   - **Windows**: Add the folder containing the binary to your system's environment variables.
+
+### 3. Verify Installation
+Run the following command to confirm the installed version:
+```bash
+hugo version
+```
+Ensure the output matches `hugo_extended_0.90.0`.
+
+### 4. Running the Hugo Server
+To build and serve the site locally, use the following commands:
+
+#### Basic Build
+```bash
+hugo
+```
+This builds the site and places the output in the `public` directory.
+
+#### Serve Locally
+```bash
+hugo server
+```
+Access the local site at: `http://localhost:1313`
+
+---
+
 ## Notes of Writing Documentation
 
 In the Kmesh documentation, a note is required at the beginning of each document as follows:

@@ -15,8 +15,8 @@
       {{ $link = . }}
       {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
     {{ end }}
-    <div>
-      <h2><a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ .Title }}</a></h2>
+    <div class="card card-simple">
+      <h2 class=""><a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ .Title }}</a></h2>
       <div class="article-style">
         {{ if .Params.summary }}
           {{ .Params.summary | plainify | emojify }}

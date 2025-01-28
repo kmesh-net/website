@@ -19,6 +19,26 @@
   margin: 0;
 }
 
+.card-simple h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.card-simple h2 a {
+  color: #2563eb;
+  text-decoration: none;
+  background: linear-gradient(to right, currentColor 0%, currentColor 100%);
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.card-simple h2 a:hover {
+  background-size: 100% 2px;
+}
+
 .dark .card-simple {
   background: rgb(40, 42, 54);
   box-shadow: 0 1px 4px rgba(0,0,0,.04);

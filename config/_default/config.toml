@@ -14,7 +14,7 @@ baseurl = "http://kmesh.net/"
 
 # Enter a copyright notice to display in the site footer.
 # To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
-copyright = "2023 &copy; Kmesh Project Authors. All rights reserved."
+copyright = "{year} &copy; Kmesh Project Authors. All rights reserved."
 
 ############################
 ## Advanced options below ##

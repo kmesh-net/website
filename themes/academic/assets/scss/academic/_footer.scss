@@ -11,8 +11,14 @@
 }
 
 .footer-license-icons img {
- display: inline-flex;
+  display: inline-flex;
   margin-right: 8px;
   height: 22px;
   vertical-align: text-bottom;
+}
+
+.site_footer {
+  background-color: black;
+  height: 100px;
+  width: 100%;
 }

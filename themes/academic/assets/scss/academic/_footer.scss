@@ -18,7 +18,7 @@
 }
 
 .site_footer {
-  background-color: #2d2d2d;
+  background-color: #05082a;
   width: 100%;
   margin: 50px 0 0;
   padding: 50px 10%;
@@ -30,7 +30,7 @@
   .footer_logo {
     padding: 10px 15px;
     height: 140px;
-    background-color: #f4f4f4;
+    background-color: #e2e2fc;
     border-radius: 8px;
     grid-area: logo;
 
@@ -63,9 +63,10 @@
     button {
       width: 90%;
       font-size: 17px;
+      font-weight: 200;
       border-radius: 5px;
       margin-bottom: 10px;
-      background-color: #ffffff;
+      background-color: #e2e2fc;
       border: none;
 
       i {
@@ -78,6 +79,32 @@
     height: 140px;
     padding: 10px 15px;
     grid-area: copyright;
-    background-color: rgb(146, 109, 62);
+    position: relative;
+    text-align: center;
+    color: rgb(197, 203, 255);
+
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 0 10%;
+      justify-content: space-between;
+      width: 100%;
+
+      li {
+        font-weight: 600;
+
+        a {
+          text-decoration: none;
+          color: #5696ce;
+        }
+      }
+    }
+
+    p {
+      position: absolute;
+      bottom: -25px;
+      left: 25%;
+      margin: 0;
+    }
   }
 }

@@ -22,9 +22,17 @@
   width: 100%;
   margin: 50px 0 0;
   padding: 50px 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-rows: auto;
+  grid-template-areas: 'logo copyright copyright copyright contribute';
 
   .footer_logo {
-    width: 20%;
+    padding: 10px 15px;
+    height: 140px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    grid-area: logo;
 
     img {
       width: 100%;
@@ -35,6 +43,41 @@
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
+
+      i.fab {
+        font-size: 40px;
+      }
     }
+  }
+
+  .footer_contribute {
+    height: 140px;
+    padding: 10px 15px;
+    grid-area: contribute;
+    text-align: center;
+
+    p {
+      color: white;
+    }
+
+    button {
+      width: 90%;
+      font-size: 17px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: #ffffff;
+      border: none;
+
+      i {
+        margin-left: 30px;
+      }
+    }
+  }
+
+  .footer_copyright {
+    height: 140px;
+    padding: 10px 15px;
+    grid-area: copyright;
+    background-color: rgb(146, 109, 62);
   }
 }

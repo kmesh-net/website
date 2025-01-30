@@ -22,4 +22,19 @@
   width: 100%;
   margin: 50px 0 0;
   padding: 50px 10%;
+
+  .footer_logo {
+    width: 20%;
+
+    img {
+      width: 100%;
+    }
+
+    .social-list {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 }

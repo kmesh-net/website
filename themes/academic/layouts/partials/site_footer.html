@@ -9,6 +9,25 @@
 <footer class="site_footer">
   <div class="footer_logo">
     <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
-    <div class="socials"></div>
+    <div class="socials">
+      <ul class="social-list navbar-nav ml-md-auto">
+          {{ range site.Menus.main_right }}
+  
+          {{/* Set target for link. */}}
+          {{ $.Scratch.Set "target" "" }}
+          {{ if gt (len .URL) 4 }}
+          {{ if eq "http" (slicestr .URL 0 4) }}
+          {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+          {{ end }}
+  
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+              {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+    </div>
   </div>
 </footer>

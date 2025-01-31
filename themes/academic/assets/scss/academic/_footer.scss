@@ -104,6 +104,10 @@
       p {
         color: white;
       }
+
+      a {
+        text-decoration: none;
+      }
   
       button {
         width: 100%;
@@ -135,6 +139,12 @@
         i {
           font-size: 25px;
         }
+      }
+
+      button:hover {
+        background-color: #28283a;
+        color: white;
+        transition: all ease-in-out 0.5s;
       }
     }
   

@@ -7,42 +7,44 @@
 {{ end }}
 
 <footer class="site_footer">
-  <div class="footer_logo">
-    <a href="https://kmesh.net/"><img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}"></a>
-    <div class="socials">
-      <ul class="social-list navbar-nav ml-md-auto">
-          {{ range site.Menus.main_right }}
-  
-          {{/* Set target for link. */}}
-          {{ $.Scratch.Set "target" "" }}
-          {{ if gt (len .URL) 4 }}
-          {{ if eq "http" (slicestr .URL 0 4) }}
-          {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
-          {{ end }}
-          {{ end }}
-  
-          <li class="nav-item">
-            <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
-              {{- .Pre -}}<span class="icon-span">{{ .Name | safeHTML }}</span>{{- .Post -}}
-            </a>
-          </li>
-          {{ end }}
-        </ul>
+  <div class="case">
+    <div class="footer_logo">
+      <a href="https://kmesh.net/"><img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}"></a>
+      <div class="socials">
+        <ul class="social-list navbar-nav ml-md-auto">
+            {{ range site.Menus.main_right }}
+    
+            {{/* Set target for link. */}}
+            {{ $.Scratch.Set "target" "" }}
+            {{ if gt (len .URL) 4 }}
+            {{ if eq "http" (slicestr .URL 0 4) }}
+            {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+            {{ end }}
+    
+            <li class="nav-item">
+              <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+                {{- .Pre -}}<span class="icon-span">{{ .Name | safeHTML }}</span>{{- .Post -}}
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+      </div>
     </div>
-  </div>
-  <div class="footer_contribute">
-    <a href="https://github.com/kmesh-net/website"><button class="button">Contribute to this website on Github</button></a>
-    <a href="#" class="back-to-top"><button>Scroll to top <i class="fas fa-chevron-up"></i></button></a>
-  </div>
-  <div class="footer_copyright">
-    <ul>
-      <li><a href="https://kmesh.net/en/docs/">Docs</a></li>
-      <li><a href="https://kmesh.net/en/blog/">Blog</a></li>
-      <li><a href="https://github.com/kmesh-net/kmesh/releases">Downloads</a></li>
-      <li><a href="https://kmesh.net/en/blog/kmesh_introduce/">About</a></li>
-    </ul>
-    <p class="powered-by">
-      {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
-    </p>
+    <div class="footer_contribute">
+      <a href="https://github.com/kmesh-net/website"><button class="button"><span>Contribute to this website on Github</span><i class="fab fa-github"></i></button></a>
+      <a href="#" class="back-to-top"><button><span>Scroll to top</span> <i class="fas fa-chevron-up"></i></button></a>
+    </div>
+    <div class="footer_copyright">
+      <ul>
+        <li><a href="https://kmesh.net/en/docs/">Docs</a></li>
+        <li><a href="https://kmesh.net/en/blog/">Blog</a></li>
+        <li><a href="https://github.com/kmesh-net/kmesh/releases">Downloads</a></li>
+        <li><a href="https://kmesh.net/en/blog/kmesh_introduce/">About</a></li>
+      </ul>
+      <p class="powered-by">
+        {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
+      </p>
+    </div>
   </div>
 </footer>

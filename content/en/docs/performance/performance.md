@@ -10,6 +10,16 @@ toc: true
 type: docs
 
 ---
+## Observability Integrations
+
+Kmesh provides comprehensive monitoring capabilities through integration with industry-standard observability platforms:
+
+- **Prometheus**: Collects and stores metrics for Kmesh performance and operations
+- **Grafana**: Visualizes Kmesh metrics through customizable dashboards
+- **Jaeger**: Enables distributed tracing to analyze service mesh traffic patterns
+
+These integrations help monitor Kmesh's performance metrics, resource consumption, and traffic patterns in real-time.
+
 ## Test Networking
 
 ![perf_network](/docs/performance/perf_network.png)

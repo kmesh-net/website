@@ -22,7 +22,7 @@ These integrations help monitor Kmesh's performance metrics, resource consumptio
 
 ## Test Networking
 
-![perf_network](/docs/performance/perf_network.png)
+![perf_network](/docs/performance/perf_network.png){: loading="lazy" width="1000" height="auto" }
 
 ## Test Procedure
 
@@ -43,4 +43,5 @@ Test a group of Fortio performance data by using the number of concurrent connec
 ```
 
 ## Performance
-![perf_test](/docs/performance/fortio_performance_test.png)
+
+![perf_test](/docs/performance/fortio_performance_test.png){: loading="lazy" width="1200" height="auto" }

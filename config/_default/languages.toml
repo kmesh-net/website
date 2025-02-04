@@ -35,7 +35,7 @@
     weight = 10
 
   [[zh.menu.main_right]]
-    name = "<i class=\"fab fa-twitter\" style=\"color: #55acee; font-size: 1rem; line-height: 1.25\"></i>"
+    name = "<i class=\"fab fa-x-twitter\" style=\"font-size: 1rem; line-height: 1.25\"></i>"
     post = ""
     url = "https://twitter.com/Kmesh_net"
     weight = 20

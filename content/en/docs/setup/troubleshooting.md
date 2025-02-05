@@ -83,7 +83,7 @@ sudo yum install -y libbpf-devel kernel-devel
 ### System Requirements Check
 ```
 # Kernel version check
-uname -r  # Should be ≥ 5.13.0 for full features
+uname -r  # Should be ≥ 5.10.0 for full features
 
 # BPF verification
 sudo bpftool prog list
@@ -111,10 +111,9 @@ kubectl -n kmesh-system get pods -l app=kmesh
 #### Enhanced Logging
 ```
 # Enable debug logging
-kubectl exec -n kmesh-system $(kubectl get pod -n kmesh-system -l app=kmesh -o jsonpath='{.items.metadata.name}') \
-  -- kmesh-daemon log --set default:debug
+kmeshctl accesslog <kmesh-pod-name> --set default:debug
 
-# Monitor BPF events (kernel ≥ 5.13.0)
+# Monitor BPF events (kernel ≥ 5.10.0)
 kubectl exec -n kmesh-system <kmesh-pod> -- kmesh-daemon log --set bpf:debug
 
 # Collect all logs

@@ -1,6 +1,7 @@
 /*************************************************
  *  Navigation bar
  **************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .navbar {
   height: 70px;
@@ -250,4 +251,31 @@ ul.nav-icons li.nav-item a.nav-link {
 .dark .dropdown-item {
   background-color: $sta-dark-menu-primary !important;
   color: $sta-dark-menu-text !important;
+}
+
+.navbar .navbar-nav .nav-item.nav-title .nav-link {
+  span {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #007bff; // Blue color
+      transition: width 0.3s ease;
+      transform-origin: left;
+    }
+  }
+
+  &:hover span::after {
+    width: 100%;
+  }
+
+  &.active span::after {
+    width: 100%;
+    background-color: #007bff; // Blue color for active state
+  }
 }

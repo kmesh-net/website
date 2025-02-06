@@ -21,7 +21,7 @@ Before installing Kmesh, ensure your environment meets the following requirement
 | Requirement | Version | Notes |
 |------------|---------|-------|
 | Kubernetes | 1.26+ | Tested on 1.26-1.29 |
-| Istio | 1.20+ | Ambient mode required |
+| Istio | 1.22+ | Ambient mode required |
 | Helm | 3.0+ | For helm installation |
 | Memory | 4GB+ | Recommended minimum |
 | CPU | 2 cores | Recommended minimum |

@@ -24,7 +24,7 @@ The software architecture of Kmesh consists of the following core components:
 | Component       | Description                                      |
 |-----------------|--------------------------------------------------|
 | Kmesh-daemon    | The daemon responsible for eBPF Orchestration lifecycle management, xDS protocol integration, observability, and other functions |
-| eBPF Orchestration | The traffic orchestration implemented with eBPF, including dynamic routing, canary deployments, load balancing |
+| eBPF Orchestration | The traffic orchestration implemented with eBPF, including dynamic routing, authorization, load balancing |
 | Waypoint        | Based on istio's waypoint to adapt to Kmesh protocols, responsible for L7 traffic management |
 
 ## Component Details
@@ -37,7 +37,7 @@ The software architecture of Kmesh consists of the following core components:
 
 ### eBPF Orchestration
 - Dynamic routing implementation
-- XDP-level authorization
+- Authorization
 - Load balancing optimization
 - Traffic acceleration
 

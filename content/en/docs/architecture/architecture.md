@@ -37,7 +37,7 @@ The software architecture of Kmesh consists of the following core components:
 
 ### eBPF Orchestration
 - Dynamic routing implementation
-- Canary deployment support
+- XDP-level authorization
 - Load balancing optimization
 - Traffic acceleration
 

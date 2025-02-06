@@ -14,6 +14,19 @@ description: >
 ---
 This guide lets you quickly install Kmesh.
 
+## Prerequisites
+
+Before installing Kmesh, ensure your environment meets the following requirements:
+
+| Requirement | Version | Notes |
+|------------|---------|-------|
+| Kubernetes | 1.26+ | Tested on 1.26-1.29 |
+| Istio | 1.20+ | Ambient mode required |
+| Helm | 3.0+ | For helm installation |
+| Memory | 4GB+ | Recommended minimum |
+| CPU | 2 cores | Recommended minimum |
+| Kernel | 5.10+ | For eBPF support |
+
 ## Preparation
 
 Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26+ are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly provide a Kubernetes cluster (We provide a [document](https://kmesh.net/en/docs/setup/develop_with_kind/) for developing and deploying Kmesh using kind). Of course, you can also use [minikube](https://minikube.sigs.k8s.io/docs/) and other ways to create Kubernetes clusters.
@@ -112,6 +125,69 @@ time="2024-04-25T13:17:41Z" level=info msg="wrote kubeconfig file /etc/cni/net.d
 time="2024-04-25T13:17:41Z" level=info msg="cni config file: /etc/cni/net.d/10-kindnet.conflist" subsys="cni installer"
 time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys=manager
 ```
+ 
+## Verify Installation
+
+After installing Kmesh, verify all components are functioning correctly:
+
+### 1. Verify Core Components
+
+Check Kmesh pod status:
+```console
+kubectl get pod -n kmesh-system
+NAME          READY   STATUS    RESTARTS   AGE
+kmesh-v2frk   1/1     Running   0          18h
+```
+
+Check Istio components:
+```console
+kubectl get pods -n istio-system
+NAME                      READY   STATUS    RESTARTS   AGE
+istiod-5659cfbd55-9s92d   1/1     Running   0          18h
+```
+
+### 2. Verify Kmesh Service Logs
+
+Check for successful initialization messages:
+```console
+kubectl logs -n kmesh-system $(kubectl get pods -n kmesh-system -o jsonpath='{.items.metadata.name}')
+```
+
+Look for these key messages:
+- "bpf Start successful"
+- "controller Start successful"
+- "dump StartServer successful"
+- "command Start cni successful"
+
+### 3. Verify CNI Configuration
+
+Check CNI binary installation:
+```console
+ls -l /opt/cni/bin/kmesh-cni
+```
+
+Verify CNI configuration:
+```console
+cat /etc/cni/net.d/kmesh-cni-kubeconfig
+```
+
+### 4. Verify Pod Integration
+
+Deploy a test pod and verify Kmesh annotation:
+```console
+kubectl describe po <pod-name> | grep Annotations
+Annotations:      kmesh.net/redirection: enabled
+```
+
+### 5. Verify Service Connectivity
+
+Test service access using the sleep pod:
+```console
+kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
+```
+
+Expected response should show HTTP 200 OK status.
+ 
 
 ## Deploy the Sample Applications
 

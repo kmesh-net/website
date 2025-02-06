@@ -113,6 +113,25 @@ time="2024-04-25T13:17:41Z" level=info msg="cni config file: /etc/cni/net.d/10-k
 time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys=manager
 ```
 
+## Change Kmesh Start Mode
+
+Kmesh supports two start up modes: `dual-engine` and `kernel-native`. 
+
+The specific mode to be used is defined in deploy/charts/kmesh-helm/values.yaml, and we can modify the startup parameters in that file.
+
+```yaml
+......
+    containers:
+      kmeshDaemonArgs: "--mode=dual-engine --enable-bypass=false"
+......
+```
+
+We can use the following command to make the modification:
+
+```
+sed -i 's/--mode=dual-engine/--mode=kernel-native/' deploy/charts/kmesh-helm/values.yaml
+```
+
 ## Deploy the Sample Applications
 
 Kmesh can manage pods in a namespace with a label `istio.io/dataplane-mode=Kmesh`, and meanwhile the pod should have no `istio.io/dataplane-mode=none` label.

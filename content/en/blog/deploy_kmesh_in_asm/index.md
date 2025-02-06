@@ -27,7 +27,6 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
-# Using Kmesh as the Data Plane for Alibaba Cloud Service Mesh (ASM) Sidecarless Mode
 ## Overview
 Alibaba Cloud Service Mesh (ASM) supports both Sidecar and Sidecarless modes. The Sidecar mode, where a proxy runs alongside each service instance, is currently the most selected and stable solution. However, this architecture introduces latency and resource overhead. To address the latency and resource consumption inherent in the Sidecar mode, various Sidecarless mode solutions have emerged in recent years, such as Istio Ambient. Istio Ambient deploys a ztunnel on each node to perform layer-4 traffic proxying for the Pods running on the node and deploy waypoints for layer-7 traffic proxying. While the Sidecarless mode can reduce latency and resource consumption, its stability and completeness in functionality still require improvement.
 

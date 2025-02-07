@@ -1,4 +1,5 @@
 ---
+title: Architecture
 draft: false
 menu:
   docs:

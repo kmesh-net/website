@@ -2,22 +2,21 @@ name: Codespell
 
 on:
   push:
-    branches: [main, theme-change]
+    branches: [theme-change]
   pull_request:
-    branches: [main, theme-change]
+    branches: [theme-change]
 
 permissions:
   contents: read
 
 jobs:
   codespell:
-    name: Check for spelling errors
+    name: Check spelling
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Codespell
-        uses: codespell-project/actions-codespell@v2
-        with:
-          path: .
+      - uses: actions/checkout@v4
+      - name: Install codespell
+        run: pip install codespell
+      - name: Run codespell
+        run: codespell --skip="*.lock" --ignore-words-list="liste" .

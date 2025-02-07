@@ -1,0 +1,51 @@
+[build]
+publish = "build"
+command = "yarn build"
+functions = "functions/"
+
+[build.environment]
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
+
+# Production build settings
+[context.production]
+command = "yarn build"
+
+[context.production.environment]
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
+
+# Deploy Preview (Creates preview links for PRs)
+[context.deploy-preview]
+command = "yarn build && yarn start"
+
+[context.deploy-preview.environment]
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
+
+# Branch Deploy (Deploys for non-main branches)
+[context.branch-deploy]
+command = "yarn build"
+
+[context.branch-deploy.environment]
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
+
+# Redirects for routing
+[[redirects]]
+  from = "/latestversion"
+  to = "/.netlify/functions/latestversion"
+  status = 200
+  force = true # Always redirect
+
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat"
+  status = 301
+  force = true # Ensure redirection
+
+[[redirects]]
+  from = "https://kmesh.net"
+  to = "https://kmesh.netlify.app"
+  status = 200
+  force = true

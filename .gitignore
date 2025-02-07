@@ -34,3 +34,6 @@ out/
 .hugo_build.lock
 resources/
 public/
+node_modules
+build/
+.docusaurus/

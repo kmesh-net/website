@@ -80,6 +80,11 @@
   identifier = "developer_guide"
 
 [[docs]]
+  name = "Concepts"
+  weight = 15
+  identifier = "concepts"
+
+[[docs]]
   name = "Community"
   weight = 30
   identifier = "community"

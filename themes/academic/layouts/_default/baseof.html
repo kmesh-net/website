@@ -28,9 +28,7 @@
 
   {{/* Docs and Updates layouts include the site footer in a different location. */}}
   {{ if not (in (slice "book" "docs" "updates") .Type) }}
-  <div class="container">
-    {{ partial "site_footer" . }}
-  </div>
+  {{ partial "site_footer" . }}
   {{ end }}
 
   {{ partial "citation" . }}

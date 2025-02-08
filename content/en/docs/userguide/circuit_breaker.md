@@ -148,6 +148,22 @@ kubectl exec -it deploy/fortio -- \
 fortio load -c 2 -qps 20 -t 30s http://test-service
 ```
 
+### Sample Test Results
+
+#### Without Circuit Breaker
+```
+IP addresses distribution: 10.96.230.153:80: 5 
+Code 200 : 3000 (100.0 %)
+```
+
+#### With Circuit Breaker
+```
+IP addresses distribution: 10.96.230.153:80: 5 
+Code 200 : 1914 (63.8%) 
+Code 503 : 1086 (36.2%)
+```
+
+
 ### Analyzing Results
 
 #### 6.1 Fortio Results

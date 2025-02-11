@@ -67,7 +67,7 @@
 [[docs]]
   name = "User Guide"
   weight = 16
-  identifier = "user_guide"
+  identifier = "user guide"
 
 [[docs]]
   name = "Performance"
@@ -77,7 +77,7 @@
 [[docs]]
   name = "Developer Guide"
   weight = 25
-  identifier = "developer_guide"
+  identifier = "developer guide"
 
 [[docs]]
   name = "Community"

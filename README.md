@@ -98,3 +98,18 @@ There are four points to note:
 - `weight` is used to order the documents. Should avoid duplication and conflicts prevented.
   It is also best not to use adjacent numbers to facilitate the insertion of new documents. A spacing of 5 is recommended.
   If you want your document to always be at the end of the current directory, you can just use 99.
+
+## Image Optimization Guidelines
+
+To enhance performance, all images (except logos and icons) should include the following attributes:
+
+```html
+![image_description](/path/to/image.png){: loading="lazy" width="1200" height="auto" }
+```
+
+- **`loading="lazy"`**: Enables lazy loading for improved page speed.
+- **`width="1200" height="auto"`**: Ensures consistent image scaling.
+
+Please follow this standard when contributing images to the documentation.
+
+Happy contributing!

@@ -24,7 +24,7 @@ In chapter of [quickstart](https://kmesh.net/en/docs/setup/quickstart/) `Change 
 ```shell
 [root@master kmesh]# kubectl apply -f samples/sleep/sleep.yaml -n tcp-echo-test
 [root@master kmesh]# kubectl apply -f samples/tcp-echo/tcp-echo-services.yaml -n tcp-echo-test
-[root@master kmesh]# kubectl apply -f samples/tcp-echo/tcp-echo-v1_v2.yaml -n tcp-echo-test
+[root@master kmesh]# kubectl apply -f samples/tcp-echo/tcp-echo-virtualservice.yaml -n tcp-echo-test
 ```
 
 ### Apply weight-based Load Balance

@@ -1,34 +1,51 @@
 [build]
-publish = "public"
-command = "hugo"
+publish = "build"
+command = "yarn build"
 functions = "functions/"
 
+[build.environment]
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
+
+# Production build settings
+[context.production]
+command = "yarn build"
+
 [context.production.environment]
-HUGO_VERSION = "0.90.0"
-HUGO_ENV = "production"
-HUGO_ENABLEGITINFO = "true"
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
 
-[context.split1]
-command = "hugo --enableGitInfo"
-
-[context.split1.environment]
-HUGO_VERSION = "0.90.0"
-HUGO_ENV = "production"
-
+# Deploy Preview (Creates preview links for PRs)
 [context.deploy-preview]
-command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "yarn build && yarn start"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.90.0"
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
 
+# Branch Deploy (Deploys for non-main branches)
 [context.branch-deploy]
-command = "hugo -b $DEPLOY_PRIME_URL"
+command = "yarn build"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.90.0"
+  NODE_VERSION = "20.14.0"
+  NPM_VERSION = "10.8.1"
 
-[context.next.environment]
-HUGO_ENABLEGITINFO = "true"
+# Redirects for routing
+[[redirects]]
+  from = "/latestversion"
+  to = "/.netlify/functions/latestversion"
+  status = 200
+  force = true # Always redirect
 
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat"
+  status = 301
+  force = true # Ensure redirection
 
-
+[[redirects]]
+  from = "https://kmesh.net"
+  to = "https://kmesh.netlify.app"
+  status = 200
+  force = true

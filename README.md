@@ -29,86 +29,115 @@ updates:
    [Kmesh contributor guide](https://github.com/kmesh-net/kmesh/blob/main/CONTRIBUTING.md).
 
 ---
+
 ## How to Install
 
-The Kmesh website is built using the **Hugo static site generator**. Follow these steps to install and run it:
+The Kmesh website is built using **Docusaurus** with React. Follow these steps to install and run it:
 
 ### 1. Prerequisites
-- Ensure you have the **specific version of Hugo**: `hugo_extended_0.90.0`.
-- Download the required version based on your operating system:
-  [Hugo Releases](https://github.com/gohugoio/hugo/releases).
+
+- Ensure you have **Node.js** installed (version 16.14 or above)
+- npm or yarn package manager
 
 ### 2. Installation Steps
-1. Download the appropriate `hugo_extended_0.90.0` binary for your operating system.
-2. Extract the downloaded archive (if compressed).
-3. Add the `hugo` binary to your system's PATH:
-   - **Linux/macOS**: Move the binary to `/usr/local/bin/`.
-   - **Windows**: Add the folder containing the binary to your system's environment variables.
 
-### 3. Verify Installation
-Run the following command to confirm the installed version:
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/kmesh-net/website.git
+   cd website
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+### 3. Running the Development Server
+
+To start the local development server:
+
 ```bash
-hugo version
+npm start
+# or
+yarn start
 ```
-Ensure the output matches `hugo_extended_0.90.0`.
 
-### 4. Running the Hugo Server
-To build and serve the site locally, use the following commands:
+Access the local site at: `http://localhost:3000`
 
-#### Basic Build
+### 4. Building for Production
+
+To build the static files:
+
 ```bash
-hugo
+npm run build
+# or
+yarn build
 ```
-This builds the site and places the output in the `public` directory.
 
-#### Serve Locally
+The built files will be in the `build` directory.
+
+To serve the built website locally:
+
 ```bash
-hugo server
+npm run serve
+# or
+yarn serve
 ```
-Access the local site at: `http://localhost:1313`
 
 ---
 
 ## Notes of Writing Documentation
 
-In the Kmesh documentation, a note is required at the beginning of each document as follows:
+In the Kmesh documentation, each document should include frontmatter at the beginning as follows:
 
-```console
+```md
 ---
-draft: false
-linktitle: XXX
-menu:
-  docs:
-    parent: XXX
-    weight: 1
-title: XXX
-toc: true
-type: docs
-
+title: Document Title
+sidebar_label: Menu Label
+sidebar_position: 2
+description: Brief description of the document
+slug: /custom-url-path
 ---
 ```
 
-There are four points to note:
+There are several key points to note:
 
-- `linktitle` is the title displayed in the menu.
-- `title` is the title displayed on the document page.
-- `parent` indicates which directory this document is contained in. For example, if you want to write a document under the `user guide`, you need to set the `parent: user guide`.
-  For the correspondence of each menu, please refer to [menus](./config/_default/menus.toml).
-  A simpler way is to directly copy the configuration of the existing documents in the directory.
-- `weight` is used to order the documents. Should avoid duplication and conflicts prevented.
-  It is also best not to use adjacent numbers to facilitate the insertion of new documents. A spacing of 5 is recommended.
-  If you want your document to always be at the end of the current directory, you can just use 99.
+- `title` is the title displayed at the top of the document page
+- `sidebar_label` is the title displayed in the sidebar menu (optional)
+- `sidebar_position` determines the order of documents in the sidebar (lower numbers appear higher)
+- `description` is used for SEO and appears in search results
+- `slug` allows you to customize the URL path (optional)
+
+For the sidebar structure, refer to the sidebar configuration in `sidebars.js`.
 
 ## Image Optimization Guidelines
 
 To enhance performance, all images (except logos and icons) should include the following attributes:
 
-```html
-![image_description](/path/to/image.png){: loading="lazy" width="1200" height="auto" }
+```jsx
+import Image from "@theme/IdealImage";
+
+<Image
+  img={require("/img/path/to/image.png")}
+  alt="image description"
+  width={1200}
+/>;
 ```
 
-- **`loading="lazy"`**: Enables lazy loading for improved page speed.
-- **`width="1200" height="auto"`**: Ensures consistent image scaling.
+Or for markdown:
+
+```md
+![image_description](/img/path/to/image.png)
+```
+
+Docusaurus automatically handles image optimization including:
+
+- Lazy loading for improved page speed
+- Responsive sizing
+- Image optimization
 
 Please follow this standard when contributing images to the documentation.
 

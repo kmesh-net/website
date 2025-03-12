@@ -22,7 +22,7 @@ Service mesh has grown in popularity over recent years, but despite this, the si
 
 At the beginning of project initiation, Kmesh innovatively proposed the industry's first kernel-based sidecarless traffic management engine to resolve this problem. The eBPF and programmable kernel technologies are used to sink L4–L7 traffic management into the OS. The traffic does not need to pass through a proxy and the service communication path in this case reduces from three hops to just one hop, eliminating the proxy overhead and implementing sidecarless service mesh.
 
-![image](images/kmesh-arch.svg)
+![image](images/kmesh-arch.png)
 
 ### Advantages of Kmesh
 

@@ -28,7 +28,7 @@ You can take reference from the [istio official document](https://istio.io/lates
 If you want to specified multiple workers or node image, you can:
 
 ```shell
-kind create cluster --image=kindest/node:v1.23.17 --config=- <<EOF
+kind create cluster --image=kindest/node:v1.30.0 --config=- <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: ambient

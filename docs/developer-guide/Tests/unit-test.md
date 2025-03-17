@@ -3,12 +3,15 @@ title: Run Unit test
 sidebar_position: 1
 ---
 
+# Run Unit Test
+
 Compiling Kmesh directly in the operating system requires a certain [OS version](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md). Therefore, in order to allow all operating systems to run Kmesh's UT, Kmesh provides two ways to do so. One to run the go unit test in docker and one to run the go unit test locally.
 
 Developers of unsupported kernel version can run go unit test in docker through script. Developers of supported version can run go unit test locally through script.
 
 ```sh
 cd $(Kmesh root directory)
+
 # Run kmesh ut through docker
 ./hack/run-ut.sh --docker
 
@@ -32,7 +35,7 @@ This section describes the ut settings for Kmesh so that developers can run unit
 
 Because Kmesh uses eBPF, you need to set some environment variables when running Kmesh-related Unit Tests.
 
-```console
+```sh 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:$ROOT_DIR/api/v2-c:$ROOT_DIR/bpf/deserialization_to_bpf_map
 export PKG_CONFIG_PATH=$ROOT_DIR/mk
 ```
@@ -49,6 +52,6 @@ Besides the above issues, since Kmesh ut uses gomonkey, there may be a situation
 
 We can solve this problem by adding the following parameter to the go test execution:
 
-```console
+```bash
 -gcflags="all=-N -l"
 ```

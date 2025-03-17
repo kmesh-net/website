@@ -1,6 +1,6 @@
 {
     "label": "Kmeshctl Usage",
-    "position": 2,
+    "position": 3,
     "link": {
         "type": "generated-index",
         "description": "Kmesh command line tools to operate and debug Kmesh"

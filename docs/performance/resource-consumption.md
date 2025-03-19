@@ -18,7 +18,7 @@ eBPF programs consume CPU and memory resources during execution. To better under
 | Component         | Version/Details                                                                                                       |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
 | K8S               | v1.27                                                                                                                 |
-| Kmesh             | 0.4 ads mode                                                                                                          |
+| Kmesh             | 0.4 kernel-native mode                                                                                                |
 | Kernel            | 5.10                                                                                                                  |
 | Node              | 8U16G                                                                                                                 |
 | Testing tool      | fortio                                                                                                                |
@@ -102,7 +102,7 @@ int cgroup_connect4_prog(struct bpf_sock_addr *ctx)
 
     // Add for loop to increase CPU usage
     int i;
-    for (i=0;i<65535;i++) {
+    for (i = 0; i < 65535; i++) {
         bpf_printk("increase cpu usage");
     }
 

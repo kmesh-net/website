@@ -43,7 +43,7 @@ The source code will be available in the release branch/tag as well as in the bi
 
 Support for the feature will not be stopped without 2 minor releases notice and will be present in at least next 2 minor releases.
 
-The feature will have very less bugs.
+The feature will have few bugs.
 
 The feature will not induce bugs in other APIs/Features if enabled.
 

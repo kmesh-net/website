@@ -15,7 +15,7 @@ title: Use Kiali to visualize traffic graph under Kmesh
 
 4. Deploy prometheus that record Kmesh metrics as Istio standard metrics.
 
-   _This Prometheus addon leveages the Prometheus recording rules and relabeling configurations to convert Kmesh L4 metrics into Istio standard metrics, so that Kiali could visualize these metrics._
+   _This Prometheus addon leverages the Prometheus recording rules and relabeling configurations to convert Kmesh L4 metrics into Istio standard metrics, so that Kiali could visualize these metrics._
 
    ```bash
    kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/prometheus_recording_istio.yaml

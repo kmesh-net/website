@@ -39,4 +39,4 @@ Then, you should be able to find the kernel headers in the path `/usr/include/li
 grep -q "FN(parse_header_msg)" /usr/include/linux/bpf.h && echo "enhanced" || echo "unenhanced"
 ```
 
-Now you can follow the [deploy and develop guide](https://kmesh.net/en/docs/setup/develop_with_kind/) to explore kmesh's full features.
+Now you can follow the [deploy and develop guide](/docs/setup/develop-with-kind.md) to explore kmesh's full features.

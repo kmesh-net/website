@@ -66,7 +66,7 @@ Please follow the official guide: [Install and Set Up kubectl on Linux](https://
 
 ### Deploy Kmesh
 
-Now, you are ready to deploy Kmesh in your local cluster. Feel free to follow the [Kmesh Quick Start](https://kmesh.net/en/docs/setup/quickstart/).
+Now, you are ready to deploy Kmesh in your local cluster. Feel free to follow the [Kmesh Quick Start](/docs/setup/quick-start.md).
 
 ## Develop Kmesh in Kind
 

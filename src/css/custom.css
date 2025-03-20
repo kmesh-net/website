@@ -15,7 +15,6 @@
   --ifm-color-primary-lightest: #99c7ff;
   --ifm-navbar-link-hover-color: #007bff;
   --ifm-navbar-link-active-color: #007bff;
-  
 
   /* Typography */
   --ifm-font-family-base: Georgia, "Times New Roman", serif;
@@ -103,4 +102,19 @@
 .token.comment {
   color: #6c757d !important; /* Lighter gray for better distinction */
   font-style: italic;
+}
+
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

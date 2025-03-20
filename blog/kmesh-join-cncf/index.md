@@ -14,6 +14,8 @@ CNCF Landscape helps users understand specific software and product choices in e
 
 ![image](images/introduce.png)
 
+<!-- truncate -->
+
 ## Kmesh: Industry's First Kernel-Based Sidecarless Traffic Management Engine
 
 ### eBPF and Sidecarless Being the Future of Service Mesh

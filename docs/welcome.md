@@ -24,9 +24,9 @@ Kmesh leverages eBPF and programmable kernels to offload traffic management to t
 | Resource Optimization   | Lower CPU and memory usage through OS-layer implementation                   |
 | Simplified Architecture | Fewer hops in service access paths improve overall performance               |
 
-<!-- In the following docs, we will explain:
+In the following docs, we will explain:
 
-- The [architecture](architecture/architecture) and highlights advantages of Kmesh.
-- The [quick start](setup/quickstart) of Kmesh.
-- The [performance](performance/performance) of Kmesh.
-- The [community](community/contribute) of Kmesh. -->
+- The [architecture](/docs/architecture/) and highlights advantages of Kmesh.
+- The [quick start](/docs/setup/quick-start) of Kmesh.
+- The [performance](/docs/performance/) of Kmesh.
+- The [community](/docs/community/contribute.md) of Kmesh.

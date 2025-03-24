@@ -1,6 +1,6 @@
 ---
 title: kmeshctl waypoint status
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 Show the status of waypoints for the namespace provided or default namespace if none is provided

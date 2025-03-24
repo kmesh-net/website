@@ -28,7 +28,6 @@ const config = {
       },
       zh: {
         label: "简体中文",
-        htmlLang: "zn",
       },
     },
   },
@@ -40,7 +39,7 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
-          editUrl: "https://github.com/kmesh-net/website/blob/theme-change",
+          editUrl: "https://github.com/kmesh-net/website/blob/change-theme",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -56,7 +55,7 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/kmesh-net/website/blob/theme-change",
+          editUrl: "https://github.com/kmesh-net/website/blob/change-theme",
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",

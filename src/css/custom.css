@@ -17,7 +17,7 @@
   --ifm-navbar-link-active-color: #007bff;
 
   /* Typography */
-  --ifm-font-family-base: Georgia, "Times New Roman", serif;
+  --ifm-font-family-base: Tahoma, Verdana, Arial, sans-serif;
   --ifm-font-family-monospace: "SFMono-Regular", Consolas, Monaco, monospace;
   --ifm-font-size-base: 20px;
   --ifm-line-height-base: 1.7;

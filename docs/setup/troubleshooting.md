@@ -167,8 +167,8 @@ kubectl top pod -n kmesh-system
 
 ## Additional Resources
 <!-- for now there no link added -->
-- [Kmesh Architecture Guide](#)
-- [Performance Tuning](#)
-- [Community Support](#)
+- [Kmesh Architecture Guide](/docs/architecture/architecture.md)
+- [Performance Tuning](/docs/performance/performance.md)
+- [Community Support](/docs/community/contribute.md)
 
 For more complex issues, please refer to our [GitHub Issues](https://github.com/kmesh-net/kmesh/issues) or join our community channels.

@@ -1,3 +1,8 @@
+---
+title: Create a Blog
+sidebar_position: 3
+---
+
 ## Creating a Blog in Docusaurus: A Comprehensive Guide
 
 Docusaurus is a powerful static site generator that includes a built-in blog feature, making it easy to create and share blog posts. This guide will explain how to set up a blog, write posts, configure options, and maintain your content—all in a way that's approachable for beginners.

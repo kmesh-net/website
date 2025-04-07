@@ -1,3 +1,8 @@
+---
+title: Version management
+sidebar_position: 2
+---
+
 # Versioning Documentation in Docusaurus: A Comprehensive Guide
 
 Docusaurus offers robust built-in support for versioning documentation, a critical feature for projects that evolve over time. Versioning allows you to maintain multiple versions of your documentation, ensuring users can access information relevant to the specific version of your software they are using. This comprehensive document will walk you through the process of setting up, managing, and optimizing versioned documentation in Docusaurus.

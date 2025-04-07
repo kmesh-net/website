@@ -1,3 +1,8 @@
+---
+title: Create a Document
+sidebar_position: 1
+---
+
 ## Creating a Document in Docusaurus: A Beginner's Guide
 
 Docusaurus is a powerful tool for building documentation websites with ease. It uses Markdown files to generate static HTML pages, making it simple to create and maintain your project’s documentation. In this guide, we’ll cover everything you need to know to create a document in Docusaurus, from understanding the folder structure to configuring the sidebar navigation.
@@ -55,6 +60,7 @@ tags:
 ```
 
 This front matter tells Docusaurus:
+
 - The document’s unique ID is `my-doc`.
 - The title is “My Document”.
 - The URL path is `/my-custom-url` instead of the default `/docs/my-doc`.
@@ -67,9 +73,10 @@ Front matter is optional, but it’s highly recommended for better control over 
 The folder structure within the `docs/` directory determines both the URL paths of your documents and the sidebar navigation.
 
 - **URL Paths**: By default, the folder structure becomes part of the document’s URL. For example:
+
   - `docs/intro.md` → `/docs/intro`
   - `docs/architecture/overview.md` → `/docs/architecture/overview`
-  You can override this with the `slug` parameter in the front matter.
+    You can override this with the `slug` parameter in the front matter.
 
 - **Sidebar Navigation**: Docusaurus can automatically generate a sidebar based on your folder structure. Each subfolder in `docs/` becomes a category in the sidebar, and the files within that folder become links under that category. For example:
 
@@ -96,11 +103,11 @@ Inside a subfolder, you can add a file named `_category_.json` to configure how 
 
 ```json
 {
-    "label": "Architecture",
-    "position": 3,
-    "link": {
-        "type": "generated-index"
-    }
+  "label": "Architecture",
+  "position": 3,
+  "link": {
+    "type": "generated-index"
+  }
 }
 ```
 
@@ -115,6 +122,7 @@ This file gives you fine-grained control over the sidebar for that specific fold
 If you’re new to Docusaurus, follow these steps to create your first document:
 
 1. **Set Up Docusaurus**:
+
    - Install Docusaurus by running this command in your terminal:
      ```bash
      npx create-docusaurus@latest my-site classic
@@ -126,12 +134,15 @@ If you’re new to Docusaurus, follow these steps to create your first document:
      ```
 
 2. **Go to the Docs Folder**:
+
    - Open the `docs/` folder in your project directory (e.g., `my-site/docs/`).
 
 3. **Create a Markdown File**:
+
    - Create a new file, e.g., `my-doc.md`, using a text editor.
 
 4. **Add Front Matter (Optional)**:
+
    - At the top of the file, add metadata like this:
      ```yaml
      ---
@@ -141,30 +152,35 @@ If you’re new to Docusaurus, follow these steps to create your first document:
      ```
 
 5. **Write Your Content**:
+
    - Below the front matter, write your documentation using Markdown. For example:
+
      ```markdown
      # My Document
 
      Welcome to my first Docusaurus document!
 
      ## Features
+
      - Easy to use
      - Highly customizable
      ```
 
 6. **Organize with Folders (Optional)**:
+
    - To group related documents, create a subfolder (e.g., `docs/features/`) and move or create files inside it (e.g., `features/my-doc.md`).
 
 7. **Configure the Sidebar (Optional)**:
+
    - For automatic sidebar generation, Docusaurus will use your folder structure.
    - To customize a category, add a `_category_.json` file in the subfolder. For example, in `docs/features/`:
      ```json
      {
-         "label": "Features",
-         "position": 2,
-         "link": {
-             "type": "generated-index"
-         }
+       "label": "Features",
+       "position": 2,
+       "link": {
+         "type": "generated-index"
+       }
      }
      ```
    - Alternatively, edit `sidebars.js` in the root directory for manual sidebar configuration.
@@ -200,10 +216,12 @@ tags:
 This document provides an overview of the system's architecture.
 
 ## Components
+
 - **Frontend**: Built with React.
 - **Backend**: Powered by Node.js.
 
 ## Design Principles
+
 - Modularity
 - Scalability
 ```
@@ -214,7 +232,7 @@ This document provides an overview of the system's architecture.
 ### 6. Additional Resources
 
 For more details on creating and customizing documents in Docusaurus, visit the official documentation:
+
 - [https://docusaurus.io/docs/create-doc](https://docusaurus.io/docs/create-doc)
 
 This guide covers the essentials, but Docusaurus offers advanced features like versioning and multi-language support. As you grow comfortable, explore these to enhance your documentation site.
-

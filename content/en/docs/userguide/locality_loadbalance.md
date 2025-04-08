@@ -13,7 +13,7 @@ type: docs
 
 This document introduces how to use Locality Load Balancing with Istio in the Kmesh.
 
-> The current Kemsh Locality Load Balancing is at the L4 level and only support [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
+> The current Kmesh Locality Load Balancing is at the L4 level and only support [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
 
 #### What is Locality Load Balancing?
 A locality defines the geographic location of a workload instance within mesh. Locality Load Balancing in service mesh helps improve the availability and performance of services by intelligently routing traffic based on the location of the service instances.

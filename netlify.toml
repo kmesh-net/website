@@ -46,6 +46,6 @@ command = "yarn build"
 
 [[redirects]]
   from = "https://kmesh.net"
-  to = "https://kmesh.netlify.app"
+  to = "https://kmesh-net.netlify.app"
   status = 200
   force = true

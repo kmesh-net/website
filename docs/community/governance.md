@@ -8,7 +8,7 @@ sidebar_position: 3
 Kmesh is a high-performance and low overhead service mesh data plane based on eBPF and programmable kernel.
 This governance explains how the project is run.
 
-- [Kmesh Project Governance](#kmesh-project-governance)
+- Kmesh Project Governance
   - [Values](#values)
   - [Membership](#membership)
   - [Meetings](#meetings)

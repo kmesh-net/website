@@ -9,7 +9,7 @@ This task shows you how to set up Traffic Shifting policy for http traffic in Km
 
 - Install Kmesh
   
-  Please refer to [quickstart](/docs/setup/quick-start.md) and change into ads mode
+  Please refer to [quickstart](/docs/setup/quick-start.md) and change into `Kernel Native Mode`
   
 - Deploy the fortio Applications
 

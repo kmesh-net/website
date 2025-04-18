@@ -5,7 +5,7 @@ title: Locality Load Balancing
 
 This document introduces how to use Locality Load Balancing with Istio in the Kmesh.
 
-> The current Kemsh Locality Load Balancing is at the L4 level and only support [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
+> The current Kmesh Locality Load Balancing is at the L4 level and only support [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
 
 ## What is Locality Load Balancing?
 

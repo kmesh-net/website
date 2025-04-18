@@ -54,7 +54,7 @@ mv istioctl /usr/bin/
 istioctl install
 ```
 
-If you want to use `Kmesh` in `workload` mode, you should deploy `istio` in [ambient mode](https://istio.io/latest/docs/ambient/overview/), by adding an extra flag:
+If you want to use `Kmesh` in `Dual Engine Mode`, you should deploy `istio` in [ambient mode](https://istio.io/latest/docs/ambient/overview/), by adding an extra flag:
 
 ```shell
 istioctl install --set profile=ambient

@@ -11,7 +11,7 @@ title: 流量转移
 
 - **安装 Kmesh**
 
-  请参考[快速入门](/i18n/zh/docusaurus-plugin-content-docs/current/setup/quick-start.md)并切换到 ADS 模式。
+  请参考[快速入门](/i18n/zh/docusaurus-plugin-content-docs/current/setup/quick-start.md)并切换到内核原生模式(Kernel Native Mode)。
 
 - **部署 Fortio 应用程序**
 

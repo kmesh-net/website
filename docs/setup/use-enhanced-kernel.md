@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # Use Enhanced Kernel
 
-Some features of kmesh depend on enhanced kernel (e.g., L7 traffic control in ads mode). To utilize it, you can use **openEuler 23.03**, which natively supports all features.
+Some features of kmesh depend on enhanced kernel (e.g., L7 traffic control in `Kernel Native Mode`). To utilize it, you can use **openEuler 23.03**, which natively supports all features.
 
 You can follow the steps below to use enhanced kernel:
 

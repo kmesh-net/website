@@ -9,7 +9,7 @@ This task shows you how to set up Request Routing policy for http traffic in Kme
 
 - Install Kmesh
 
-  - Please refer [quickstart](/docs/setup/quick-start.md) and change into ads mode
+  - Please refer [quickstart](/docs/setup/quick-start.md) and change into `Kernel Native Mode`
 
 - Deploy the fortio Applications
 

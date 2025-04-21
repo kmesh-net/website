@@ -9,7 +9,7 @@ title: 请求路由
 
 - 安装 Kmesh
 
-  - 请参考 [快速入门](/i18n/zh/docusaurus-plugin-content-docs/current/setup/quick-start.md) 并切换到 ads 模式
+  - 请参考 [快速入门](/i18n/zh/docusaurus-plugin-content-docs/current/setup/quick-start.md) 并切换到内核原生(Kernel Native)模式
 
 - 部署 fortio 应用程序
 

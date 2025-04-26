@@ -68,6 +68,7 @@ default              tcp-echo-7f676db574-mzmql                     1/1     Runni
 Metrics monitored by Kmesh L4 at this stage:
 
 #### Workload Metrics
+Give information about traffic behavior and performance between workloads.
 
 | Name                                           | Description                                                                                    |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -76,8 +77,11 @@ Metrics monitored by Kmesh L4 at this stage:
 | `kmesh_tcp_workload_received_bytes_total`      | The size of the total number of bytes received in response to a workload over a TCP connection |
 | `kmesh_tcp_workload_sent_bytes_total`          | The size of the total number of bytes sent in response to a workload over a TCP connection     |
 | `kmesh_tcp_workload_conntections_failed_total` | The total number of TCP connections failed to a workload                                       |
+| `kmesh_tcp_retrans_total`      | Total number of retransmissions of the workload over the TCP connection |
+| `kmesh_tcp_packet_loss_total`          | Total number of TCP packets lost between source and destination workload     |
 
 #### Service Metrics
+Give information about traffic behavior and performance between services.
 
 | Name                                  | Description                                                                                   |
 | ------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -86,6 +90,16 @@ Metrics monitored by Kmesh L4 at this stage:
 | `kmesh_tcp_received_bytes_total`      | The size of the total number of bytes received in response to a service over a TCP connection |
 | `kmesh_tcp_sent_bytes_total`          | The size of the total number of bytes sent in response to a service over a TCP connection     |
 | `kmesh_tcp_conntections_failed_total` | The total number of TCP connections failed to a service                                       |
+
+#### Connection Metrics
+Give information about traffic behavior and performance of a established tcp connection(duration > 30 seconds). These metrics are particularly valuable in clusters running workloads that establish long-lived TCP connections, such as databases, message brokers, audio/video streaming services, AI applications etc.
+
+| Name                                           | Description                                                                                    |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `kmesh_tcp_connection_sent_bytes_total`  | The total number of bytes sent over established TCP connection                                       |
+| `kmesh_tcp_connection_received_bytes_total`  | The total number of bytes received over established TCP connection                                       |
+| `kmesh_tcp_connection_packet_lost_total`      | Total number of packets lost during transmission in a TCP connection                                       |
+| `kmesh_tcp_connection_retrans_total`          | The total number of retransmits over established TCP connection                                       |
 
 ### Querying Steps
 

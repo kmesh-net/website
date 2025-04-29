@@ -39,7 +39,7 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
-          editUrl: "https://github.com/kmesh-net/website/blob/change-theme",
+          editUrl: "https://github.com/kmesh-net/website/blob/main",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -55,7 +55,7 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/kmesh-net/website/blob/change-theme",
+          editUrl: "https://github.com/kmesh-net/website/blob/main",
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",

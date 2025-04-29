@@ -21,3 +21,5 @@ yarn-error.log*
 
 # Vscode files
 .vscode
+
+package-lock.json

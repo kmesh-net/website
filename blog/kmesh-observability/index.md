@@ -99,11 +99,11 @@ struct tcp_probe_info {
 
 In addition to the TCP data that can be accessed directly, Kmesh temporarily records supplementary information during the connection establishment phase, such as the start time, connection direction, and the last report time. The last report time is used to periodically report connection metrics. After each report, Kmesh updates the last report time to the current timestamp, while also utilizing other stored information to enrich the reported data.
 
-Connection data is published to a ring buffer, allowing userspace applications to access it. Data is reported at key stages of the connection lifecycle: during connection establishment, at regular intervals throughout the connection's duration, and upon connection closure.
+Connection stats is written to a ring buffer, allowing userspace applications to access it. Data is reported at key stages of the connection lifecycle: during connection establishment, at regular intervals throughout the connection's duration, and upon connection closure.
 
-## How to Handle Data
+## How to Handle TCP stats
 
-After parsing the data from ringbuf in the use space, Kmesh builds `metricLabels` based on the linked source and destination information. it then updates the cache in the `metricController`.
+After parsing the data from ringbuf in the user space, Kmesh builds `metricLabels` based on the linked source and destination information. It then updates the cache in the `metricController`.
 
 This is because the data reported through the ring buffer is connection-specific, capturing details of individual TCP connections between applications. However, the metrics exposed to the user are expected at multiple levels of granularity — including connection, pod, and service levels. As a result, aggregation of the connection data is necessary to provide meaningful metrics at the higher pod and service granularity.
 
@@ -132,7 +132,7 @@ Access log data is generated during the processing of metrics and subsequently e
 
 The architecture diagram is shown below:
 
-![probe](images/probe.jpg)
+![probe](images/probe.svg)
 
 
 ### Result

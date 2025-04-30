@@ -61,6 +61,11 @@ default              tcp-echo-7f676db574-mzmql                     1/1     Runni
 
 > **Important:** Confirm that sleep and tcp-echo are indeed [managed by kmesh](/docs/setup/quick-start.md#deploy-the-sample-applications).
 
+### 5. Enable required metrics
+
+Kmesh prometheus metrics can be enabled and disabled using kmeshctl.
+Please refer to the [kmeshctl Guide](../developer-guide/Kmeshctl-usage/kmeshctl-monitoring.md)
+
 ## Querying Metrics from Prometheus
 
 ### Available Metrics

@@ -125,17 +125,17 @@ const config = {
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
-        additionalLanguages: ['bash'],
+        additionalLanguages: ["bash"],
       },
 
       zoom: {
-        selector: '.markdown img',
+        selector: ".markdown img",
         options: {
           margin: 24,
-          background: '#BADA55',
+          background: "#BADA55",
           scrollOffset: 0,
-          container: '#zoom-container',
-          template: '#zoom-template',
+          container: "#zoom-container",
+          template: "#zoom-template",
         },
       },
     }),
@@ -143,7 +143,16 @@ const config = {
   plugins: [
     [require.resolve("./src/plugins/blogGlobalData/index.js"), {}],
     "docusaurus-plugin-sass",
-    "plugin-image-zoom"
+    "plugin-image-zoom",
+    [
+      "docusaurus-lunr-search",
+      {
+        languages: ["en",'zh'],
+        indexDocs: true,
+        indexBlog: true,
+        indexPages: false,
+      }
+    ],
   ],
 };
 

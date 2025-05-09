@@ -61,6 +61,11 @@ default              tcp-echo-7f676db574-mzmql                     1/1     Runni
 
 > **Important:** Confirm that sleep and tcp-echo are indeed [managed by kmesh](/docs/setup/quick-start.md#deploy-the-sample-applications).
 
+### 5. Enable required metrics
+
+Kmesh prometheus metrics can be enabled and disabled using kmeshctl.
+Please refer to the [kmeshctl Guide](../developer-guide/Kmeshctl-usage/kmeshctl-monitoring.md)
+
 ## Querying Metrics from Prometheus
 
 ### Available Metrics
@@ -92,7 +97,8 @@ Give information about traffic behavior and performance between services.
 | `kmesh_tcp_conntections_failed_total` | The total number of TCP connections failed to a service                                       |
 
 #### Connection Metrics
-Give information about traffic behavior and performance of a established tcp connection(duration > 30 seconds). These metrics are particularly valuable in clusters running workloads that establish long-lived TCP connections, such as databases, message brokers, audio/video streaming services, AI applications etc.
+Give information about traffic behavior and performance of a established tcp connection(duration > 5 seconds). These metrics are particularly valuable in clusters running workloads that establish long-lived TCP connections, such as databases, message brokers, audio/video streaming services, AI applications etc. 
+It is recommended to set the scrape interval to 5 seconds to ensure connection metrics are reliably captured.
 
 | Name                                           | Description                                                                                    |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |

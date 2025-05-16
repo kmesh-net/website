@@ -3,6 +3,7 @@ sidebar_position: 4
 title: Use Grafana to visualize kmesh performance monitoring
 ---
 
+**NOTE:** This is an immature feature, so we turn it off by default, you can optionally turn it on.
 
 ## Preparation
 
@@ -17,7 +18,7 @@ title: Use Grafana to visualize kmesh performance monitoring
 
 5. Refer to [quick start](https://kmesh.net/docs/setup/quick-start) to include test pods in kmesh management. Or include default namespace in kmesh management.
 
-7. Use `kmeshctl` to enable all of kmesh's monitoring functions:
+6. Use `kmeshctl` to enable all of kmesh's monitoring functions:
 
 ```sh
 kmeshctl monitoring --all enable

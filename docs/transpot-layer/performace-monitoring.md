@@ -9,13 +9,21 @@ title: Use Grafana to visualize kmesh performance monitoring
 1. Make default namespace managed by Kmesh
 2. Set relevant args:
    - Modify `bpf/kmesh/probes/performance_probe.h` by changing `#define PERF_MONITOR 0` to `#define PERF_MONITOR 1`.
-   - Change `--enable-perfmonitor=false` to `--enable-perfmonitor=true` in `deploy/yaml/kmesh.yaml`.
+   - Change `--profiling=false` to `--profiling=true` in `deploy/yaml/kmesh.yaml`. (The default value of `--profiling` is false.)
 3. Deploy bookinfo as sample application and sleep as curl client
 4. Install namespace granularity waypoint for default namespace
    
-   *The above steps could refer to [Install Waypoint | Kmesh](#)*
+   *The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/docs/setup/quick-start)
 
-5. Deploy prometheus and garafana:
+5. Refer to [quick start](https://kmesh.net/docs/setup/quick-start) to include test pods in kmesh management. Or include default namespace in kmesh management.
+
+7. Use `kmeshctl` to enable all of kmesh's monitoring functions:
+
+```sh
+kmeshctl monitoring --all enable
+```
+
+1. Deploy prometheus and garafana:
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/prometheus.yaml

@@ -11,7 +11,7 @@ Kmesh 的某些功能依赖于增强内核（例如，ads 模式下的 L7 流量
 
 ## 下载 openEuler 23.03 镜像
 
-从以下链接下载镜像：<https://repo.openeuler.org/openEuler-23.03/ISO/>
+从以下链接下载镜像：https://repo.openeuler.org/openEuler-23.03/ISO/
 
 ## 安装操作系统
 

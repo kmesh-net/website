@@ -11,7 +11,7 @@ This document introduces how to use Locality Load Balancing with Istio in the Km
 
 A locality defines the geographic location of a workload instance within mesh. Locality Load Balancing in service mesh helps improve the availability and performance of services by intelligently routing traffic based on the location of the service instances.
 
-We strongly recommend that you first read <https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/> to understand what locality load balancing is.
+We strongly recommend that you first read https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ to understand what locality load balancing is.
 
 ## Supported Modes and Configuration Methods for Kmesh
 

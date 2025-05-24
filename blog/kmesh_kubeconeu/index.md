@@ -124,14 +124,14 @@ Kernel-native Traffic Governance Framework Brings New Performance Experience
 
 ## Reference Links
 
-[1] Kmesh releases: <https://github.com/kmesh-net/kmesh/releases>
+[1] Kmesh releases: https://github.com/kmesh-net/kmesh/releases
 
-[2] Deployment images for Kmesh: <https://github.com/orgs/kmesh-net/packages>
+[2] Deployment images for Kmesh: https://github.com/orgs/kmesh-net/packages
 
-[3] One-click deployment of Kmesh: <https://github.com/kmesh-net/kmesh?tab=readme-ov-file#quick-start>
+[3] One-click deployment of Kmesh: https://github.com/kmesh-net/kmesh?tab=readme-ov-file#quick-start
 
-[4] openEuler 23.03 version: <https://repo.openeuler.org/openEuler-23.03/>
+[4] openEuler 23.03 version: https://repo.openeuler.org/openEuler-23.03/
 
-[5] Building based on enhanced patches: <https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_kernel_compile.md>
+[5] Building based on enhanced patches: https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_kernel_compile.md
 
-[6] Kmesh community address: <https://github.com/kmesh-net/kmesh>
+[6] Kmesh community address: https://github.com/kmesh-net/kmesh

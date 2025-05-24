@@ -11,7 +11,7 @@ You can follow the steps below to use enhanced kernel:
 
 ## Download openEuler 23.03 image
 
-Download the image from: <https://repo.openeuler.org/openEuler-23.03/ISO/>
+Download the image from: https://repo.openeuler.org/openEuler-23.03/ISO/
 
 ## Install the operation system
 

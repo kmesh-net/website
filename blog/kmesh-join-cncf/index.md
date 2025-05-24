@@ -71,10 +71,10 @@ Having accumulated extensive experience within the Istio community, we aspire to
 
 ### Reference
 
-[1] CNCF Landscape: <https://landscape.cncf.io/>
+[1] CNCF Landscape: https://landscape.cncf.io/
 
-[2] Introducing Ambient Mesh: <https://istio.io/latest/blog/2022/introducing-ambient-mesh/>
+[2] Introducing Ambient Mesh: https://istio.io/latest/blog/2022/introducing-ambient-mesh/
 
-[3] Huawei Cloud ASM: <https://support.huaweicloud.com/intl/en-us/asm/index.html>
+[3] Huawei Cloud ASM: https://support.huaweicloud.com/intl/en-us/asm/index.html
 
-[4] Quick Start of Kmesh: <https://kmesh.net/en/docs/setup/quickstart/>
+[4] Quick Start of Kmesh: https://kmesh.net/en/docs/setup/quickstart/

@@ -11,7 +11,7 @@ title: 地域负载均衡
 
 地域定义了网格中工作负载实例的地理位置。服务网格中的地域负载均衡通过根据服务实例的位置智能路由流量，有助于提高服务的可用性和性能。
 
-我们强烈建议您首先阅读 <https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/> 以了解地域负载均衡的概念。
+我们强烈建议您首先阅读 https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ 以了解地域负载均衡的概念。
 
 ## Kmesh 支持的模式和配置方法
 

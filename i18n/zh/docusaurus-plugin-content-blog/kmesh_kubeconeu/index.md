@@ -143,14 +143,14 @@ _内核原生流量治理框架带来全新性能体验_
 
 ## 参考链接
 
-[1] Kmesh 发布信息: <https://github.com/kmesh-net/kmesh/releases>
+[1] Kmesh 发布信息: https://github.com/kmesh-net/kmesh/releases
 
-[2] Kmesh 部署镜像: <https://github.com/orgs/kmesh-net/packages>
+[2] Kmesh 部署镜像: https://github.com/orgs/kmesh-net/packages
 
-[3] Kmesh 一键部署: <https://github.com/kmesh-net/kmesh?tab=readme-ov-file#quick-start>
+[3] Kmesh 一键部署: https://github.com/kmesh-net/kmesh?tab=readme-ov-file#quick-start
 
-[4] openEuler 23.03 版本: <https://repo.openeuler.org/openEuler-23.03/>
+[4] openEuler 23.03 版本: https://repo.openeuler.org/openEuler-23.03/
 
-[5] 基于增强补丁的构建: <https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_kernel_compile.md>
+[5] 基于增强补丁的构建: https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_kernel_compile.md
 
-[6] Kmesh 社区地址: <https://github.com/kmesh-net/kmesh>
+[6] Kmesh 社区地址: https://github.com/kmesh-net/kmesh

@@ -1,10 +1,10 @@
 name: Lint Workflow
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths-ignore:
-      - "**.svg"
-      - "**.png"
+    branches: [main]
 
 jobs:
   build:

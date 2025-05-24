@@ -18,7 +18,7 @@ Docusaurus provides a straightforward system for versioning documentation:
 
 For example:
 
-```
+```text
 // Project directory structure with versioning
 my-docusaurus-project/
 ├── docs/                       # Current version documentation
@@ -258,7 +258,7 @@ Check our [installation guide for v1.0](/docs/1.0/installation) or the [latest i
 
 - **Version Naming**: Use semantic versioning (e.g., 1.0, 1.1, 2.0) for clarity.
 
-  ```
+  ```text
   // Recommended version naming
   1.0, 1.1, 2.0  // ✓ Semantic versioning
   
@@ -329,7 +329,7 @@ npm run docusaurus docs:version 2.0
 
 Final project structure:
 
-```
+```text
 # File: Project structure after versioning
 my-docusaurus-project/
 ├── docs/                       # Current "Next" version

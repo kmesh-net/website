@@ -70,6 +70,7 @@ This task shows you how to set up Request Routing policy for http traffic in Kme
   ```
 
 - You have configured fortio 90% to route to the `v1` version of the fortio server
+
   ```bash
   $ for i in {1..20}; do kubectl exec -it $(kubectl get pod | grep netutils | awk '{print $1}') -- curl -v $(kubectl get svc -owide | grep fortio | awk '{print $3}'):80 | grep "Server:"; done
   < Server: 1
@@ -146,6 +147,7 @@ This task shows you how to set up Request Routing policy for http traffic in Kme
   ```
 
 - Verify response from Server 2 with header
+
   ```bash
   [root@localhost route]# for i in {1..10}; do kubectl exec -it $(kubectl get pod | grep netutils | awk '{print $1}') -- curl \--header "end-user:jason" -v $(kubectl get svc -owide | grep fortio | awk '{print $3}'):80 | grep "Server:"; done
   < Server: 2

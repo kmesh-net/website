@@ -26,7 +26,7 @@ kubectl label namespace default istio.io/dataplane-mode=Kmesh
 
 Expected output:
 
-```
+```text
 namespace/default labeled
 ```
 
@@ -53,7 +53,7 @@ kubectl get po -A
 
 Expected output:
 
-```
+```bash
 NAMESPACE            NAME                                          READY   STATUS    RESTARTS   AGE
 default              sleep-bc9998558-pbfvk                         1/1     Running   0          7m
 default              tcp-echo-7f676db574-mzmql                     1/1     Running   0          7m
@@ -73,6 +73,7 @@ Please refer to the [kmeshctl Guide](../developer-guide/Kmeshctl-usage/kmeshctl-
 Metrics monitored by Kmesh L4 at this stage:
 
 #### Workload Metrics
+
 Give information about traffic behavior and performance between workloads.
 
 | Name                                           | Description                                                                                    |
@@ -86,6 +87,7 @@ Give information about traffic behavior and performance between workloads.
 | `kmesh_tcp_packet_loss_total`          | Total number of TCP packets lost between source and destination workload     |
 
 #### Service Metrics
+
 Give information about traffic behavior and performance between services.
 
 | Name                                  | Description                                                                                   |
@@ -97,7 +99,8 @@ Give information about traffic behavior and performance between services.
 | `kmesh_tcp_conntections_failed_total` | The total number of TCP connections failed to a service                                       |
 
 #### Connection Metrics
-Give information about traffic behavior and performance of a established tcp connection(duration > 5 seconds). These metrics are particularly valuable in clusters running workloads that establish long-lived TCP connections, such as databases, message brokers, audio/video streaming services, AI applications etc. 
+
+Give information about traffic behavior and performance of a established tcp connection(duration > 5 seconds). These metrics are particularly valuable in clusters running workloads that establish long-lived TCP connections, such as databases, message brokers, audio/video streaming services, AI applications etc.
 It is recommended to set the scrape interval to 5 seconds to ensure connection metrics are reliably captured.
 
 | Name                                           | Description                                                                                    |
@@ -121,7 +124,7 @@ kubectl -n kmesh-system get svc prometheus
 
 Expected output:
 
-```
+```bash
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
 prometheus   ClusterIP   10.96.18.252   <none>        9090/TCP   24h
 ```
@@ -138,7 +141,7 @@ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name}
 
 Expected output:
 
-```
+```text
 hello port 9000
 connection succeeded
 ```
@@ -153,7 +156,7 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus 9090:9090 -n kmesh-system
 
 Expected output:
 
-```
+```text
 Forwarding from 0.0.0.0:9090 -> 9090
 Handling connection for 9090
 Handling connection for 9090
@@ -163,7 +166,7 @@ Handling connection for 9090
 
 In the "Expression" input box at the top of the web page, enter the text:
 
-```
+```text
 kmesh_tcp_connections_opened_total
 ```
 

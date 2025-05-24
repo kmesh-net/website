@@ -27,48 +27,48 @@ The data carried in the bpf_tcp_sock is as follows:
 
 ```c
 struct bpf_tcp_sock {
-	__u32 snd_cwnd;		/* Sending congestion window		*/
-	__u32 srtt_us;		/* smoothed round trip time << 3 in usecs */
-	__u32 rtt_min;
-	__u32 snd_ssthresh;	/* Slow start size threshold		*/
-	__u32 rcv_nxt;		/* What we want to receive next		*/
-	__u32 snd_nxt;		/* Next sequence we send		*/
-	__u32 snd_una;		/* First byte we want an ack for	*/
-	__u32 mss_cache;	/* Cached effective mss, not including SACKS */
-	__u32 ecn_flags;	/* ECN status bits.			*/
-	__u32 rate_delivered;	/* saved rate sample: packets delivered */
-	__u32 rate_interval_us;	/* saved rate sample: time elapsed */
-	__u32 packets_out;	/* Packets which are "in flight"	*/
-	__u32 retrans_out;	/* Retransmitted packets out		*/
-	__u32 total_retrans;	/* Total retransmits for entire connection */
-	__u32 segs_in;		/* RFC4898 tcpEStatsPerfSegsIn
-				 * total number of segments in.
-				 */
-	__u32 data_segs_in;	/* RFC4898 tcpEStatsPerfDataSegsIn
-				 * total number of data segments in.
-				 */
-	__u32 segs_out;		/* RFC4898 tcpEStatsPerfSegsOut
-				 * The total number of segments sent.
-				 */
-	__u32 data_segs_out;	/* RFC4898 tcpEStatsPerfDataSegsOut
-				 * total number of data segments sent.
-				 */
-	__u32 lost_out;		/* Lost packets			*/
-	__u32 sacked_out;	/* SACK'd packets			*/
-	__u64 bytes_received;	/* RFC4898 tcpEStatsAppHCThruOctetsReceived
-				 * sum(delta(rcv_nxt)), or how many bytes
-				 * were acked.
-				 */
-	__u64 bytes_acked;	/* RFC4898 tcpEStatsAppHCThruOctetsAcked
-				 * sum(delta(snd_una)), or how many bytes
-				 * were acked.
-				 */
-	__u32 dsack_dups;	/* RFC4898 tcpEStatsStackDSACKDups
-				 * total number of DSACK blocks received
-				 */
-	__u32 delivered;	/* Total data packets delivered incl. rexmits */
-	__u32 delivered_ce;	/* Like the above but only ECE marked packets */
-	__u32 icsk_retransmits;	/* Number of unrecovered [RTO] timeouts */
+ __u32 snd_cwnd;  /* Sending congestion window  */
+ __u32 srtt_us;  /* smoothed round trip time << 3 in usecs */
+ __u32 rtt_min;
+ __u32 snd_ssthresh; /* Slow start size threshold  */
+ __u32 rcv_nxt;  /* What we want to receive next  */
+ __u32 snd_nxt;  /* Next sequence we send  */
+ __u32 snd_una;  /* First byte we want an ack for */
+ __u32 mss_cache; /* Cached effective mss, not including SACKS */
+ __u32 ecn_flags; /* ECN status bits.   */
+ __u32 rate_delivered; /* saved rate sample: packets delivered */
+ __u32 rate_interval_us; /* saved rate sample: time elapsed */
+ __u32 packets_out; /* Packets which are "in flight" */
+ __u32 retrans_out; /* Retransmitted packets out  */
+ __u32 total_retrans; /* Total retransmits for entire connection */
+ __u32 segs_in;  /* RFC4898 tcpEStatsPerfSegsIn
+     * total number of segments in.
+     */
+ __u32 data_segs_in; /* RFC4898 tcpEStatsPerfDataSegsIn
+     * total number of data segments in.
+     */
+ __u32 segs_out;  /* RFC4898 tcpEStatsPerfSegsOut
+     * The total number of segments sent.
+     */
+ __u32 data_segs_out; /* RFC4898 tcpEStatsPerfDataSegsOut
+     * total number of data segments sent.
+     */
+ __u32 lost_out;  /* Lost packets   */
+ __u32 sacked_out; /* SACK'd packets   */
+ __u64 bytes_received; /* RFC4898 tcpEStatsAppHCThruOctetsReceived
+     * sum(delta(rcv_nxt)), or how many bytes
+     * were acked.
+     */
+ __u64 bytes_acked; /* RFC4898 tcpEStatsAppHCThruOctetsAcked
+     * sum(delta(snd_una)), or how many bytes
+     * were acked.
+     */
+ __u32 dsack_dups; /* RFC4898 tcpEStatsStackDSACKDups
+     * total number of DSACK blocks received
+     */
+ __u32 delivered; /* Total data packets delivered incl. rexmits */
+ __u32 delivered_ce; /* Like the above but only ECE marked packets */
+ __u32 icsk_retransmits; /* Number of unrecovered [RTO] timeouts */
 };
 ```
 
@@ -77,7 +77,7 @@ struct bpf_tcp_sock {
 ```c
 struct tcp_probe_info {
     __u32 type; /*type of connection (IPV4 or IPV6) */
-	 
+  
     struct bpf_sock_tuple tuple;
     struct orig_dst_info orig_dst;
 
@@ -93,7 +93,7 @@ struct tcp_probe_info {
     __u32 srtt_us;       /* smoothed round trip time << 3 in usecs until last_report_ns */
     __u32 rtt_min;       /* min round trip time in usecs until last_report_ns */
     __u32 total_retrans; /* Total retransmits from start to last_report_ns */
-    __u32 lost_out;      /* Lost packets from start to last_report_ns	*/
+    __u32 lost_out;      /* Lost packets from start to last_report_ns */
 };
 ```
 
@@ -128,12 +128,11 @@ After building the metriclabels at the workload granularity, service granularity
 
 Every 5 seconds, the metrics information will be updated into Prometheus through the Prometheus API.
 
-Access log data is generated during the processing of metrics and subsequently emitted by the daemon. 
+Access log data is generated during the processing of metrics and subsequently emitted by the daemon.
 
 The architecture diagram is shown below:
 
 ![probe](images/probe.svg)
-
 
 ### Result
 
@@ -154,6 +153,7 @@ Give information about traffic behavior and performance between workloads.
 | `kmesh_tcp_packet_loss_total`          | Total number of TCP packets lost between source and destination workload     |
 
 Metric Result:
+
 ```bash
 kmesh_tcp_workload_received_bytes_total{connection_security_policy="mutual_tls",destination_app="ws-server",destination_canonical_revision="latest",destination_canonical_service="ws-server",destination_cluster="Kubernetes",destination_pod_address="10.244.2.80",destination_pod_name="ws-server",destination_pod_namespace="default",destination_principal="-",destination_version="latest",destination_workload="ws-server",destination_workload_namespace="default",reporter="source",request_protocol="tcp",response_flags="-",source_app="ws-client",source_canonical_revision="latest",source_canonical_service="ws-client",source_cluster="Kubernetes",source_principal="-",source_version="latest",source_workload="ws-client",source_workload_namespace="default"} 6
 ```
@@ -171,6 +171,7 @@ Give information about traffic behavior and performance between services.
 | `kmesh_tcp_conntections_failed_total` | The total number of TCP connections failed to a service                                       |
 
 Metric Result:
+
 ```bash
 kmesh_tcp_received_bytes_total{connection_security_policy="mutual_tls",destination_app="ws-server",destination_canonical_revision="latest",destination_canonical_service="ws-server",destination_cluster="Kubernetes",destination_principal="-",destination_service="ws-server-service.default.svc.cluster.local",destination_service_name="ws-server-service",destination_service_namespace="default",destination_version="latest",destination_workload="ws-server",destination_workload_namespace="default",reporter="source",request_protocol="tcp",response_flags="-",source_app="ws-client",source_canonical_revision="latest",source_canonical_service="ws-client",source_cluster="Kubernetes",source_principal="-",source_version="latest",source_workload="ws-client",source_workload_namespace="default"} 5
 ```
@@ -187,6 +188,7 @@ Give information about traffic behavior and performance of a established tcp con
 | `kmesh_tcp_connection_retrans_total`          | The total number of retransmits over established TCP connection                                       |
 
 Metric Result:
+
 ```bash
 kmesh_tcp_connection_received_bytes_total{connection_security_policy="mutual_tls",destination_address="10.244.2.80:8080",destination_app="ws-server",destination_canonical_revision="latest",destination_canonical_service="ws-server",destination_cluster="Kubernetes",destination_pod_address="10.244.2.80",destination_pod_name="ws-server",destination_pod_namespace="default",destination_principal="-",destination_service="ws-server-service.default.svc.cluster.local",destination_service_name="ws-server-service",destination_service_namespace="default",destination_version="latest",destination_workload="ws-server",destination_workload_namespace="default",reporter="destination",request_protocol="tcp",response_flags="-",source_address="10.244.2.81:47660",source_app="ws-client",source_canonical_revision="latest",source_canonical_service="ws-client",source_cluster="Kubernetes",source_principal="-",source_version="latest",source_workload="ws-client",source_workload_namespace="default",start_time="2025-04-24 12:47:54.439318976 +0000 UTC"} 8680
 ```
@@ -210,10 +212,10 @@ Accesslog monitored by Kmesh L4 at this stage:
 | duration       | Duration of this connection so far                                                                                        |
 | start_time     | Start time of the connection                                  |
 | packet_loss    | Total packets lost in transmission in the connection so far   |
-| retransmissions | Total retransmissions in the connection so far               | 
-| srtt            |  Smoothed Round-Trip Time of the connection so far           | 
+| retransmissions | Total retransmissions in the connection so far               |
+| srtt            |  Smoothed Round-Trip Time of the connection so far           |
 | min_rtt         | Minimum Round-Trip Time of the connection so far             |
-| state            | Current state of the connection                             | 
+| state            | Current state of the connection                             |
 
 Accesslog Result:
 

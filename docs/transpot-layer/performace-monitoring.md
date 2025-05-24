@@ -13,7 +13,7 @@ title: Use Grafana to visualize kmesh performance monitoring
    - Change `--profiling=false` to `--profiling=true` in `deploy/yaml/kmesh.yaml`. (The default value of `--profiling` is false.)
 3. Deploy bookinfo as sample application and sleep as curl client
 4. Install namespace granularity waypoint for default namespace
-   
+
    *The above steps could refer to [Install Waypoint | Kmesh](https://kmesh.net/docs/setup/quick-start)
 
 5. Refer to [quick start](https://kmesh.net/docs/setup/quick-start) to include test pods in kmesh management. Or include default namespace in kmesh management.
@@ -47,12 +47,11 @@ kubectl port-forward --address 0.0.0.0 svc/grafana 3000:3000 -n kmesh-system
 ```
 
 2. View the dashboard from browser
-   
+
    Visit `Dashboards > Kmesh > Kmesh performance monitoring`:
 
     ![image](images/kmesh_deamon_monitoring.jpg)
     ![image](images/kmesh_map_and_operation_monitoring.jpg)
-
 
 ## Cleanup
 

@@ -11,7 +11,7 @@ title: 地域负载均衡
 
 地域定义了网格中工作负载实例的地理位置。服务网格中的地域负载均衡通过根据服务实例的位置智能路由流量，有助于提高服务的可用性和性能。
 
-我们强烈建议您首先阅读 https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ 以了解地域负载均衡的概念。
+我们强烈建议您首先阅读 <https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/> 以了解地域负载均衡的概念。
 
 ## Kmesh 支持的模式和配置方法
 
@@ -30,6 +30,7 @@ title: 地域负载均衡
   ```
 
 - 使用 annotation
+
   ```yaml
   metadata:
     annotations:
@@ -41,6 +42,7 @@ title: 地域负载均衡
 一种严格模式，仅匹配当前 NODE。
 
 - spec.internalTrafficPolicy: Local (k8s >= beta 1.24 或 >= 1.26)
+
   ```yaml
   spec:
     internalTrafficPolicy: Local
@@ -288,7 +290,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   输出来自当前与 ambient-worker 共置的 helloworld-region.zone1.subzone1：
 
-  ```
+  ```text
   Hello version: region.zone1.subzone1, instance: helloworld-region.zone1.subzone1-6d6fdfd856-9dhv8
   ```
 
@@ -304,7 +306,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   输出为 helloworld-region.zone1.subzone2，流量已发生故障转移：
 
-  ```
+  ```text
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   ```
 
@@ -365,7 +367,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   输出随机显示 helloworld-region.zone1.subzone2 和 helloworld-region.zone1.subzone2-worker3：
 
-  ```
+  ```text
   Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb

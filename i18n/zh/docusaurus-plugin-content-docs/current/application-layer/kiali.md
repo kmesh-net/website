@@ -20,6 +20,7 @@ title: 使用 Kiali 可视化 Kmesh 下的流量图
    ```
 
 5. **部署 Kiali，从 Prometheus 读取指标。**
+
    ```bash
    kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/kiali.yaml
    ```

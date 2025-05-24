@@ -48,5 +48,3 @@ kmeshctl monitoring --all enable/disable
   -h, --help                       help for monitoring
       --workloadMetrics string     Control workload granularity metrics enable or disable
 ```
-
-

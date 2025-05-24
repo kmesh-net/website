@@ -8,11 +8,13 @@ End-to-End (E2E) testing is a crucial component in modern software development, 
 ## Prerequisites
 
 Components that need to be installed by the user:
+
 - Go
 - Docker
 - Kubectl
 
 The following components will be installed while using the shell:
+
 - Kind
 - Helm
 - Istioctl
@@ -44,6 +46,7 @@ When testing locally, you may want to skip some setup steps to save time, especi
 ### Example Commands
 
 #### Full Test Run (First time)
+
 ```bash
 ./test/e2e/run_test.sh
 ```
@@ -51,6 +54,7 @@ When testing locally, you may want to skip some setup steps to save time, especi
 Use this command for the initial setup and test run to ensure everything is configured correctly.
 
 #### Subsequent Test Runs (Skipping all setup and only run tests)
+
 ```bash
 ./test/e2e/run_test.sh --only-run-tests
 ```
@@ -58,11 +62,13 @@ Use this command for the initial setup and test run to ensure everything is conf
 You might need different kinds of tests.
 
 #### Specifying a Pre-existing KinD Cluster
+
 ```bash
 ./test/e2e/run_test.sh --cluster <KinD-Cluster-Name>
 ```
 
 #### Create a IPv6 KinD cluster and Run Tests
+
 ```bash
 ./test/e2e/run_test.sh --ipv6
 ```
@@ -70,11 +76,13 @@ You might need different kinds of tests.
 In some cases, you might want to clean up some resources after the tests, while in other cases, you might want to skip cleaning up test applications for further usage.
 
 #### Cleanup the KinD Cluster and Docker Registry After Tests
+
 ```bash
 ./test/e2e/run_test.sh --cleanup
 ```
 
 #### Skip the Cleanup of Test Applications After Tests
+
 ```bash
 ./test/e2e/run_test.sh --skip-cleanup-apps
 ```
@@ -82,16 +90,19 @@ In some cases, you might want to clean up some resources after the tests, while 
 You can also directly use go test command-line arguments when running the tests. For example, you can filter specific tests, or control other aspects of the testing process directly from the command line.
 
 #### Selecting Specific Test Cases
+
 ```bash
 ./test/e2e/run_test.sh --only-run-tests -run "TestServices"
 ```
 
 #### Controlling Test Verbosity
+
 ```bash
 ./test/e2e/run_test.sh -v
 ```
 
 #### Repeat Test Cases Multiple Times
+
 ```bash
 ./test/e2e/run_test.sh -count=3
 ```

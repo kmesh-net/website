@@ -100,11 +100,13 @@ This task shows you how to set up Traffic Shifting policy for http traffic in Km
 - Next, you will change the route configuration so that all traffic from a specific user is routed to a specific service version. In this case, all traffic from a user named Jason will be routed to the service `fortio:v2`.
 
 - Apply the updated configuration:
+
   ```bash
   kubectl apply -f samples/fortio/fortio-v1-10-v2-90.yaml
   ```
 
   **fortio-header.yaml**
+
   ```yaml
   apiVersion: networking.istio.io/v1alpha3
   kind: VirtualService

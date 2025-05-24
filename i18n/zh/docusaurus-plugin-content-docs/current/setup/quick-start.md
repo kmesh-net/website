@@ -50,7 +50,7 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 
 下面提供仅安装 `istiod` 作为 Kmesh 控制平面的过程。
 
-#### 安装 Istio CRD：
+#### 安装 Istio CRD
 
 ```shell
 helm repo add istio https://istio-release.storage.googleapis.com/charts
@@ -64,7 +64,7 @@ kubectl create namespace istio-system
 helm install istio-base istio/base -n istio-system
 ```
 
-#### 安装 Istiod：
+#### 安装 Istiod
 
 使用发布名称 `istiod` 安装图表：
 
@@ -108,7 +108,7 @@ kmesh-v2frk   1/1     Running   0          18h
 
 查看 Kmesh 服务的运行状态：
 
-```
+```log
 time="2024-04-25T13:17:40Z" level=info msg="bpf Start successful" subsys=manager
 time="2024-04-25T13:17:40Z" level=info msg="controller Start successful" subsys=manager
 time="2024-04-25T13:17:40Z" level=info msg="dump StartServer successful" subsys=manager
@@ -275,7 +275,7 @@ kubectl describe pod httpbin-65975d4c6f-h2r99 | grep Annotations
 Annotations:      <none>
 ```
 
-### 删除 Kmesh：
+### 删除 Kmesh
 
 如果您使用 helm 安装了 Kmesh：
 

@@ -26,7 +26,7 @@ kubectl label namespace default istio.io/dataplane-mode=Kmesh
 
 **预期输出：**
 
-```
+```text
 namespace/default labeled
 ```
 
@@ -53,7 +53,7 @@ kubectl get po -A
 
 **预期输出：**
 
-```
+```bash
 NAMESPACE            NAME                                          READY   STATUS    RESTARTS   AGE
 default              sleep-bc9998558-pbfvk                         1/1     Running   0          7m
 default              tcp-echo-7f676db574-mzmql                     1/1     Running   0          7m
@@ -101,7 +101,7 @@ kubectl -n kmesh-system get svc prometheus
 
 **预期输出：**
 
-```
+```bash
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
 prometheus   ClusterIP   10.96.18.252   <none>        9090/TCP   24h
 ```
@@ -118,7 +118,7 @@ kubectl exec "$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name}
 
 **预期输出：**
 
-```
+```text
 hello port 9000
 connection succeeded
 ```
@@ -133,7 +133,7 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus 9090:9090 -n kmesh-system
 
 **预期输出：**
 
-```
+```text
 Forwarding from 0.0.0.0:9090 -> 9090
 Handling connection for 9090
 Handling connection for 9090
@@ -143,7 +143,7 @@ Handling connection for 9090
 
 在网页顶部的 "Expression" 输入框中，输入文本：
 
-```
+```text
 kmesh_tcp_connections_opened_total
 ```
 

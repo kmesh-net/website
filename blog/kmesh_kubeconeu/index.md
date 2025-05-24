@@ -112,7 +112,7 @@ Kmesh is gradually evolving into a more popular traffic management engine, and t
 
 Kmesh will participate in several activities during KubeCon + CloudNativeCon Europe 2024, including:
 
-### Kmesh Display:
+### Kmesh Display
 
 March 20-22 all day : Stop by Booth J1 at KubeCon to speak with an expert or see a demo!
 

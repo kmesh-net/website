@@ -16,6 +16,7 @@ title: Try Request Timeouts
    _The above steps could refer to [Install Waypoint | Kmesh](/docs/application-layer/install_waypoint.md#preparation)_
 
 4. And install waypoint for ratings service
+
    ```bash
    istioctl x waypoint apply -n default --name ratings-svc-waypoint
    kubectl label service ratings istio.io/use-waypoint=ratings-svc-waypoint

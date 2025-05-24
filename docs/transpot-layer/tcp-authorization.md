@@ -55,7 +55,8 @@ kubectl get pod -o wide | grep sleep
 ```
 
 Expected output:
-```
+
+```bash
 NAME                                READY   STATUS    RESTARTS   AGE     IP            NODE              NOMINATED NODE   READINESS GATES
 sleep-78ff5975c6-phhll              1/1     Running   0          30h     10.244.2.22   ambient-worker    <none>           <none>
 sleep-78ff5975c6-plh7r              1/1     Running   0          30h     10.244.1.46   ambient-worker2   <none>           <none>
@@ -67,7 +68,8 @@ kubectl describe pod httpbin-65975d4c6f-96kgw | grep Annotations
 ```
 
 Expected output:
-```
+
+```text
 Annotations:      kmesh.net/redirection: enabled
 ```
 
@@ -104,7 +106,8 @@ kubectl exec sleep-78ff5975c6-plh7r -- curl http://httpbin:8000/headers
 ```
 
 Expected output:
-```
+
+```json
 {
   "headers": {
     "Accept": "*/*",
@@ -121,7 +124,8 @@ kubectl exec sleep-78ff5975c6-phhll -- curl http://httpbin:8000/headers
 ```
 
 Expected output:
-```
+
+```text
 curl: (56) Recv failure: Connection reset by peer
 ```
 
@@ -164,7 +168,8 @@ kubectl exec sleep-78ff5975c6-plh7r -- curl "http://httpbin:8000/headers"
 ```
 
 Expected output:
-```
+
+```text
 curl: (56) Recv failure: Connection reset by peer
 ```
 
@@ -175,7 +180,8 @@ kubectl exec sleep-78ff5975c6-phhll -- curl "http://httpbin:8000/headers"
 ```
 
 Expected output:
-```
+
+```json
 {
   "headers": {
     "Accept": "*/*",

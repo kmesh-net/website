@@ -15,6 +15,7 @@ title: Traffic Split
 This configuration change is required for the traffic split functionality to work properly.
 
 #### Deploy the Sample Applications
+
 ```shell
 [root@master kmesh]# kubectl apply -f samples/sleep/sleep.yaml -n tcp-echo-test
 [root@master kmesh]# kubectl apply -f samples/tcp-echo/tcp-echo-services.yaml -n tcp-echo-test
@@ -23,12 +24,14 @@ This configuration change is required for the traffic split functionality to wor
 
 ### Apply weight-based Load Balance
 
-1. Let Kmesh manage the traffic of pods 
+1. Let Kmesh manage the traffic of pods
+
    ```shell
    [root@master test]# kubectl label ns default istio.io/dataplane-moda=Kmesh
    ```
 
 2. Confirm that the `tcp-echo` service is up and running by sending some TCP traffic.
+
    ```shell
    ##get tcp-echo service address
    [root@master test]# kubectl get svc | grep tcp-
@@ -57,11 +60,13 @@ This configuration change is required for the traffic split functionality to wor
    ```
 
 ### Dump the configuration information
+
 ```shell
 [root@master kmesh]# ./kmeshctl dump kmesh-5f4fm kernel-native
 ```
 
 After dump the configuration, we can see that the strategy is load balancing.
+
 ```json
 {
     "name": "outbound|9001||tcp-echo.default.svc.cluster.local",

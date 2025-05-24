@@ -109,5 +109,3 @@ Maintainers have demonstrated technical expertise and judgment in feature design
 :::note
 These roles apply only to the Kmesh GitHub organization and repositories. Currently, Kmesh does not have a formal review process for these roles, but one will be established soon.
 :::
-
-[Maintainers]: (https://github.com/kmesh-net/kmesh/blob/main/MAINTAINERS.md)

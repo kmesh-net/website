@@ -50,7 +50,7 @@ Installing ambient mode istio by above steps will install additional istio compo
 
 The process of installing only `istiod` as the control plane for Kmesh is provided next.
 
-#### Install Istio CRDs:
+#### Install Istio CRDs
 
 ```shell
 helm repo add istio https://istio-release.storage.googleapis.com/charts
@@ -64,7 +64,7 @@ kubectl create namespace istio-system
 helm install istio-base istio/base -n istio-system
 ```
 
-#### Install Istiod:
+#### Install Istiod
 
 To install the chart with the release name `istiod`:
 
@@ -108,7 +108,7 @@ kmesh-v2frk   1/1     Running   0          18h
 
 View the running status of Kmesh service:
 
-```
+```log
 time="2024-04-25T13:17:40Z" level=info msg="bpf Start successful" subsys=manager
 time="2024-04-25T13:17:40Z" level=info msg="controller Start successful" subsys=manager
 time="2024-04-25T13:17:40Z" level=info msg="dump StartServer successful" subsys=manager
@@ -275,7 +275,7 @@ kubectl describe pod httpbin-65975d4c6f-h2r99 | grep Annotations
 Annotations:      <none>
 ```
 
-### Delete Kmesh:
+### Delete Kmesh
 
 If you installed Kmesh using helm:
 

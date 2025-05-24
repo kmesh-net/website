@@ -54,7 +54,8 @@ kubectl get pod -o wide | grep sleep
 ```
 
 **预期输出：**
-```
+
+```bash
 NAME                                READY   STATUS    RESTARTS   AGE     IP            NODE              NOMINATED NODE   READINESS GATES
 sleep-78ff5975c6-phhll              1/1     Running   0          30h     10.244.2.22   ambient-worker    <none>           <none>
 sleep-78ff5975c6-plh7r              1/1     Running   0          30h     10.244.1.46   ambient-worker2   <none>           <none>
@@ -66,7 +67,8 @@ kubectl describe pod httpbin-65975d4c6f-96kgw | grep Annotations
 ```
 
 **预期输出：**
-```
+
+```text
 Annotations:      kmesh.net/redirection: enabled
 ```
 
@@ -103,7 +105,8 @@ kubectl exec sleep-78ff5975c6-plh7r -- curl http://httpbin:8000/headers
 ```
 
 **预期输出：**
-```
+
+```json
 {
   "headers": {
     "Accept": "*/*",
@@ -120,7 +123,8 @@ kubectl exec sleep-78ff5975c6-phhll -- curl http://httpbin:8000/headers
 ```
 
 **预期输出：**
-```
+
+```text
 curl: (56) Recv failure: Connection reset by peer
 ```
 
@@ -163,7 +167,8 @@ kubectl exec sleep-78ff5975c6-plh7r -- curl "http://httpbin:8000/headers"
 ```
 
 **预期输出：**
-```
+
+```text
 curl: (56) Recv failure: Connection reset by peer
 ```
 
@@ -174,7 +179,8 @@ kubectl exec sleep-78ff5975c6-phhll -- curl "http://httpbin:8000/headers"
 ```
 
 **预期输出：**
-```
+
+```json
 {
   "headers": {
     "Accept": "*/*",
@@ -256,6 +262,3 @@ notIpBlocks: ["203.0.113.4"]
 |------------|------------|-------------------------------------------------------------------------------------------| -------- |
 | `ports`    | `string[]` | 可选。连接中指定的端口列表。如果未设置，则允许任何端口。| 否       |
 | `notPorts` | `string[]` | 可选。连接中指定的端口的负匹配列表。               | 否       |
-
-
-

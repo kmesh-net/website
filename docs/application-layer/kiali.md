@@ -22,6 +22,7 @@ title: Use Kiali to visualize traffic graph under Kmesh
    ```
 
 5. Deploy Kiali which reads metrics from the Prometheus.
+
    ```bash
    kubectl apply -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/kiali.yaml
    ```

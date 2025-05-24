@@ -48,8 +48,9 @@ With the system having 8 cores and a CPU limit of 1, the POD can consume up to 1
    ```
 
 2. Collected CPU usage with bpftop:
+
    ```bash
-   $ ./bpftop
+   ./bpftop
    ```
 
 **Test Results:**

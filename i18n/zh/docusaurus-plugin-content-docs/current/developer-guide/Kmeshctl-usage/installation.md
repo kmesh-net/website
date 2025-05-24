@@ -55,6 +55,6 @@ kmeshctl accesslog <kmesh-daemon-pod> disable
 
 **选项**
 
-```
+```bash
   -h, --help   accesslog 命令的帮助信息
 ```

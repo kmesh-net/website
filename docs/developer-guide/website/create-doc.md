@@ -21,7 +21,7 @@ When you set up a Docusaurus project, it creates a specific folder structure to 
 
 For example, a typical Docusaurus project might look like this:
 
-```
+```text
 my-docusaurus-site/
 ├── docs/
 │   ├── intro.md
@@ -80,7 +80,7 @@ The folder structure within the `docs/` directory determines both the URL paths 
 
 - **Sidebar Navigation**: Docusaurus can automatically generate a sidebar based on your folder structure. Each subfolder in `docs/` becomes a category in the sidebar, and the files within that folder become links under that category. For example:
 
-  ```
+  ```text
   docs/
   ├── intro.md
   └── architecture/
@@ -124,11 +124,14 @@ If you’re new to Docusaurus, follow these steps to create your first document:
 1. **Set Up Docusaurus**:
 
    - Install Docusaurus by running this command in your terminal:
+
      ```bash
      npx create-docusaurus@latest my-site classic
      ```
+
    - This creates a new Docusaurus site in the `my-site` folder using the classic template.
    - Navigate to your project folder:
+
      ```bash
      cd my-site
      ```
@@ -144,6 +147,7 @@ If you’re new to Docusaurus, follow these steps to create your first document:
 4. **Add Front Matter (Optional)**:
 
    - At the top of the file, add metadata like this:
+
      ```yaml
      ---
      id: my-doc
@@ -174,6 +178,7 @@ If you’re new to Docusaurus, follow these steps to create your first document:
 
    - For automatic sidebar generation, Docusaurus will use your folder structure.
    - To customize a category, add a `_category_.json` file in the subfolder. For example, in `docs/features/`:
+
      ```json
      {
        "label": "Features",
@@ -183,17 +188,22 @@ If you’re new to Docusaurus, follow these steps to create your first document:
        }
      }
      ```
+
    - Alternatively, edit `sidebars.js` in the root directory for manual sidebar configuration.
 
 8. **Preview Your Site**:
    - Start the development server by running:
+
      ```bash
      npm start
      ```
+
      or
+
      ```bash
      yarn start
      ```
+
    - Open your browser and go to `http://localhost:3000` to see your site.
    - Check that your new document appears and the sidebar reflects your structure.
 

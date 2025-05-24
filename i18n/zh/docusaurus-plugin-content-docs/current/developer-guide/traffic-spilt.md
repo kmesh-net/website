@@ -31,6 +31,7 @@ title: 流量分割
    ```
 
 2. 通过发送一些 TCP 流量来确认 `tcp-echo` 服务正在运行。
+
    ```shell
    ## 获取 tcp-echo 服务地址
    [root@master test]# kubectl get svc | grep tcp-

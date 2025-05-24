@@ -10,6 +10,7 @@ kmeshctl waypoint status [flags]
 ```
 
 ### Examples
+
 ```bash
 # Show the status of the waypoint in the default namespace
 kmeshctl waypoint status
@@ -19,11 +20,13 @@ kmeshctl waypoint status --namespace default
 ```
 
 ### Options
+
 ```bash
   -h, --help   help for status
 ```
 
 ### Options inherited from parent commands
+
 ```bash
       --image string       image of the waypoint
       --name string        name of the waypoint (default "waypoint")

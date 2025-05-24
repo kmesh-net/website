@@ -28,7 +28,6 @@ Kmesh uses two main testing tools:
   - Throughput (QPS)
 - **Dstat**: A system monitoring tool that tracks CPU usage during tests
 
-
 ### Test Method
 
 Test a group of `fortio` performance data by using the number of concurrent connections as a variable parameter, and collect the CPU usage during the test. The [test script](https://github.com/kmesh-net/kmesh/test/performance/) has been archived.
@@ -46,4 +45,3 @@ Test a group of `fortio` performance data by using the number of concurrent conn
 ## Performance Results
 
 ![Performance test results](./images/fortio_performance_test.png)
-

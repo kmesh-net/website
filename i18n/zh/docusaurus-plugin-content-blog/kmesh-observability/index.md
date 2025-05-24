@@ -26,32 +26,32 @@ bpf_tcp_sock 中携带的数据如下：
 
 ```c
 struct bpf_tcp_sock {
-	__u32 snd_cwnd;		/* 发送拥塞窗口 */
-	__u32 srtt_us;		/* 平滑往返时延（左移 3 位，以微秒为单位） */
-	__u32 rtt_min;
-	__u32 snd_ssthresh;	/* 慢启动阈值 */
-	__u32 rcv_nxt;		/* 下一个期望接收的数据 */
-	__u32 snd_nxt;		/* 下一个将要发送的序列号 */
-	__u32 snd_una;		/* 第一个等待确认的字节 */
-	__u32 mss_cache;	/* 缓存的有效 MSS，不包括 SACKS */
-	__u32 ecn_flags;	/* ECN 状态位 */
-	__u32 rate_delivered;	/* 保存的速率采样：已交付的包数量 */
-	__u32 rate_interval_us;	/* 保存的速率采样：经过的时间（微秒） */
-	__u32 packets_out;	/* 正在“飞行”中的包 */
-	__u32 retrans_out;	/* 重传的包 */
-	__u32 total_retrans;	/* 整个连接的重传总数 */
-	__u32 segs_in;		/* RFC4898 tcpEStatsPerfSegsIn：接收的总段数 */
-	__u32 data_segs_in;	/* RFC4898 tcpEStatsPerfDataSegsIn：接收的数据段总数 */
-	__u32 segs_out;		/* RFC4898 tcpEStatsPerfSegsOut：发送的总段数 */
-	__u32 data_segs_out;	/* RFC4898 tcpEStatsPerfDataSegsOut：发送的数据段总数 */
-	__u32 lost_out;		/* 丢失的包 */
-	__u32 sacked_out;	/* 被 SACK 确认的包 */
-	__u64 bytes_received;	/* RFC4898 tcpEStatsAppHCThruOctetsReceived：累计接收（或确认）的字节数 */
-	__u64 bytes_acked;	/* RFC4898 tcpEStatsAppHCThruOctetsAcked：累计确认的字节数 */
-	__u32 dsack_dups;	/* RFC4898 tcpEStatsStackDSACKDups：接收到的 DSACK 块数 */
-	__u32 delivered;	/* 包括重传在内的数据包总交付数 */
-	__u32 delivered_ce;	/* 同上，但仅限 ECE 标记的数据包 */
-	__u32 icsk_retransmits;	/* 未恢复（RTO）超时次数 */
+ __u32 snd_cwnd;  /* 发送拥塞窗口 */
+ __u32 srtt_us;  /* 平滑往返时延（左移 3 位，以微秒为单位） */
+ __u32 rtt_min;
+ __u32 snd_ssthresh; /* 慢启动阈值 */
+ __u32 rcv_nxt;  /* 下一个期望接收的数据 */
+ __u32 snd_nxt;  /* 下一个将要发送的序列号 */
+ __u32 snd_una;  /* 第一个等待确认的字节 */
+ __u32 mss_cache; /* 缓存的有效 MSS，不包括 SACKS */
+ __u32 ecn_flags; /* ECN 状态位 */
+ __u32 rate_delivered; /* 保存的速率采样：已交付的包数量 */
+ __u32 rate_interval_us; /* 保存的速率采样：经过的时间（微秒） */
+ __u32 packets_out; /* 正在“飞行”中的包 */
+ __u32 retrans_out; /* 重传的包 */
+ __u32 total_retrans; /* 整个连接的重传总数 */
+ __u32 segs_in;  /* RFC4898 tcpEStatsPerfSegsIn：接收的总段数 */
+ __u32 data_segs_in; /* RFC4898 tcpEStatsPerfDataSegsIn：接收的数据段总数 */
+ __u32 segs_out;  /* RFC4898 tcpEStatsPerfSegsOut：发送的总段数 */
+ __u32 data_segs_out; /* RFC4898 tcpEStatsPerfDataSegsOut：发送的数据段总数 */
+ __u32 lost_out;  /* 丢失的包 */
+ __u32 sacked_out; /* 被 SACK 确认的包 */
+ __u64 bytes_received; /* RFC4898 tcpEStatsAppHCThruOctetsReceived：累计接收（或确认）的字节数 */
+ __u64 bytes_acked; /* RFC4898 tcpEStatsAppHCThruOctetsAcked：累计确认的字节数 */
+ __u32 dsack_dups; /* RFC4898 tcpEStatsStackDSACKDups：接收到的 DSACK 块数 */
+ __u32 delivered; /* 包括重传在内的数据包总交付数 */
+ __u32 delivered_ce; /* 同上，但仅限 ECE 标记的数据包 */
+ __u32 icsk_retransmits; /* 未恢复（RTO）超时次数 */
 };
 ```
 

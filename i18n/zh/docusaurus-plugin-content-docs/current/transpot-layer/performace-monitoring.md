@@ -12,7 +12,7 @@ title: 使用 Grafana 可视化 Kmesh 性能监控
 3. 部署 bookinfo 作为示例应用程序，并部署 sleep 作为 curl 客户端  
 4. 为默认命名空间安装命名空间粒度的 waypoint  
 
-   *以上步骤可参考 [安装 Waypoint | Kmesh](#)*  
+   *以上步骤可参考 [安装 Waypoint | Kmesh](/i18n/zh/docusaurus-plugin-content-docs/current/application-layer/install_waypoint.md#准备工作)*  
 
 5. 部署 Prometheus 和 Grafana：  
 

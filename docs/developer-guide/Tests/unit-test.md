@@ -35,7 +35,7 @@ This section describes the ut settings for Kmesh so that developers can run unit
 
 Because Kmesh uses eBPF, you need to set some environment variables when running Kmesh-related Unit Tests.
 
-```sh 
+```sh
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:$ROOT_DIR/api/v2-c:$ROOT_DIR/bpf/deserialization_to_bpf_map
 export PKG_CONFIG_PATH=$ROOT_DIR/mk
 ```

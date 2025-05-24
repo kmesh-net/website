@@ -39,6 +39,7 @@ eBPF 程序在执行过程中会消耗 CPU 和内存资源。为了更好地了�
 **测试步骤：**
 
 1. 使用 fortio 客户端生成负载：
+
    ```bash
    # !/bin/bash
 
@@ -47,8 +48,9 @@ eBPF 程序在执行过程中会消耗 CPU 和内存资源。为了更好地了�
    ```
 
 2. 使用 bpftop 收集 CPU 使用率：
+
    ```bash
-   $ ./bpftop
+   ./bpftop
    ```
 
 **测试结果：**
@@ -136,6 +138,7 @@ Kmesh eBPF 与应用程序共享 POD 的 CPU 限制，其 CPU 消耗受限于 PO
 在 3000 个并发进程时，节点 CPU 使用率达到 100%。此时，App A 消耗 67% 的 CPU，Kmesh eBPF 消耗约 9.5%。
 
 **结论：**
+
 - App A 的 CPU 消耗远高于 eBPF，难以使 eBPF 过载。在 fortio 测试场景中，Kmesh eBPF 最多消耗 9.5% 的 CPU。
 - eBPF 的最大 CPU 消耗需进一步测试。
 
@@ -188,6 +191,7 @@ int cgroup_connect4_prog(struct bpf_sock_addr *ctx)
 我们在集群中创建了 1、100 和 1000 个服务，使用 [inspektor-gadget](https://github.com/inspektor-gadget/inspektor-gadget) 记录 eBPF 内存消耗。
 
 **监控命令：**
+
 ```bash
 kubectl gadget top ebpf
 ```

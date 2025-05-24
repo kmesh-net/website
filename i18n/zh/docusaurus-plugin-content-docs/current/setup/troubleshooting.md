@@ -172,10 +172,11 @@ kubectl top pod -n kmesh-system
 - [Community Support](/i18n/zh/docusaurus-plugin-content-docs/current/community/contribute.md)
 
 对于更复杂的问题，请参考我们的[GitHub Issues](https://github.com/kmesh-net/kmesh/issues)或加入我们的社区频道。
-```
 
+```text
 This translation ensures that:
 - The Markdown structure (headers, code blocks, tables) remains intact.
 - Descriptive text is translated into natural and accurate Chinese.
 - Technical commands and configurations are preserved in their original English form, with comments translated for better understanding.
 - The document is ready to be copied and used directly in a Markdown editor.
+```

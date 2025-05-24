@@ -55,4 +55,3 @@ kubectl delete -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples
 ```
 
 2. 如果您不打算探索任何后续任务，请参阅 [安装 Waypoint/清理](#) 说明以移除 waypoint 并关闭应用程序。
-

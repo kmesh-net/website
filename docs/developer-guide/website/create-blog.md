@@ -22,7 +22,7 @@ It’s perfect for sharing project updates, tutorials, or any time-based content
 
 In a Docusaurus project, blog posts are stored in the `blog/` directory. Each post is a separate Markdown file, and the file name typically includes the publication date and a slug (a URL-friendly title). Here’s an example structure:
 
-```
+```text
 blog/
 ├── 2023-10-05-my-first-post.md
 └── 2023-10-06-another-post.md

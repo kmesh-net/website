@@ -160,6 +160,6 @@ make clean
 
 ## 参考
 
-- 入门指南：https://istio.io/latest/docs/ambient/getting-started
-- Istio Ambient Mesh 入门：https://istio.io/latest/blog/2022/get-started-ambient
-- 使用 Istioctl 安装：https://istio.io/latest/docs/setup/install/istioctl
+- 入门指南：<https://istio.io/latest/docs/ambient/getting-started>
+- Istio Ambient Mesh 入门：<https://istio.io/latest/blog/2022/get-started-ambient>
+- 使用 Istioctl 安装：<https://istio.io/latest/docs/setup/install/istioctl>

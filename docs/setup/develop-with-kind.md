@@ -160,6 +160,6 @@ to cleanup these changes before you execute `git add` command.
 
 ## Reference
 
-- Getting Started: https://istio.io/latest/docs/ambient/getting-started
-- Get Started with Istio Ambient Mesh: https://istio.io/latest/blog/2022/get-started-ambient
-- Install with Istioctl: https://istio.io/latest/docs/setup/install/istioctl
+- Getting Started: <https://istio.io/latest/docs/ambient/getting-started>
+- Get Started with Istio Ambient Mesh: <https://istio.io/latest/blog/2022/get-started-ambient>
+- Install with Istioctl: <https://istio.io/latest/docs/setup/install/istioctl>

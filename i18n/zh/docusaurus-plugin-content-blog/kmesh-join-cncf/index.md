@@ -71,10 +71,10 @@ Kmesh 由华为发起，并在 openEuler 社区孵化，目前作为一个独立
 
 ### 参考文献
 
-[1] CNCF 生态图谱: https://landscape.cncf.io/
+[1] CNCF 生态图谱: <https://landscape.cncf.io/>
 
-[2] 介绍 Ambient Mesh: https://istio.io/latest/blog/2022/introducing-ambient-mesh/
+[2] 介绍 Ambient Mesh: <https://istio.io/latest/blog/2022/introducing-ambient-mesh/>
 
-[3] 华为云 ASM: https://support.huaweicloud.com/intl/en-us/asm/index.html
+[3] 华为云 ASM: <https://support.huaweicloud.com/intl/en-us/asm/index.html>
 
-[4] Kmesh 快速上手: https://kmesh.net/en/docs/setup/quickstart/
+[4] Kmesh 快速上手: <https://kmesh.net/en/docs/setup/quickstart/>

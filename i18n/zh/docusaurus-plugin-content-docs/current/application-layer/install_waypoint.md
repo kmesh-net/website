@@ -125,21 +125,21 @@ pod/reviews-v2-5b667bcbf8-spnnh labeled
 
 1. **移除 Waypoint**：
 
-   #### 移除服务的 Waypoint
+**移除服务的 Waypoint**
 
    ```bash
    [root@ ~]# kmeshctl waypoint delete reviews-svc-waypoint
    [root@ ~]# kubectl label service reviews istio.io/use-waypoint-
    ```
 
-   #### 移除命名空间的 Waypoint
+**移除命名空间的 Waypoint**
 
    ```bash
    [root@ ~]# kmeshctl waypoint delete waypoint
    [root@ ~]# kubectl label namespace default istio.io/use-waypoint-
    ```
 
-   #### 移除 Pod 的 Waypoint
+**移除 Pod 的 Waypoint**
 
    ```bash
    [root@ ~]# kmeshctl waypoint delete reviews-v2-pod-waypoint

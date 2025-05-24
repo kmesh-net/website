@@ -10,6 +10,7 @@ kmeshctl waypoint list [flags]
 ```
 
 ### Examples
+
 ```bash
 # List all waypoints in a specific namespace
 kmeshctl waypoint list --namespace default
@@ -19,12 +20,14 @@ kmeshctl waypoint list -A
 ```
 
 ### Options
+
 ```bash
   -A, --all-namespaces   List all waypoints in all namespaces
   -h, --help             help for list
 ```
 
 ### Options inherited from parent commands
+
 ```bash
       --image string       image of the waypoint
       --name string        name of the waypoint (default "waypoint")

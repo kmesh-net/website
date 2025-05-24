@@ -11,7 +11,7 @@ This document introduces how to use Locality Load Balancing with Istio in the Km
 
 A locality defines the geographic location of a workload instance within mesh. Locality Load Balancing in service mesh helps improve the availability and performance of services by intelligently routing traffic based on the location of the service instances.
 
-We strongly recommend that you first read https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ to understand what locality load balancing is.
+We strongly recommend that you first read <https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/> to understand what locality load balancing is.
 
 ## Supported Modes and Configuration Methods for Kmesh
 
@@ -30,6 +30,7 @@ A failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routingPrefe
   ```
 
 - With annotation
+
   ```yaml
   metadata:
     annotations:
@@ -41,6 +42,7 @@ A failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routingPrefe
 A strict mode that only matches the current NODE.
 
 - spec.internalTrafficPolicy: Local (k8s >= beta 1.24 or >= 1.26)
+
   ```yaml
   spec:
     internalTrafficPolicy: Local
@@ -202,6 +204,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
   ```
 
 - Start a service instance on the ambient-worker3
+
   ```yaml
   kubectl apply -n sample -f - <<EOF
   apiVersion: apps/v1
@@ -287,7 +290,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   The output is from the helloworld-region.zone1.subzone1 that is currently co-located on the ambient-worker:
 
-  ```
+  ```text
   Hello version: region.zone1.subzone1, instance: helloworld-region.zone1.subzone1-6d6fdfd856-9dhv8
   ```
 
@@ -303,7 +306,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   The output is helloworld-region.zone1.subzone2, and a failover of the traffic has occurred:
 
-  ```
+  ```text
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   ```
 
@@ -364,7 +367,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
   The output randomly shows helloworld-region.zone1.subzone2 and helloworld-region.zone1.subzone2-worker3:
 
-  ```
+  ```text
   Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb

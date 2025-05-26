@@ -1,5 +1,5 @@
 ---
-title: Kmesh v1.1.0 officially released!
+title: Kmesh V1.1.0 Officially Released!
 authors:
   - Kmesh
 date: 2025-05-23
@@ -47,11 +47,35 @@ Kmesh has verified compatibility with istio 1.25 and has added the corresponding
 
 ## Critical Bug Fix
 
-kmeshctl install waypoint error ([#1287](https://github.com/kmesh-net/kmesh/issues/1287))
+**kmeshctl install waypoint error ([#1287](https://github.com/kmesh-net/kmesh/issues/1287))**
 
-TestKmeshRestart flaky ([#1192](https://github.com/kmesh-net/kmesh/issues/1192))
+*root analysis:*
 
-TestServiceEntrySelectsWorkloadEntry flaky ([#1352](https://github.com/kmesh-net/kmesh/issues/1352))
+*Remove the extra v before the version number when building the waypoint image.*
+
+**TestKmeshRestart flaky ([#1192](https://github.com/kmesh-net/kmesh/issues/1192))**
+
+*root analysis:*
+
+*This issue is actually not related Kmesh restart, and it can also be produced in non-restart scenario.*
+
+*The root case is that it's not appropriate to use [sk](https://github.com/kmesh-net/kmesh/blob/main/bpf/kmesh/workload/cgroup_sock.c#L64) as the key of map [map_of_orig_dst](https://github.com/kmesh-net/kmesh/blob/main/bpf/kmesh/workload/cgroup_sock.c#L80), because it is reused and the value of map will be incorrectly overwritten, resulting in the metadata is not being encoded when it should be encoded in the connection sent to the waypoint, resulting the reset error in this issue.*
+
+**TestServiceEntrySelectsWorkloadEntry flaky ([#1352](https://github.com/kmesh-net/kmesh/issues/1352))**
+
+*root analysis:*
+
+*before this test case, there is a test `TestServiceEntryInlinedWorkloadEntry` which will generate two workload objects, for example, `Kubernetes/networking.istio.io/ServiceEntry/echo-1-21618/test-se-v4/10.244.1.103` and `ServiceEntry/echo-1-21618/test-se-v6/10.244.1.103`.*
+
+*In the current use case, WorkloadEntry will generate the workload object `Kubernetes/networking.istio.io/WorkloadEntry/echo-1-21618/test-we`.*
+
+*If the test case runs fast enough, the removal operation of the first two workload objects will be aggregated with the creation operation of the latter object.*
+
+*Kmesh will process the new object first and then remove the old resources, [reference](https://github.com/kmesh-net/kmesh/blob/main/pkg/controller/workload/workload_processor.go#L841).*
+
+*The IP addresses of these three objects are the same, which will eventually lead to the inability to find the IP address in the Kmesh workload cache, which will cause auth failure and connection timeout.*
+
+
 
 ## Acknowledgment
 

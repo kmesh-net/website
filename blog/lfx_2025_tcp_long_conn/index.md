@@ -12,6 +12,8 @@ sidebar_label : "LFX-2025 Tcp Long Connection Metrics"
 
 ## Introduction
 
+Hello readers, I am Yash, a final Year student from India. I love building cool stuffs and solving real world problems. I’ve been working in the cloud-native space for the past three years, exploring technologies like Kubernetes, Cilium, Istio, and more. 
+
 I successfully completed my mentorship with Kmesh during the LFX 2025 Term-1 program, which was an enriching and invaluable experience. Over the past three months, I gained significant knowledge and hands-on experience while contributing to the project. In this blog, I’ve documented my mentorship journey and the work I accomplished as a mentee.
 
 ## LFX Mentorship Program – Overview

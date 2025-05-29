@@ -1,5 +1,5 @@
 ---
-title: "Experience of LFX Mentorship - Kmesh Tcp Long Connection Metics"
+title: "Experience of LFX Mentorship - Kmesh Tcp Long Connection Metrics"
 summary: "Selected as a mentee at Kmesh for LFX 2025, worked on metrics collection for persistent connections."
 authors:
   - yp969803
@@ -11,6 +11,8 @@ sidebar_label : "LFX-2025 Tcp Long Connection Metrics"
 ---
 
 ## Introduction
+
+Hello readers, I am Yash, a final Year student from India. I love building cool stuffs and solving real world problems. I’ve been working in the cloud-native space for the past three years, exploring technologies like Kubernetes, Cilium, Istio, and more.
 
 I successfully completed my mentorship with Kmesh during the LFX 2025 Term-1 program, which was an enriching and invaluable experience. Over the past three months, I gained significant knowledge and hands-on experience while contributing to the project. In this blog, I’ve documented my mentorship journey and the work I accomplished as a mentee.
 
@@ -24,9 +26,9 @@ Participants contribute to high-impact projects hosted by foundations like CNCF,
 
 ## My Acceptance
 
-I am a regular opensource contributor and loves contributing to opensource. My interests heavily aligned with clound-native technologies. I was familiar with popular mentorship programs like LFX and GSoC, which are designed to help students get started in the open source world. 
+I am a regular opensource contributor and loves contributing to opensource. My interests heavily aligned with clound-native technologies. I was familiar with popular mentorship programs like LFX and GSoC, which are designed to help students get started in the open source world.
 Based on my work the Kmesh community also promoted for the member of Kmesh
-I had made up my mind to apply for LFX 2025 Term-1 and began exploring projects in early February. The projects under CNCF for LFX are listed in the [cncf/mentoring](https://github.com/cncf/mentoring) GitHub repository. I came across the [Kmesh](https://github.com/kmesh-net/kmesh) project, a newly added CNCF sandbox project participating in LFX for the first time. 
+I had made up my mind to apply for LFX 2025 Term-1 and began exploring projects in early February. The projects under CNCF for LFX are listed in the [cncf/mentoring](https://github.com/cncf/mentoring) GitHub repository. I came across the [Kmesh](https://github.com/kmesh-net/kmesh) project, a newly added CNCF sandbox project participating in LFX for the first time.
 I found the Kmesh project particularly exciting because of the problem it addresses—providing a sidecarless service mesh data plane. This approach can greatly benefit the community by improving performance and reducing overhead.
 
 Kmesh came up with 4 projects in term-1, i selected [long-connection-metrics](https://github.com/kmesh-net/kmesh/issues/1211) projects as it allows me to works with eBPF a already have a prior experience on working with eBPF.

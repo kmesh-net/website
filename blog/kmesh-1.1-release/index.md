@@ -15,16 +15,19 @@ In Kernel-Native mode, we’ve reduced invasive kernel modifications. Also, we u
 ## Main Features
 
 ### Website overhaul
+
 The Kmesh official website has undergone a complete redesign, offering an intuitive user experience with improved documentation, reorganized content hierarchy and streamlined navigation. In addressing feedback from the previous iteration, we focused on key areas where user experience could be enhanced. The original interface presented some usability challenges that occasionally led to navigation difficulties. Our blog module in particular required attention, as its content organization and visual hierarchy impacted content discoverability and readability. From an engineering perspective, we recognized opportunities to improve the code structure through better component organization and more systematic styling approaches, as the existing implementation had grown complex to maintain over time.
 
 To address these problems, we shifted to React with Docusaurus, a modern documentation framework that's much more developer-friendly. This allowed us to create modular components, eliminating redundant code through reusability. Docusaurus provides built-in navigation systems specifically designed for documentation and blogs, plus version-controlled documentation features. We've implemented multilingual support with both English and Chinese documentation, added advanced search functionality, and completely reorganized the content structure. The result is a dramatically improved experience that makes the Kmesh site more accessible and valuable for all users.
 
 ### Long connection metrics
+
 Before this release, Kmesh provides access logs during termination and establishment of a TCP connection with more detailed information about the connection, such as bytes sent, received, packet lost, rtt and retransmits. Kmesh also provides workload and service specific metrics such as bytes sent and received, lost packets, minimum rtt, total connection opened and closed by a pod. These metrics are only updated after a connection is closed.
 
 In this release, we implement access logs and metrics for TCP long connections, developing a continuous monitoring and reporting mechanism that captures detailed, real-time data throughout the lifetime of long-lived TCP connections. Access logs are reported periodically with information such as reporting time, connection establishment time, bytes sent, received, packet loss, rtt, retransmits and state. Metrics such as bytes sent and received, packet loss, retransmits are also reported periodically for long connections.
 
 ### DNS refactor
+
 The current DNS process includes the CDS refresh process. As a result, DNS is deeply coupled with kernel-native mode and cannot be used in dual-engine mode.
 
 ![image](images/dns1.jpg)
@@ -34,6 +37,7 @@ In release 1.1 we refactored the DNS module of Kmesh. Instead of a structure con
 ![image](./images/dns2.jpg)
 
 ### BPF config map optimization
+
 Kmesh has eliminated the dedicated kmesh_config_map BPF map, which previously stored global runtime configurations such as BPF logging level and monitoring toggle. These settings are now managed through global variables. Leveraging global variables simplifies BPF configuration management, enhancing runtime efficiency and maintainability.
 
 Optimise Kernel Native mode to reduce intrusive modifications to the kernel
@@ -43,6 +47,7 @@ To resolve this problem, we have modified the kernel in kernel-native mode and t
 ![image](./images/bpf.jpg)
 
 ### Adopt istio 1.25
+
 Kmesh has verified compatibility with istio 1.25 and has added the corresponding E2E test to CI. The Kmesh community maintains verification of the three istio versions in CI, so the E2E test of istio 1.22 has been removed from CI.
 
 ## Critical Bug Fix
@@ -74,8 +79,6 @@ Kmesh has verified compatibility with istio 1.25 and has added the corresponding
 *Kmesh will process the new object first and then remove the old resources, [reference](https://github.com/kmesh-net/kmesh/blob/main/pkg/controller/workload/workload_processor.go#L841).*
 
 *The IP addresses of these three objects are the same, which will eventually lead to the inability to find the IP address in the Kmesh workload cache, which will cause auth failure and connection timeout.*
-
-
 
 ## Acknowledgment
 

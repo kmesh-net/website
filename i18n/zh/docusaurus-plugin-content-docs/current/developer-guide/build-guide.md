@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: "如何构建"
+title: 如何构建
 ---
 
 Kmesh 需要在具有 Kmesh 内核增强功能的 Linux 环境中编译和构建。目前，Kmesh 可以在多个 OS 版本中编译和运行，具体 OS 版本请参见 [Kmesh 支持系统](https://github.com/kmesh-net/kmesh/blob/main/docs/kmesh_support.md)。

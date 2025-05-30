@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-title: 使用 Grafana 可视化服务指标**
+title: 使用 Grafana 可视化服务指标
 ---
 
 ## 准备工作

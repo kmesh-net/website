@@ -294,7 +294,7 @@ kubectl delete -f ./deploy/yaml/
 
 ```shell
 kubectl delete -f samples/httpbin/httpbin.yaml
-kubeclt delete -f samples/sleep/sleep.yaml
+kubectl delete -f samples/sleep/sleep.yaml
 ```
 
 如果您安装了 Gateway API CRD，请移除它们：

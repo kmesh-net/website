@@ -16,6 +16,7 @@ title: 尝试请求超时
    _以上步骤可以参考 [安装 Waypoint | Kmesh](/i18n/zh/docusaurus-plugin-content-docs/current/application-layer/install_waypoint.md#准备工作)_
 
 4. **为 ratings 服务安装 waypoint**
+
    ```bash
    istioctl x waypoint apply -n default --name ratings-svc-waypoint
    kubectl label service ratings istio.io/use-waypoint=ratings-svc-waypoint

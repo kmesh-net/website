@@ -22,7 +22,7 @@ When deploying Kmesh, you might encounter port conflicts, particularly with port
 If you encounter **ERR_PORT_IN_USE**, follow these steps:
 
 1. **Diagnose the Conflict**:
- 
+
    ```shell
    # Check what's using port 15006
    sudo lsof -i :15006

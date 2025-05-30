@@ -64,7 +64,7 @@ Below we will learn how to deploy different waypoints for different granularity.
 To enable a namespace, service or pod to use a waypoint, add the `istio.io/use-waypoint` label with a value of the waypoint name.
 We can also specify a customized waypoint image with `--image`, by default this default to `ghcr.io/kmesh-net/waypoint:{VERSION}`
 
-### Configure a waypoint for a specific service:
+### Configure a waypoint for a specific service
 
 Deploy a waypoint `reviews-svc-waypoint` for service `reviews`, so any traffic to `reviews` from a client managed by Kmesh will be mediated by the waypoint proxy
 
@@ -97,7 +97,7 @@ reviews-v3-7bbb5b9cf7-952d8               1/1     Running   0          30m
 sleep-5577c64d7c-n7rxp                    1/1     Running   0          30m
 ```
 
-### Configure waypoint for a specific namespace:
+### Configure waypoint for a specific namespace
 
 Deploy a waypoint for the `default` namespace with default name `waypoint`. By specifying `--enroll-namespace`, the namespace will be labeled with `istio.io/use-waypoint=waypoint`
 
@@ -107,7 +107,7 @@ waypoint default/waypoint applied
 namespace default labels with "istio.io/use-waypoint: waypoint"
 ```
 
-### Configure waypoint for a specific pod:
+### Configure waypoint for a specific pod
 
 Deploy a waypoint called reviews-v2-pod-waypoint for the `reviews-v2-5979c6fc9c-72bst` pod.
 
@@ -128,18 +128,21 @@ If you are **not** planning to explore any follow-on tasks, go on with the clean
 1. Remove waypoint:
 
    ### Remove waypoint for service
+
    ```bash
    [root@ ~]# kmeshctl waypoint delete reviews-svc-waypoint
    [root@ ~]# kubectl label service reviews istio.io/use-waypoint-
    ```
-   
+
    ### Remove waypoint for namespace
+
    ```bash
    [root@ ~]# kmeshctl waypoint delete waypoint
    [root@ ~]# kubectl label namespace default istio.io/use-waypoint-
    ```
-   
+
    ### Remove waypoint for pod
+
    ```bash
    [root@ ~]# kmeshctl waypoint delete reviews-v2-pod-waypoint
    [root@ ~]# kubectl label pod -l version=v2,app=reviews istio.io/use-waypoint-

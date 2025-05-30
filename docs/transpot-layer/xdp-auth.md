@@ -7,7 +7,7 @@ title: TCP Authorization in XDP
 
 Previously, we launched the [userspace authorization feature](/docs/transpot-layer/tcp-authorization.md), where authorization results were verified in userspace. This document explains how to enable authentication directly within the XDP program. Currently, XDP-based authentication supports verification based on port and IP addresses only.
 
-### How to enable XDP-based authentication 
+### How to enable XDP-based authentication
 
 We can use `kmeshctl` to enable XDP-based authentication:
 
@@ -60,7 +60,8 @@ kubectl exec -it fortio-client-deployment-6966bf9488-tpwpj -- fortio load -c 1 -
 ```
 
 Expected output:
-```
+
+```text
 ...
 IP addresses distribution:
 10.244.0.7:8080: 1
@@ -77,7 +78,8 @@ kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
 Expected output:
-```
+
+```log
 ...
 time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: port 8080 in destination_ports, matched" subsys=ebpf
 time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
@@ -122,7 +124,8 @@ kubectl exec -it fortio-client-deployment-6966bf9488-m96qp -- fortio load -c 1 -
 ```
 
 Expected output:
-```
+
+```text
 ...
 IP addresses distribution:
 10.244.0.36:8080: 1
@@ -139,7 +142,8 @@ kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
 Expected output:
-```
+
+```log
 ...
 time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 time="2024-12-26T15:06:14+08:00" level=info msg="[AUTH] DEBUG: no ports configured, matching by default" subsys=ebpf
@@ -182,7 +186,8 @@ kubectl exec -it fortio-client-deployment-6966bf9488-m96qp -- fortio load -c 1 -
 ```
 
 Expected output:
-```
+
+```text
 ...
 10.244.0.36:8080: 1
 Code  -1 : 1 (100.0 %)
@@ -198,7 +203,8 @@ kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
 Expected output:
-```
+
+```log
 ...
 time="2024-12-26T15:05:22+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 time="2024-12-26T15:05:26+08:00" level=info msg="[AUTH] DEBUG: no ports configured, matching by default" subsys=ebpf

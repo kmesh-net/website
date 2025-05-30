@@ -9,7 +9,7 @@ title: Use Grafana to visualize service metrics
 2. Deploy bookinfo as sample application and sleep as curl client
 3. Install namespace granularity waypoint for default namespace
 
-   _The above steps could refer to [Install Waypoint | Kmesh](#)_
+   _The above steps could refer to [Install Waypoint | Kmesh](/docs/application-layer/install_waypoint.md#preparation)_
 
 4. Deploy prometheus and garafana:
 
@@ -48,4 +48,4 @@ kubectl delete -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples
 kubectl delete -f https://raw.githubusercontent.com/kmesh-net/kmesh/main/samples/addons/grafana.yaml
 ```
 
-2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](#) instructions to remove waypoint and shutdown the application.
+2. If you are not planning to explore any follow-on tasks, refer to the [Install Waypoint/Cleanup](/docs/application-layer/install_waypoint.md#cleanup) instructions to remove waypoint and shutdown the application.

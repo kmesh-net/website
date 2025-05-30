@@ -109,5 +109,3 @@ sidebar_position: 4
 :::note
 这些角色仅适用于 Kmesh GitHub 组织和仓库。目前，Kmesh 尚未为这些角色建立正式的审查流程，但相关流程将会在不久的将来确立。
 :::
-
-[维护者]: (https://github.com/kmesh-net/kmesh/blob/main/MAINTAINERS.md)

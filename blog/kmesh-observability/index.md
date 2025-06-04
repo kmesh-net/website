@@ -124,7 +124,7 @@ for k, portList := range dstWorkload.Services {
 }
 ```
 
-After building the metriclabels at the workload granularity, service granularity and connection granuality update the cache.
+After building the metriclabels at the workload granularity, service granularity and connection granularity update the cache.
 
 Every 5 seconds, the metrics information will be updated into Prometheus through the Prometheus API.
 
@@ -208,7 +208,7 @@ Accesslog monitored by Kmesh L4 at this stage:
 | dst.namespace  | Namespace of destination workload                                                                                  |
 | direction      | The direction of the traffic. INBOUND means into the destination service, OUTBOUND means out of the source service |
 | sent_bytes     | Total bytes sent over the connection so far                    |
-| received_bytes | Total bytes recieved over the connection so far connection                                                                       |
+| received_bytes | Total bytes received over the connection so far connection                                                                       |
 | duration       | Duration of this connection so far                                                                                        |
 | start_time     | Start time of the connection                                  |
 | packet_loss    | Total packets lost in transmission in the connection so far   |

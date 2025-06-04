@@ -294,7 +294,7 @@ To remove the sleep and httpbin applications:
 
 ```shell
 kubectl delete -f samples/httpbin/httpbin.yaml
-kubeclt delete -f samples/sleep/sleep.yaml
+kubectl delete -f samples/sleep/sleep.yaml
 ```
 
 If you installed the Gateway API CRDs, remove them:

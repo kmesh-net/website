@@ -30,7 +30,7 @@ Kmesh uses two main testing tools:
 
 ### Test Method
 
-Test a group of `fortio` performance data by using the number of concurrent connections as a variable parameter, and collect the CPU usage during the test. The [test script](https://github.com/kmesh-net/kmesh/test/performance/) has been archived.
+Test a group of `fortio` performance data by using the number of concurrent connections as a variable parameter, and collect the CPU usage during the test. The [test script](https://github.com/kmesh-net/kmesh/tree/main/test/performance) has been archived.
 
 ## Running the Tests
 

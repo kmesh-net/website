@@ -120,6 +120,18 @@ const config = {
       },
       footer: {
         style: "dark",
+        links: [
+          {
+            html: `
+              <div style="text-align: center;">
+              <h6>Kmesh is a Cloud Native Computing Foundation Sandbox project.</h6>
+              <a href="https://www.cncf.io/">
+                <img src="img/cncf-dark.svg" alt="CNCF Logo" style="width: 350px; height: 51px; margin-top: 20px" />
+              </a>
+              </div>
+            `
+          }
+        ],
         copyright: `Copyright © ${new Date().getFullYear()} Kmesh Project Authors. All rights reserved.`,
       },
       prism: {

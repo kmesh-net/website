@@ -103,6 +103,11 @@ const config = {
             className: "header-github-link header-icon",
           },
           {
+            href: "https://www.youtube.com/channel/UC-ToQ9h0SR_w492PpIfZAGw",
+            position: "right",
+            className: "header-youtube-link header-icon",
+          },
+          {
             href: "https://x.com/Kmesh_net",
             position: "right",
             className: "header-x-link header-icon",

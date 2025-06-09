@@ -69,6 +69,14 @@
   background: url("/img/github.svg") no-repeat;
 }
 
+.header-youtube-link::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background: url("/img/youtube.svg") no-repeat center center;
+}
+
 [data-theme="dark"] .header-github-link::before {
   background: url("/img/github.svg") no-repeat;
 }

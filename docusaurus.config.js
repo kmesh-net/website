@@ -108,6 +108,11 @@ const config = {
             className: "header-x-link header-icon",
           },
           {
+            href: "https://www.youtube.com/@Kmesh-traffic",
+            position: "right",
+            className: "header-youtube-link header-icon",
+          },
+          {
             to: "https://app.slack.com/client/T08PSQ7BQ/C06BU2GB8NL",
             position: "right",
             className: "header-slack-link header-icon",

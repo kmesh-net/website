@@ -10,7 +10,6 @@ toc: true
 type: docs
 ---
 
-## Overview
 
 This guide demonstrates how to configure circuit breakers in KMesh using Fortio for load testing. Circuit breakers help prevent system overload by limiting the number of concurrent connections and requests.
 
@@ -472,4 +471,4 @@ EOF
 ```bash
 kubectl logs deploy/httpbin-demo
 kubectl logs $(kubectl get pod -l app=fortio-demo -o jsonpath={.items[0].metadata.name})
-```
+```z

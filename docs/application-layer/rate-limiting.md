@@ -3,7 +3,7 @@ title: Rate Limiting
 sidebar_position: 9
 ---
 
-# Rate Limiting in Kmesh
+# Rate Limiting
 
 Rate limiting is a critical feature for managing traffic flow and preventing service overload. Kmesh supports local rate limiting in Kernel-Native mode, allowing you to control connection rates without relying on external services.
 
@@ -179,6 +179,7 @@ You can view these metrics through the Kmesh monitoring interface or export them
 If rate limiting is not working as expected:
 
 1. **Verify configuration**: Ensure your EnvoyFilter is correctly configured and applied:
+
    ```bash
    kubectl get envoyfilter
    kubectl describe envoyfilter <name>
@@ -187,6 +188,7 @@ If rate limiting is not working as expected:
 2. **Check Kmesh build**: Verify that your Kmesh build includes rate limiting support (built with `feature_ratelimit` tag).
 
 3. **Examine logs**: Look for rate limiting related logs in the Kmesh logs:
+
    ```bash
    kubectl logs -f <kmesh-pod> | grep "rate limit"
    ```

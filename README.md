@@ -90,6 +90,44 @@ yarn serve
 
 ---
 
+## How to Use Dockerfile for KMesh Website
+***(Windows, Mac, and Linux Instructions)***
+
+### Prerequisites :
+1) **Install Docker** :
+
+   - Download [Docker Desktop](https://www.docker.com/get-started/) (Windows/Mac)
+
+   - Linux: Install via package manager (e.g., sudo apt install docker.io on Ubuntu)
+
+   - Verify installation:
+	```
+	docker --version
+	```
+
+2) **Build the Docker Image** :
+***Windows (PowerShell) & Mac/Linux (Terminal)***
+
+```
+# Navigate to the project directory
+cd website
+
+# Build the Docker image (use --no-cache if rebuilding)
+docker build -t kmesh-website .
+
+# Verify the image was created
+docker images
+
+# Run the container (maps port 80 in container to 8080 on host)
+docker run -d -p 8080:80 --name kmesh-site kmesh-website
+```
+
+3) **Access the Website** :
+	- Open a browser and visit:
+`http://localhost:8080`
+
+---
+
 ## Notes of Writing Documentation
 
 In the Kmesh documentation, each document should include frontmatter at the beginning as follows:

@@ -143,7 +143,26 @@ NAME                      READY   STATUS    RESTARTS   AGE
 istiod-5659cfbd55-9s92d   1/1     Running   0          18h
 ```
 
-### 2. Verify Kmesh Service Logs
+### 2. Verify Pod Integration
+
+Deploy a test pod and verify Kmesh annotation:
+
+```shell
+kubectl describe po <pod-name> | grep Annotations
+Annotations:      kmesh.net/redirection: enabled
+```
+
+### 3. Verify Service Connectivity
+
+Test service access using the sleep pod:
+
+```shell
+kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
+```
+
+Expected response should show HTTP 200 OK status.
+
+### 4. Verify Kmesh Service Logs
 
 Check for successful initialization messages:
 
@@ -158,7 +177,7 @@ Look for these key messages:
 - "dump StartServer successful"
 - "command Start cni successful"
 
-### 3. Verify CNI Configuration
+### 5. Verify CNI Configuration
 
 Check CNI binary installation:
 
@@ -171,25 +190,6 @@ Verify CNI configuration:
 ```shell
 cat /etc/cni/net.d/kmesh-cni-kubeconfig
 ```
-
-### 4. Verify Pod Integration
-
-Deploy a test pod and verify Kmesh annotation:
-
-```shell
-kubectl describe po <pod-name> | grep Annotations
-Annotations:      kmesh.net/redirection: enabled
-```
-
-### 5. Verify Service Connectivity
-
-Test service access using the sleep pod:
-
-```shell
-kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
-```
-
-Expected response should show HTTP 200 OK status.
 
 ## Change Kmesh Start Mode
 

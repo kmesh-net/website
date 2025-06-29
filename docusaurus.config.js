@@ -152,11 +152,11 @@ const config = {
     [
       "docusaurus-lunr-search",
       {
-        languages: ["en",'zh'],
+        languages: ["en", "zh"],
         indexDocs: true,
         indexBlog: true,
         indexPages: false,
-      }
+      },
     ],
   ],
 };

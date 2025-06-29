@@ -4,6 +4,7 @@ import About from "../components/About";
 import Why from "../components/Why";
 import Supporters from "../components/Supporters";
 import Blogs from "../components/Blogs";
+import CNCFInfo from "../components/CNCFInfo";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <Why />
       <Blogs />
+      <CNCFInfo />
       <Supporters />
     </Layout>
   );

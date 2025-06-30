@@ -3,7 +3,7 @@
 This repo contains the source code of [Kmesh Website](https://kmesh.net/en/) and all of the docs for Kmesh.
 
 - [Kmesh Website](https://kmesh.net/en/)
-- [Kmesh Docs](https://kmesh.net/en/docs/)
+- [Kmesh Docs](https://kmesh.net/docs/welcome)
 - [Kmesh Blog](https://kmesh.net/en/blog/)
 
 Welcome to join us and you are more than appreciated to contribute!

@@ -18,26 +18,20 @@ IPsec is a mature and widely used encryption method for inter node communication
 ### How to enable IPsec in Kmesh
 
 **Step 1: Generate an IPsec pre shared key for Kmesh before starting the Kmesh by kmeshctl. Currently, only the rfc4106 (gcm (AES)) algorithm is supported. key need 36 characters(32 character as algo key, 4 character as salt)**
-
-	root@master:~/kmesh# ./kmeshctl secret --key=<aead key>
-
-or
-
-	root@master:~/kmesh# ./kmeshctl secret --k=<aead key>
+``` bash
+kmeshctl secret --key=<aead key>
+```
 
 If you want to randomly generate a key, you can use the following command
-
-	root@master:~/kmesh# ./kmeshctl secret --key=$(dd if=/dev/urandom count=36 bs=1 2>/dev/null | xxd -p -c 64)
-
+```bash
+kmeshctl secret --key=$(dd if=/dev/urandom count=36 bs=1 2>/dev/null | xxd -p -c 64)
+```
 If you want use custom key, you can use the following command
+``` bash
+kmeshctl secret --key=$(echo -n "{36-character user-defined key here}" | xxd -p -c 64)
+```
 
-	root@master:~/kmesh# ./kmeshctl secret --key=$(echo -n "{36-character user-defined key here}" | xxd -p -c 64)
-
-**Step 2: Install the specified CRD type**
-
-	root@master:~/kmesh# kubectl apply -f deploy/yaml/crd/kmesh.net_kmeshnodeinfos.yaml
-
-**Step 3: Add the parameter --enable-ipsec=true to the Kmesh yaml**
+**Step 2: Add the parameter --enable-ipsec=true to the Kmesh yaml**
 
 	kmesh.yaml
 	...
@@ -47,13 +41,13 @@ If you want use custom key, you can use the following command
             ]
 	...
 
-**Step 4: Place pods or namespace under the management of Kmesh.**
+**Step 3: Place pods or namespace under the management of Kmesh.**
 
 Only when both communicating pods are managed by Kmesh, will they enter the encryption process.
-
-	root@master:~/kmesh# kubectl label namespace default istio.io/dataplane-mode=Kmesh
-
-**Step 5: Test whether the data packet has been encrypted**
+``` bash
+kubectl label namespace default istio.io/dataplane-mode=Kmesh
+```
+**Step 4: Test whether the data packet has been encrypted**
 
 Use tcpdump on nodes to capture packets and check if IPsec has been used during data communication between nodes (determined by ESP packets)
 
@@ -65,7 +59,7 @@ Use tcpdump on nodes to capture packets and check if IPsec has been used during 
 	14:19:24.143738 ?    In  IP node1 > master: ESP(spi=0x00000001,seq=0x3c038), length 172
 	...
 
-**Step 6: Replace pre shared key**
+**Step 5: Replace pre shared key**
 
 After a period of time, the pre shared key of the cluster can be changed. After changing the pre shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. You can be observed again through tcpdump. The initial IPSec SPI version number is 1
 

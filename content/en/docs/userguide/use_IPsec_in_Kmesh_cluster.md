@@ -40,10 +40,10 @@ kmeshctl secret --key=$(echo -n "{36-bytes user-defined key here}" | xxd -p -c 6
 ```plaintext
 kmesh.yaml
 ...
-		args:
-		[
-			"./start_kmesh.sh --mode=dual-engine --enable-bypass=false --enable-ipsec=true",
-		]
+args:
+[
+	"./start_kmesh.sh --mode=dual-engine --enable-bypass=false --enable-ipsec=true",
+]
 ...
 ```
 

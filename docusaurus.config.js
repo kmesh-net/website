@@ -125,7 +125,7 @@ const config = {
       },
       footer: {
         style: "dark",
-        copyright: `Copyright © ${new Date().getFullYear()} Kmesh Project Authors. All rights reserved.`,
+        copyright: `Copyright © Kmesh a Series of LF Projects, LLC<br>For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/">lfprojects.org/policies/</a>.`,
       },
       prism: {
         theme: prismThemes.github,

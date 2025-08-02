@@ -90,10 +90,9 @@ We offer several ways to install Kmesh:
 You can install Kmesh directly from the GitHub Container Registry without cloning the repository:
 
 ```shell
-kubectl create namespace kmesh-system
-helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-system
+helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-system --create-namespace
 ```
-Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm).(example: `v1.1.0`)
+Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm).(e.g., `v1.1.0`)
 
 ### Option 2: Install from Helm
 

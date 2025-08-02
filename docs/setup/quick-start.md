@@ -92,15 +92,25 @@ You can install Kmesh directly from the GitHub Container Registry without clonin
 ```shell
 helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-system --create-namespace
 ```
-Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm)(e.g., `v1.1.0`).
+- Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm):
+  - Use --version v1.1.0 for stable releases
+  - Use --version v1.1.0-alpha for pre-releases
+  - Omit --version to install the latest version (not recommended for production)
 
 ### Option 2: Install from Helm
 
 ```shell
 helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
 ```
+### Option 3: Install from Helm Chart Archive
 
-### Option 3: Install from Yaml
+```shell
+helm install kmesh ./kmesh-helm-<version>.tgz -n kmesh-system --create-namespace
+```
+- Replace `<version>` with your desired version from  [GitHub Releases](https://github.com/kmesh-net/kmesh/releases):
+
+
+### Option 4: Install from Yaml
 
 ```shell
 kubectl create namespace kmesh-system

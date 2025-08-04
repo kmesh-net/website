@@ -14,7 +14,7 @@ Docusaurus offers robust built-in support for versioning documentation, a critic
 Docusaurus provides a straightforward system for versioning documentation:
 
 - **Current Version**: This is the latest, actively maintained version of your documentation, stored in the `docs/` folder. It typically represents the "Next" version or the most recent unreleased changes.
-- **Versioned Docs**: These are snapshots of your documentation at specific points in time, usually tied to software releases. They are stored in folders named `versioned_docs/version-<version>/`, such as `versioned_docs/version-1.0/` for version 1.0.
+- **Versioned Docs**: These are snapshots of your documentation at specific points in time, usually tied to software releases. They are stored in folders named `versioned_docs/version-<version>/`, such as `versioned_docs/version-1.1.0/` for version 1.1.0.
 
 For example:
 
@@ -23,10 +23,10 @@ For example:
 my-docusaurus-project/
 ├── docs/                       # Current version documentation
 ├── versioned_docs/             # All versioned documentation
-│   ├── version-1.0/            # Version 1.0 documentation
+│   ├── version-1.1.0/            # Version 1.1.0 documentation
 │   └── version-1.1/            # Version 1.1 documentation
 ├── versioned_sidebars/         # Sidebars for each version
-│   ├── version-1.0-sidebars.json
+│   ├── version-1.1.0-sidebars.json
 │   └── version-1.1-sidebars.json
 └── versions.json               # List of all available versions
 ```
@@ -57,24 +57,24 @@ or
 yarn docusaurus docs:version <version>
 ```
 
-Replace `<version>` with your desired version number, e.g., `1.0`.
+Replace `<version>` with your desired version number, e.g., `1.1.0`.
 
 - **What Happens**:
-  - Docusaurus duplicates the entire `docs/` folder into `versioned_docs/version-1.0/`.
+  - Docusaurus duplicates the entire `docs/` folder into `versioned_docs/version-1.1.0/`.
   - It updates the `versions.json` file, which tracks all versioned documentation.
 
-Example `versions.json` after creating version 1.0:
+Example `versions.json` after creating version 1.1.0:
 
 ```json
 // File: versions.json
 [
-  "1.0"
+  "1.1.0"
 ]
 ```
 
 ### Step 2: Customize Version Labels
 
-By default, the version number (e.g., "1.0") appears in the sidebar and version selector. You can customize these labels in `docusaurus.config.js`:
+By default, the version number (e.g., "1.1.0") appears in the sidebar and version selector. You can customize these labels in `docusaurus.config.js`:
 
 ```javascript
 // File: docusaurus.config.js
@@ -85,7 +85,7 @@ module.exports = {
     docs: {
       sidebar: {
         versionLabels: {
-          '1.0': 'Version 1.0 (Legacy)',
+          '1.1.0': 'Version 1.1.0 (Legacy)',
           '1.1': 'Version 1.1',
           'current': 'Next (Unreleased)'
         },
@@ -125,7 +125,7 @@ This creates a new snapshot in `versioned_docs/version-2.0/` and updates `versio
 // File: versions.json (after adding version 2.0)
 [
   "2.0",
-  "1.0"
+  "1.1.0"
 ]
 ```
 
@@ -136,8 +136,8 @@ To delete a version:
 ```bash
 # File: terminal command
 # 1. Remove the version folder
-rm -rf versioned_docs/version-1.0
-rm -rf versioned_sidebars/version-1.0-sidebars.json
+rm -rf versioned_docs/version-1.1.0
+rm -rf versioned_sidebars/version-1.1.0-sidebars.json
 
 # 2. Update versions.json manually
 ```
@@ -145,7 +145,7 @@ rm -rf versioned_sidebars/version-1.0-sidebars.json
 Edit `versions.json` to remove the version:
 
 ```json
-// File: versions.json (after removing version 1.0)
+// File: versions.json (after removing version 1.1.0)
 [
   "2.0"
 ]
@@ -164,18 +164,18 @@ When you create a version, Docusaurus automatically creates a sidebar configurat
 ```json
 // File: versioned_sidebars/version-1.0-sidebars.json (automatically generated)
 {
-  "version-1.0/docs": [
+  "version-1.1.0/docs": [
     {
       "type": "category",
       "label": "Getting Started",
       "items": [
         {
           "type": "doc",
-          "id": "version-1.0/intro"
+          "id": "version-1.1.0/intro"
         },
         {
           "type": "doc",
-          "id": "version-1.0/installation"
+          "id": "version-1.1.0/installation"
         }
       ]
     }
@@ -188,20 +188,20 @@ When you create a version, Docusaurus automatically creates a sidebar configurat
 For more control, you can modify the versioned sidebar file directly:
 
 ```javascript
-// File: versioned_sidebars/version-1.0-sidebars.json (customized)
+// File: versioned_sidebars/version-1.1.0-sidebars.json (customized)
 {
-  "version-1.0/docs": [
+  "version-1.1.0/docs": [
     {
       "type": "category",
       "label": "Getting Started",
       "items": [
         {
           "type": "doc",
-          "id": "version-1.0/intro"
+          "id": "version-1.1.0/intro"
         },
         {
           "type": "doc",
-          "id": "version-1.0/installation"
+          "id": "version-1.1.0/installation"
         }
       ]
     },
@@ -211,7 +211,7 @@ For more control, you can modify the versioned sidebar file directly:
       "items": [
         {
           "type": "doc",
-          "id": "version-1.0/advanced/configuration"
+          "id": "version-1.1.0/advanced/configuration"
         }
       ]
     }
@@ -249,7 +249,7 @@ In your documentation, you can link to specific versions:
 ```markdown
 <!-- File: docs/my-doc.md -->
 
-Check our [installation guide for v1.0](/docs/1.0/installation) or the [latest installation guide](/docs/installation).
+Check our [installation guide for v1.1.0](/docs/1.1.0/installation) or the [latest installation guide](/docs/installation).
 ```
 
 ---
@@ -288,9 +288,9 @@ Check our [installation guide for v1.0](/docs/1.0/installation) or the [latest i
                 label: '2.0',
                 path: '2.0',
               },
-              '1.0': {
-                label: '1.0 (Legacy)',
-                path: '1.0',
+              '1.1.0': {
+                label: '1.1.0 (Legacy)',
+                path: '1.1.0',
                 banner: 'unmaintained', // Adds a banner indicating this version is no longer maintained
               },
             },
@@ -305,17 +305,17 @@ Check our [installation guide for v1.0](/docs/1.0/installation) or the [latest i
 
 ## 7. Example Scenario
 
-Let's walk through versioning for a software project with two releases: 1.0 and 2.0.
+Let's walk through versioning for a software project with two releases: 1.1.0 and 2.0.
 
 ```bash
 # File: terminal commands for versioning workflow
-# Initial setup - create version 1.0
-npm run docusaurus docs:version 1.0
+# Initial setup - create version 1.1.0
+npm run docusaurus docs:version 1.1.0
 
 # Result:
-# - versioned_docs/version-1.0/ contains a snapshot of docs/
-# - versioned_sidebars/version-1.0-sidebars.json is created
-# - versions.json now includes "1.0"
+# - versioned_docs/version-1.1.0/ contains a snapshot of docs/
+# - versioned_sidebars/version-1.1.0-sidebars.json is created
+# - versions.json now includes "1.1.0"
 
 # Later - update docs/ with changes for version 2.0 and create version 2.0
 npm run docusaurus docs:version 2.0
@@ -323,7 +323,7 @@ npm run docusaurus docs:version 2.0
 # Result: 
 # - versioned_docs/version-2.0/ is created
 # - versioned_sidebars/version-2.0-sidebars.json is created
-# - versions.json now includes "2.0" and "1.0"
+# - versions.json now includes "2.0" and "1.1.0"
 # - docs/ becomes the "Next" version
 ```
 
@@ -335,7 +335,7 @@ my-docusaurus-project/
 ├── docs/                       # Current "Next" version
 ├── versioned_docs/
 │   ├── version-2.0/            # Version 2.0 documentation
-│   └── version-1.0/            # Version 1.0 documentation
+│   └── version-1.1.0/            # Version 1.1.0 documentation
 ├── versioned_sidebars/
 │   ├── version-2.0-sidebars.json
 │   └── version-1.0-sidebars.json
@@ -346,7 +346,7 @@ The result is a site where users can easily navigate between versions through th
 
 - **Next**: Latest unreleased changes
 - **2.0**: Documentation for version 2.0
-- **1.0 (Legacy)**: Documentation for version 1.0
+- **1.1.0 (Legacy)**: Documentation for version 1.0
 
 ---
 

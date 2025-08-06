@@ -93,7 +93,10 @@ You can install Kmesh directly from the GitHub Container Registry without clonin
 helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-system --create-namespace
 ```
 
-Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm)(e.g., `v1.1.0`).
+- Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm):
+  - For stable releases, use a version like `v1.1.0`.
+  - For pre-releases, use a version like `v1.1.0-alpha`.
+  - Omit the `--version` flag to install the latest version (not recommended for production).
 
 ### Option 2: Install from Helm
 
@@ -101,7 +104,15 @@ Replace `x.y.z` with your desired version from [kmesh-helm packages](https://git
 helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
 ```
 
-### Option 3: Install from Yaml
+### Option 3: Install from Helm Chart Archive
+
+```shell
+helm install kmesh ./kmesh-helm-<version>.tgz -n kmesh-system --create-namespace
+```
+
+- Download the `kmesh-helm-<version>.tgz` archive from [GitHub Releases](https://github.com/kmesh-net/kmesh/releases). Replace `<version>` in the command above with the version you downloaded (e.g., `v1.1.0`).
+
+### Option 4: Install from Yaml
 
 ```shell
 kubectl create namespace kmesh-system
@@ -287,7 +298,7 @@ Annotations:      <none>
 
 ### Delete Kmesh
 
-If you installed Kmesh using helm or OCI registry:
+If you installed Kmesh using any of the Helm options above:
 
 ```shell
 helm uninstall kmesh -n kmesh-system

@@ -44,7 +44,7 @@ const config = {
           showLastUpdateTime: true,
         },
         gtag: {
-          trackingID: "G-VR2TXC8LVM",
+          trackingID: "G-854W8PEZ1Z",
           anonymizeIP: true,
         },
         blog: {

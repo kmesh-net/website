@@ -22,7 +22,14 @@ const sliderItems = [
         The forwarding delay of the service mesh is reduced by 5x
       </Translate>
     ),
-    subTitle: <Translate>click here for more Details</Translate>,
+    subTitle: (
+      <a
+        href="https://kmesh.net/docs/welcome"
+        style={{ color: 'inherit', textDecoration: 'underline' }}
+      >
+        <Translate>Click here for more Details</Translate>
+      </a>
+    ),
     backgroundImage: "img/headers/bubbles-wide.jpg",
     opacity: 0.5,
     align: "center",

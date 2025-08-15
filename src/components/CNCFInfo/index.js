@@ -25,6 +25,7 @@ export default function CNCFInfo() {
             src={colorMode === 'dark' ? "/img/cncf-dark.svg" : "/img/cncf-light.svg"} 
             alt="CNCF Logo" 
             className={styles.logoImage}
+            key={colorMode}
           />
         </div>
       </div>

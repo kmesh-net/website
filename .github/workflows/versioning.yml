@@ -1,0 +1,74 @@
+name: Version Docusaurus Docs (PR)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  version-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | sed 's|refs/tags/v||')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create versioned docs from source
+        run: |
+          echo "Creating version ${{ steps.version.outputs.version }} from /docs"
+          npm run docusaurus docs:version ${{ steps.version.outputs.version }}
+
+      - name: Overwrite i18n versioned docs with source version
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          echo "Overwriting i18n/zh versioned docs with source for version $VERSION"
+          # Remove the i18n versioned folder if it exists
+          rm -rf i18n/zh/docusaurus-plugin-content-docs/version-$VERSION
+          # Copy the source versioned docs into the i18n folder
+          cp -r versioned_docs/version-$VERSION i18n/zh/docusaurus-plugin-content-docs/
+          # Add the updated i18n files to git
+          git add i18n/zh/docusaurus-plugin-content-docs/version-$VERSION
+
+      - name: Commit and push to new branch
+        run: |
+          BRANCH_NAME="version/${{ steps.version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b $BRANCH_NAME
+          # Stage ALL versioned content
+          git add versioned_docs/ versioned_sidebars/ i18n/ versions.json
+          git commit -m "docs: version ${{ steps.version.outputs.version }}"
+          git push origin $BRANCH_NAME
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.WEBSITE_PAT }}
+          branch: version/${{ steps.version.outputs.version }}
+          base: main
+          title: "docs: version ${{ steps.version.outputs.version }}"
+          body: |
+            This PR was automatically created by the versioning workflow.
+            Please review and merge.
+          labels: documentation, versioning
+          delete-branch: true

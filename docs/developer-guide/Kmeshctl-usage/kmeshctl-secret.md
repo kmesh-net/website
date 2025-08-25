@@ -1,5 +1,5 @@
 ---
-linktitle: kmeshctl secret
+title: kmeshctl secret
 sidebar_position: 6
 ---
 

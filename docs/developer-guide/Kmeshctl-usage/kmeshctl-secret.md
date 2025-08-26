@@ -1,14 +1,6 @@
 ---
-draft: true
-linktitle: Use IPsec in Kmesh cluster
-menu:
-  docs:
-    parent: user guide
-    weight: 21
-title: Use IPsec in Kmesh cluster
-toc: true
-type: docs
-
+title: kmeshctl secret
+sidebar_position: 6
 ---
 
 ### Use IPsec in Kmesh cluster

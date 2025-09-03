@@ -15,7 +15,7 @@ The `kmeshctl secret` command provides management capabilities for IPsec secrets
 - `get`: Retrieve current IPsec key and configuration (displayed in JSON format)
 - `delete`: Remove IPsec secret from the cluster
 
-#### Basic usage examples:
+#### Basic usage examples
 
 ```bash
 # Create IPsec secret with random key
@@ -86,7 +86,6 @@ tcpdump -i any |grep ESP
 After a period of time, the pre shared key of the cluster can be changed. After changing the pre shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. This can be observed again through using tcpdump. The initial IPSec SPI version number is 1.
 
 `kmeshctl secret create` command will update the pre shared key.
-
 
 ```plaintext
 root@master:~/kmesh# tcpdump -i any |grep ESP

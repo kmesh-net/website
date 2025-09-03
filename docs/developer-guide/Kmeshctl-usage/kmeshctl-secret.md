@@ -33,7 +33,7 @@ kmeshctl secret delete
 
 ### How to enable IPsec in Kmesh
 
-#### Step 1: Generate an IPsec pre shared key for Kmesh before starting Kmesh. Currently, only the rfc4106 (gcm(AES)) algorithm is supported. The key must be 36 bytes (32 bytes for the algorithm key and 4 bytes for the salt), provided as a 72-character hexadecimal string
+#### Step 1: Generate an IPsec pre-shared key for Kmesh before starting Kmesh. Currently, only the rfc4106 (gcm(AES)) algorithm is supported. The key must be 36 bytes (32 bytes for the algorithm key and 4 bytes for the salt), provided as a 72-character hexadecimal string
 
 If you want to use a randomly generated key, you can use the following command:
 
@@ -81,11 +81,11 @@ tcpdump -i any |grep ESP
 ...
 ```
 
-#### Step 5: Replace pre shared key
+#### Step 5: Replace pre-shared key
 
-After a period of time, the pre shared key of the cluster can be changed. After changing the pre shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. This can be observed again through using tcpdump. The initial IPSec SPI version number is 1.
+After a period of time, the pre-shared key of the cluster can be changed. After changing the pre-shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. This can be observed again through using tcpdump. The initial IPsec SPI version number is 1.
 
-`kmeshctl secret create` command will update the pre shared key.
+To replace the existing pre-shared key, run the `kmeshctl secret create` command again.
 
 ```plaintext
 root@master:~/kmesh# tcpdump -i any |grep ESP

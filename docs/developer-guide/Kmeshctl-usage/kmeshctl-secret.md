@@ -7,24 +7,44 @@ sidebar_position: 6
 
 IPsec is a mature and widely used encryption method for inter-node communication. This document explains how to enable IPsec to encrypt communication data between Kmesh-managed nodes.
 
+### kmeshctl secret command Examples
+
+The `kmeshctl secret` command provides management capabilities for IPsec secrets in Kmesh clusters. It supports the following subcommands:
+
+- `create`: Generate and store IPsec key and configuration
+- `get`: Retrieve current IPsec key and configuration (displayed in JSON format)
+- `delete`: Remove IPsec secret from the cluster
+
+#### Basic usage examples
+
+```bash
+# Create IPsec secret with random key
+kmeshctl secret create
+
+# Create IPsec secret with custom key
+kmeshctl secret create --key=$(echo -n "{36-character user-defined key here}" | xxd -p -c 64)
+
+# Get current IPsec configuration
+kmeshctl secret get
+
+# Delete IPsec secret
+kmeshctl secret delete
+```
+
 ### How to enable IPsec in Kmesh
 
 #### Step 1: Generate an IPsec pre-shared key for Kmesh before starting Kmesh. Currently, only the rfc4106 (gcm(AES)) algorithm is supported. The key must be 36 bytes (32 bytes for the algorithm key and 4 bytes for the salt), provided as a 72-character hexadecimal string
 
-``` bash
-kmeshctl secret --key=<aead key>
-```
-
-If you want to randomly generate a key, you can use the following command
-
-```bash
-kmeshctl secret --key=$(dd if=/dev/urandom count=36 bs=1 2>/dev/null | xxd -p -c 64)
-```
-
-If you want to use a custom key, you can use the following command
+If you want to use a randomly generated key, you can use the following command:
 
 ``` bash
-kmeshctl secret --key=$(echo -n "{36-bytes user-defined key here}" | xxd -p -c 64)
+kmeshctl secret create
+```
+
+If you want to use a custom key, you can use the following command:
+
+``` bash
+kmeshctl secret create --key=$(echo -n "{36-character user-defined key here}" | xxd -p -c 64)
 ```
 
 #### Step 2: Add the parameter --enable-ipsec=true to the Kmesh yaml
@@ -61,9 +81,11 @@ tcpdump -i any |grep ESP
 ...
 ```
 
-#### Step 5: Replace pre shared key
+#### Step 5: Replace pre-shared key
 
-After a period of time, the pre-shared key of the cluster can be changed. After changing the pre-shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. This can be observed again through using tcpdump. The initial IPSec SPI version number is 1
+After a period of time, the pre-shared key of the cluster can be changed. After changing the pre-shared key, the ESP SPI number of the IPsec used for communication between nodes will be increased by 1 compared to the previous version. This can be observed again through using tcpdump. The initial IPsec SPI version number is 1.
+
+To replace the existing pre-shared key, run the `kmeshctl secret create` command again.
 
 ```plaintext
 root@master:~/kmesh# tcpdump -i any |grep ESP

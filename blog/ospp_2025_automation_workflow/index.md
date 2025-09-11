@@ -34,7 +34,7 @@ I have always enjoyed contributing to open source, and my interests naturally al
 
 The project addressed a clear pain point: documentation updates and versioning were being done manually, often lagging behind releases. The opportunity to replace repetitive tasks with reliable automation felt both impactful and challenging.  
 
-I received my **acceptance email on 28 June 2025**, and the program officially ran from **1 July to 30 September**. 
+I received my **acceptance email on 28 June 2025**, and the program officially ran from **1 July to 30 September**.
 
 ![email](./images/acceptance-email.png)
 

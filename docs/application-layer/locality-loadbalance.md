@@ -3,25 +3,25 @@ sidebar_position: 9
 title: Locality Load Balancing
 ---
 
-This document introduces how to use Locality Load Balancing with Istio in the Kmesh.
+This document explains how to use Locality Load Balancing with Istio in Kmesh.
 
-> The current Kmesh Locality Load Balancing is at the L4 level and only support [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
+Note: Kmesh's current Locality Load Balancing operates at L4 and only supports [Locality Failover](https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/failover/).
 
 ## What is Locality Load Balancing?
 
-A locality defines the geographic location of a workload instance within mesh. Locality Load Balancing in service mesh helps improve the availability and performance of services by intelligently routing traffic based on the location of the service instances.
+A locality describes the geographic location of a workload instance in the mesh. Locality Load Balancing improves availability and performance by routing traffic based on the location of service instances.
 
-We strongly recommend that you first read https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ to understand what locality load balancing is.
+We strongly recommend reading https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/ for background on locality load balancing.
 
 ## Supported Modes and Configuration Methods for Kmesh
 
-Currently, Istio's ambient mode only supports specifying a fixed locality load balancing policy by configuring specific fields. This includes two modes: PreferClose and Local.
+Currently, Istio's ambient mode supports specifying a fixed locality load-balancing policy via configuration. Kmesh supports two modes: PreferClose and Local.
 
 ### 1. PreferClose
 
-A failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routingPreference.
+Failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routing preference.
 
-- With `spec.trafficDistribution`（k8s >= beta [1.31.0](https://kubernetes.io/docs/concepts/services-networking/service/), isito >= [1.23.1](https://istio.io/latest/news/releases/1.23.x/announcing-1.23/)）
+- With `spec.trafficDistribution` (k8s >= beta [1.31.0](https://kubernetes.io/docs/concepts/services-networking/service/), istio >= [1.23.1](https://istio.io/latest/news/releases/1.23.x/announcing-1.23/))
 
   ```yaml
   spec:
@@ -39,9 +39,9 @@ A failover mode that uses NETWORK, REGION, ZONE, and SUBZONE as the routingPrefe
 
 ### 2. Local
 
-A strict mode that only matches the current NODE.
+Strict mode that restricts traffic to the current node.
 
-- spec.internalTrafficPolicy: Local (k8s >= beta 1.24 or >= 1.26)
+- Set `spec.internalTrafficPolicy: Local` (k8s >= beta 1.24 or >= 1.26)
 
   ```yaml
   spec:
@@ -52,14 +52,14 @@ A strict mode that only matches the current NODE.
 
 ### Prepare the environment
 
-- Refer to [develop with kind](/docs/setup/develop-with-kind.md)
-- We prepare three nodes in the cluster
+- Refer to [develop with kind](/docs/setup/develop-with-kind.md).
+- A three-node kind cluster is required.
 - istio >= 1.23.1
 - k8s >= 1.31.0
 - Ensure sidecar injection is disabled: `kubectl label namespace default istio-injection-`
 - Required images:
-  - docker.io/istio/examples-helloworld-v1
-  - curlimages/curl
+  - `docker.io/istio/examples-helloworld-v1`
+  - `curlimages/curl`
 
 ```yaml
 kind create cluster --image=kindest/node:v1.31.0 --config=- <<EOF
@@ -74,7 +74,7 @@ nodes:
 EOF
 ```
 
-### 1. Assign locality information to the node
+### 1. Assign locality information to nodes
 
 ```bash
 kubectl label node ambient-worker topology.kubernetes.io/region=region
@@ -96,15 +96,15 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
 
 ### 2. Start test servers
 
-- Create `sample` namespace
+- Create the `sample` namespace:
 
   ```bash
   kubectl create namespace sample
   ```
 
-- Run a service
+- Create the service:
 
-  ```yaml
+  ```bash
   kubectl apply -n sample -f - <<EOF
   apiVersion: v1
   kind: Service
@@ -123,7 +123,7 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
   EOF
   ```
 
-- Start a service instance on the ambient-worker
+- Start a service instance on `ambient-worker`:
 
   ```yaml
   kubectl apply -n sample -f - <<EOF
@@ -243,11 +243,11 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
   EOF
   ```
 
-### 3. Test on client
+### 3. Test from a client pod
 
-- Start the test client on the ambient-worker
+- Start the test client on `ambient-worker`:
 
-  ```yaml
+  ```bash
   kubectl apply -n sample -f - <<EOF
   apiVersion: apps/v1
   kind: Deployment
@@ -282,42 +282,42 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
   EOF
   ```
 
-- Test the access
+- Verify access from the client:
 
   ```bash
   kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
   ```
 
-  The output is from the helloworld-region.zone1.subzone1 that is currently co-located on the ambient-worker:
+  The response should come from the local instance running on `ambient-worker`, for example:
 
   ```text
   Hello version: region.zone1.subzone1, instance: helloworld-region.zone1.subzone1-6d6fdfd856-9dhv8
   ```
 
-- Remove the service on the ambient-worker and test Failover
+- Remove the local deployment to test failover:
 
   ```bash
   kubectl delete deployment -n sample helloworld-region.zone1.subzone1
   ```
 
+  Re-run the client request:
+
   ```bash
   kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
   ```
 
-  The output is helloworld-region.zone1.subzone2, and a failover of the traffic has occurred:
+  The response should now come from the next available locality (example):
 
   ```text
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   ```
 
-- Relabel the locality of the ambient-worker3 same as the worker2 and test
+- Relabel `ambient-worker3` to match `ambient-worker2` and redeploy the third instance:
 
   ```bash
   kubectl label node ambient-worker3 topology.kubernetes.io/zone=zone1 --overwrite
   kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone2 --overwrite
   ```
-
-  Delete helloworld-region.zone2.subzone3 and re-apply the development pod as follows, then run test:
 
   ```bash
   kubectl delete deployment -n sample helloworld-region.zone2.subzone3
@@ -359,18 +359,15 @@ kubectl label node ambient-worker3 topology.kubernetes.io/subzone=subzone3
   EOF
   ```
 
-  Test multiple times:
+  Test multiple times from the client:
 
   ```bash
   kubectl exec -n sample "$(kubectl get pod -n sample -l app=sleep -o jsonpath='{.items[0].metadata.name}')" -c sleep -- curl -sSL "http://helloworld:5000/hello"
   ```
 
-  The output randomly shows helloworld-region.zone1.subzone2 and helloworld-region.zone1.subzone2-worker3:
+  Responses will alternate between the two instances in the same locality, for example:
 
   ```text
-  Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
-  Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
-  Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   Hello version: region.zone1.subzone2-worker3, instance: helloworld-region.zone1.subzone2-worker3-6d6fdfd856-6kd2s
   Hello version: region.zone1.subzone2, instance: helloworld-region.zone1.subzone2-948c95bdb-7p6zb
   ```

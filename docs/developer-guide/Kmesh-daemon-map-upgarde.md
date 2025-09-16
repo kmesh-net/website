@@ -1,11 +1,12 @@
 ---
 sidebar_position: 4
-title: Kmesh daemon maps upgardes traffic without disruption
+title: Kmesh daemon maps upgrades traffic without disruption
 ---
 
-# Project Documentation: Kmesh daemon maps upgardes traffic without disruption
+# Project Documentation: Kmesh daemon maps upgrades traffic without disruption
 
 ## Current strategy
+
 On upgrade the Kmesh-daemon snapshots the current MapSpec (the `CollectionSpec` embedded by `bpf2go`) to disk. During an upgrade, the daemon reads the previously persisted snapshot as oldMapSpec and performs a strict comparison with the current MapSpec. If the maps are detected as compatible (same type and layout), the daemon reuses the existing pinned map. If they are incompatible, the daemon does not attempt complex live migration; instead it creates a new empty map which is initially pinned to a temporary path and then atomically replaces the original pin by unpinning the old map and renaming the temporary pin to the original path.
 
 ## When traffic without disruption is guaranteed
@@ -31,4 +32,5 @@ On upgrade the Kmesh-daemon snapshots the current MapSpec (the `CollectionSpec` 
 When any of the above changes are detected, the upgrade logic treats the old map as incompatible and creates a new empty map, which causes runtime state loss.
 
 ## Test recommendations
+
 Package your new daemon build into an image and publish it. Set that image address in the environment variable KMESH_UPGRADE_IMAGE. In a fresh clone of the project , run the e2e test while skipping the test’s internal image build step by passing the --skip-build-daemonupgarde-image flag (this flag tells the test to use the externally supplied KMESH_UPGRADE_IMAGE). The TestKmeshUpgrade test will then perform a rolling upgrade of the daemonset and validate whether traffic continuity is preserved.

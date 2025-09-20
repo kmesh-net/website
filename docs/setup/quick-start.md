@@ -69,10 +69,10 @@ helm install istio-base istio/base -n istio-system
 To install the chart with the release name `istiod`:
 
 ```shell
-helm install istiod istio/istiod --namespace istio-system --set pilot.env.PILOT_ENABLE_AMBIENT=true
+helm install istiod istio/istiod --namespace istio-system --version 1.25.0 --set pilot.env.PILOT_ENABLE_AMBIENT=true
 ```
 
-> **Important:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod!
+> **Important:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod! If you want to use the Waypoint feature, the istio version should not be higher than 1.25.
 
 After installing istiod, it's time to install Kubernetes Gateway API CRDs.
 

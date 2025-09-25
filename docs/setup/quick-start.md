@@ -15,7 +15,7 @@ Before installing Kmesh, ensure your environment meets the following requirement
 | Requirement | Version | Notes                 |
 | ----------- | ------- | --------------------- |
 | Kubernetes  | 1.26+   | Tested on 1.26-1.29   |
-| Istio       | 1.22+   | Ambient mode required |
+| Istio       | 1.22+   | Tested on 1.22-1.25 (ambient mode required) |
 | Helm        | 3.0+    | For helm installation |
 | Memory      | 4GB+    | Recommended minimum   |
 | CPU         | 2 cores | Recommended minimum   |
@@ -69,10 +69,10 @@ helm install istio-base istio/base -n istio-system
 To install the chart with the release name `istiod`:
 
 ```shell
-helm install istiod istio/istiod --namespace istio-system --set pilot.env.PILOT_ENABLE_AMBIENT=true
+helm install istiod istio/istiod --namespace istio-system --version 1.24.0 --set pilot.env.PILOT_ENABLE_AMBIENT=true
 ```
 
-> **Important:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod!
+> **Important:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod! If you want to use the Waypoint feature, you should use the istio version 1.23 ~ 1.25.
 
 After installing istiod, it's time to install Kubernetes Gateway API CRDs.
 

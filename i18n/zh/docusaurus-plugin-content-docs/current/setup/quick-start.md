@@ -15,7 +15,7 @@ sidebar_position: 1
 | 要求       | 版本  | 备注                    |
 | ---------- | ----- | ----------------------- |
 | Kubernetes | 1.26+ | 在 1.26-1.29 上测试通过 |
-| Istio      | 1.22+ | 需要环境模式            |
+| Istio      | 1.22+ | 在 1.23-1.25 上测试通过 (需要环境模式) |
 | Helm       | 3.0+  | 用于 helm 安装          |
 | 内存       | 4GB+  | 建议最小配置            |
 | CPU        | 2 核  | 建议最小配置            |
@@ -69,10 +69,10 @@ helm install istio-base istio/base -n istio-system
 使用发布名称 `istiod` 安装图表：
 
 ```shell
-helm install istiod istio/istiod --namespace istio-system --set pilot.env.PILOT_ENABLE_AMBIENT=true
+helm install istiod istio/istiod --namespace istio-system --version 1.24.0 --set pilot.env.PILOT_ENABLE_AMBIENT=true
 ```
 
-> **重要：** 必须设置 `pilot.env.PILOT_ENABLE_AMBIENT=true`。否则 Kmesh 将无法与 istiod 建立 grpc 链接！
+> **重要：** 必须设置 `pilot.env.PILOT_ENABLE_AMBIENT=true`。否则 Kmesh 将无法与 istiod 建立 grpc 链接！ 如果想要使用 Waypoint 功能，您的 istiod 版本应该为 1.23~1.25。
 
 安装 istiod 后，是时候安装 Kubernetes Gateway API CRD 了。
 

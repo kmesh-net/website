@@ -42,11 +42,17 @@ EOF
 ### Install istioctl
 
 ```shell
-curl -L https://istio.io/downloadIstio | sh -
-cd istio-1.22.2/bin
-chmod +x istioctl
+ISTIO_VERSION="1.24.0" # If you wish to use the Waypoint feature, the Istio version should be 1.23 ~ 1.25.
+
+curl -L https://istio.io/downloadIstio | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
+cd "istio-${ISTIO_VERSION}/bin" && \
+chmod +x istioctl && \
 mv istioctl /usr/bin/
 ```
+
+:::note
+If you want to use the Waypoint feature, the istio version should not be higher than 1.25
+:::
 
 ### Install istio components using istioctl
 

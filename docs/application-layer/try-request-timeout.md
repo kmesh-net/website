@@ -1,6 +1,8 @@
 ---
 sidebar_position: 7
 title: Try Request Timeouts
+description: Configure HTTP request timeouts and observe timeout behaviour in Kmesh.
+keywords: [request timeout, http timeout, reviews service, kmesh, waypoint, fault injection]
 ---
 
 # Try Request Timeouts

@@ -1,5 +1,7 @@
 ---
 title: Contributing
+description: Join the Kmesh community – learn how to contribute code, docs, or feedback.
+keywords: [contribute, community, kmesh, cncf, pull request, good first issue]
 sidebar_position: 1
 ---
 

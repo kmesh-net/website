@@ -1,6 +1,8 @@
 ---
 sidebar_position: 2
 title: Traffic Shifting
+description: Set up weight-based and header-based HTTP traffic shifting in Kmesh.
+keywords: [traffic shifting, weight, header, routing, http, split]
 ---
 
 This task shows you how to set up Traffic Shifting policy for http traffic in Kmesh.

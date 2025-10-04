@@ -1,6 +1,8 @@
 ---
 sidebar_position: 3
 title: Install Waypoint
+description: Deploy Kmesh waypoint proxies for L7 traffic management.
+keywords: [waypoint, L7, install, service mesh, ebpf, proxy]
 ---
 
 If you want to make use of Kmesh L7 features, this is the prerequisites to install waypoint.

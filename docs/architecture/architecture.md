@@ -1,6 +1,7 @@
 ---
 title: Kmesh Architecture
-description: ""
+description: High-level overview of Kmesh components – daemon, eBPF orchestration, and waypoint proxy.
+keywords: [kmesh architecture, ebpf orchestration, waypoint proxy, service mesh data plane]
 sidebar_position: 1
 ---
 

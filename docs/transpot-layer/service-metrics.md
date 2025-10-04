@@ -1,6 +1,8 @@
 ---
 sidebar_position: 5
 title: Use Grafana to visualize service metrics
+description: Visualize Kmesh service-level metrics (traffic, latency, errors) in Grafana.
+keywords: [service metrics, grafana, kmesh, dashboards, observability]
 ---
 
 ## Preparation

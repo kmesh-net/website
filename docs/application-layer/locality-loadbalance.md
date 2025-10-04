@@ -1,6 +1,8 @@
 ---
 sidebar_position: 9
 title: Locality Load Balancing
+description: Configure locality-aware load balancing and failover in Kmesh.
+keywords: [locality, load balancing, failover, L4, ambient, zone]
 ---
 
 This document introduces how to use Locality Load Balancing with Istio in the Kmesh.

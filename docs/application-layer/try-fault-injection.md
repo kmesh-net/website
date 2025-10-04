@@ -1,6 +1,8 @@
 ---
 sidebar_position: 6
 title: Try Fault Injection
+description: Learn how to inject HTTP delays & aborts to test micro-service resiliency in Kmesh.
+keywords: [fault injection, http delay, abort, resilience, testing, kmesh, waypoint]
 ---
 
 ## Preparation

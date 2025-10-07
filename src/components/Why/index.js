@@ -1,7 +1,10 @@
 import React from "react";
 import SectionContainer from "../sectionContainer";
 import Translate from "@docusaurus/Translate";
+import { Icon } from '@iconify/react';
 import "./index.scss";
+
+const SKY_BLUE = "#4FC3F7";
 
 const reasons = [
   {
@@ -15,6 +18,7 @@ const reasons = [
         </Translate>
       </>
     ),
+    icon: <Icon icon="mdi:connection" color={SKY_BLUE} width="24" height="24" />,
   },
   {
     title: <Translate>High performance</Translate>,
@@ -25,6 +29,7 @@ const reasons = [
         <Translate>Service startup performance 40%↑</Translate>
       </>
     ),
+    icon: <Icon icon="mdi:rocket" color={SKY_BLUE} width="24" height="24" />,
   },
   {
     title: <Translate>Low overhead</Translate>,
@@ -33,6 +38,7 @@ const reasons = [
         <Translate>ServiceMesh data plane overhead 70%↓</Translate>
       </>
     ),
+    icon: <Icon icon="mdi:arrow-down-bold" color={SKY_BLUE} width="24" height="24" />,
   },
   {
     title: <Translate>Security Isolation</Translate>,
@@ -43,6 +49,7 @@ const reasons = [
         <Translate>Cgroup-level Orchestration Isolation</Translate>
       </>
     ),
+    icon: <Icon icon="mdi:shield-lock" color={SKY_BLUE} width="24" height="24" />,
   },
   {
     title: <Translate>Full Stack Visualization*</Translate>,
@@ -55,10 +62,12 @@ const reasons = [
         </Translate>
       </>
     ),
+    icon: <Icon icon="mdi:chart-line" color={SKY_BLUE} width="24" height="24" />,
   },
   {
     title: <Translate>Open Ecosystem</Translate>,
     content: <Translate>Support for XDS Protocol Standards</Translate>,
+    icon: <Icon icon="mdi:earth" color={SKY_BLUE} width="24" height="24" />,
   },
 ];
 
@@ -71,6 +80,7 @@ export default function Why() {
       <div className="reasonBoxContainer">
         {reasons.map((item, index) => (
           <div key={index} className="reasonBox">
+            <div className="reasonIcon">{item.icon}</div>
             <p className="reasonTitle">{item.title}</p>
             <div className="reasonContent">{item.content}</div>
           </div>

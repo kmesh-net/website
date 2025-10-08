@@ -3,32 +3,27 @@ sidebar_position: 5
 title: Try Service Entry
 ---
 
-A Service Entry enables you to add entries to Istio's internal service registry so that services in the mesh can access and route to these manually specified services. This guide shows you how to configure external service access using Service Entry.
+Service Entry allows you to add external services to Istio's internal service registry, enabling services in the mesh to access and route to these manually specified services. This guide shows you how to configure external service access using Service Entry.
 
 ## Preparation
+
+Before getting started, ensure you have completed the following steps:
 
 1. **Make default namespace managed by Kmesh**
 2. **Deploy Httpbin as sample application and Sleep as curl client**
 3. **Install waypoint for default namespace**
 
-   _The above steps could refer to [Install Waypoint | Kmesh](/docs/application-layer/install_waypoint.md#preparation)_
+   _For detailed instructions on the above steps, refer to [Install Waypoint | Kmesh](/docs/application-layer/install_waypoint.md#preparation)_
 
-## Deploy Sample Applications
+## Verify Environment Setup
 
-We need to deploy Httpbin as the target service and Sleep as the client:
-
-```bash
-kubectl apply -f ./samples/httpbin/httpbin.yaml
-kubectl apply -f ./samples/sleep/sleep.yaml
-```
-
-Check the deployment status:
+Confirm that the httpbin and sleep applications are running properly:
 
 ```bash
 kubectl get pods
 ```
 
-You should see httpbin and sleep running:
+You should see both services in Running state:
 
 ```bash
 NAME                       READY   STATUS    RESTARTS   AGE
@@ -36,11 +31,9 @@ httpbin-6f4464f6c5-h9x2p   1/1     Running   0          30s
 sleep-9454cc476-86vgb      1/1     Running   0          5m
 ```
 
-## Configure Service Entry and Routing Rules
+## Configure Service Entry
 
-Now we will create a Service Entry to define an external service and configure a VirtualService to route traffic to the internal service.
-
-Apply the following configuration:
+We will create a Service Entry to define a virtual external service that actually routes traffic to the httpbin service inside the cluster:
 
 ```bash
 kubectl apply -f - <<EOF
@@ -58,172 +51,174 @@ spec:
     - name: http
       number: 80
       protocol: HTTP
-  addresses:
-    - 240.240.0.1
+  endpoints:
+    - address: httpbin.default.svc.cluster.local
+      ports:
+        http: 8000
   resolution: DNS
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: fake-service-route
-  namespace: default
-spec:
-  hosts:
-  - kmesh-fake.com
-  http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: httpbin.default.svc.cluster.local
-        port:
-          number: 8000
 EOF
 ```
 
-## Understanding the Configuration
+This configuration means:
 
-This configuration creates:
-
-1. **ServiceEntry**: Defines an external service named `kmesh-fake.com` using IP address `240.240.0.1`
-2. **VirtualService**: Redirects traffic accessing `kmesh-fake.com` to the cluster-internal `httpbin` service
+- `hosts`: Defines the virtual hostname `kmesh-fake.com`
+- `ports`: Specifies the port and protocol the service listens on
+- `endpoints`: The actual backend service address (pointing to the httpbin service in the cluster)
+- `resolution`: DNS resolution type
 
 ## Test Service Entry Configuration
 
-1. **Test access to the virtual external service**:
+After configuring the Service Entry, we can verify that it works correctly through the following tests:
 
-   ```bash
-   kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/headers
-   ```
+### 1. Basic Connectivity Test
 
-   You should see a response from the httpbin service:
+Test access to the virtual external service:
 
-   ```json
-   {
-     "headers": {
-       "Accept": "*/*",
-       "Host": "kmesh-fake.com",
-       "User-Agent": "curl/8.16.0"
-     }
-   }
-   ```
+```bash
+kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/headers
+```
 
-2. **Verify request header information**:
+You should see a response from the httpbin service, notice that the Host header has changed to our defined virtual hostname:
 
-   ```bash
-   kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/get
-   ```
+```json
+{
+  "headers": {
+    "Accept": "*/*",
+    "Host": "kmesh-fake.com",
+    "User-Agent": "curl/8.16.0"
+  }
+}
+```
 
-   The output should show the request was successfully routed to the httpbin service:
+### 2. Detailed Request Information Verification
 
-   ```json
-   {
-     "args": {},
-     "headers": {
-       "Accept": "*/*",
-       "Host": "kmesh-fake.com",
-       "User-Agent": "curl/8.16.0"
-     },
-     "origin": "10.244.1.6",
-     "url": "http://kmesh-fake.com/get"
-   }
-   ```
+Get complete request information:
 
-3. **Test different HTTP endpoints**:
+```bash
+kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/get
+```
 
-   Test successful status code:
+The output shows the request was successfully routed to the httpbin service:
 
-   ```bash
-   kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/status/200
-   ```
+```json
+{
+  "args": {},
+  "headers": {
+    "Accept": "*/*",
+    "Host": "kmesh-fake.com",
+    "User-Agent": "curl/8.16.0"
+  },
+  "origin": "10.244.1.6",
+  "url": "http://kmesh-fake.com/get"
+}
+```
 
-   Test specific status code and display the return code:
+### 3. HTTP Status Code Test
 
-   ```bash
-   kubectl exec deploy/sleep -- curl -s -o /dev/null -w "%{http_code}\n" http://kmesh-fake.com/status/418
-   ```
+Test different HTTP status code responses:
 
-   The second command should return the HTTP status code:
+```bash
+# Test normal status code
+kubectl exec deploy/sleep -- curl -s http://kmesh-fake.com/status/200
 
-   ```txt
-   418
-   ```
+# Test specific status code and display the return code
+kubectl exec deploy/sleep -- curl -s -o /dev/null -w "%{http_code}\n" http://kmesh-fake.com/status/418
+```
 
-4. **Check response headers**:
+The second command should return the HTTP status code:
 
-   ```bash
-   kubectl exec deploy/sleep -- curl -IsS http://kmesh-fake.com/headers
-   ```
+```txt
+418
+```
 
-   You should see response headers containing envoy and routing information:
+### 4. Response Header Check
 
-   ```txt
-   HTTP/1.1 200 OK
-   server: envoy
-   date: Sat, 20 Sep 2025 07:51:51 GMT
-   content-type: application/json
-   content-length: 78
-   access-control-allow-origin: *
-   access-control-allow-credentials: true
-   x-envoy-upstream-service-time: 1
-   x-envoy-decorator-operation: httpbin.default.svc.cluster.local:8000/*
-   ```
+Check complete response header information:
 
-## Understanding What Happened
+```bash
+kubectl exec deploy/sleep -- curl -IsS http://kmesh-fake.com/headers
+```
 
-When you make a request to `kmesh-fake.com`:
+You should see response headers containing Envoy proxy and routing information:
 
-1. **Service Entry** tells Istio this is a valid service destination
-2. **VirtualService** redirects requests to that host to the cluster-internal `httpbin` service
-3. Kmesh handles this routing rule, forwarding traffic to the correct destination
+```txt
+HTTP/1.1 200 OK
+server: envoy
+date: Wed, 08 Oct 2025 07:51:51 GMT
+content-type: application/json
+content-length: 78
+access-control-allow-origin: *
+access-control-allow-credentials: true
+x-envoy-upstream-service-time: 1
+x-envoy-decorator-operation: httpbin.default.svc.cluster.local:8000/*
+```
 
-This demonstrates how to use Service Entry to:
+## Advanced Use Case: Configure Real External Services
 
-- Define external services
-- Redirect traffic to internal services
-- Control outbound traffic routing
+In addition to mapping virtual hostnames to cluster-internal services as demonstrated above, you can also configure access to real external services.
 
-## Advanced Use Cases
+### Create External Service Configuration
 
-### Configure Real External Services
-
-You can also configure access to real external services. For example:
+Create a Service Entry to access the real external httpbin.org service:
 
 ```bash
 kubectl apply -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: external-httpbin
+  name: external-httpbin-org
+  namespace: default
 spec:
   hosts:
-  - httpbin.org
+    - httpbin.org
   ports:
-  - number: 80
-    name: http
-    protocol: HTTP
-  - number: 443
-    name: https
-    protocol: HTTPS
+    - number: 80
+      name: http
+      protocol: HTTP
   resolution: DNS
 EOF
 ```
 
-Test external service access:
+This configuration allows services within the mesh to directly access the external httpbin.org.
+
+### Test External Service Access
+
+Test access to the real external service:
 
 ```bash
 kubectl exec deploy/sleep -- curl -s http://httpbin.org/headers
 ```
 
-## Cleanup
+You should see a response from the real httpbin.org service:
 
-Delete the created Service Entry and VirtualService:
-
-```bash
-kubectl delete serviceentry external-fake-svc
-kubectl delete virtualservice fake-service-route
-kubectl delete serviceentry external-httpbin
+```json
+{
+  "headers": {
+    "Accept": "*/*",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/8.16.0"
+  }
+}
 ```
 
-If you're not planning to explore any follow-up tasks, refer to the [Install Waypoint/Cleanup](/docs/application-layer/install_waypoint.md#cleanup) instructions to remove the waypoint and shut down the application.
+## Cleanup
+
+After completing the tests, delete the created Service Entry resources:
+
+```bash
+kubectl delete serviceentry external-fake-svc -n default
+kubectl delete serviceentry external-httpbin-org -n default
+```
+
+If you're not planning to continue with subsequent experiments, refer to the [Install Waypoint/Cleanup](/docs/application-layer/install_waypoint.md#cleanup) section for instructions on removing the waypoint and cleaning up applications.
+
+## Summary
+
+Through this guide, you learned how to:
+
+1. Use Service Entry to add external services to the Istio service mesh
+2. Configure virtual hostname mapping to cluster-internal services
+3. Configure access to real external services
+4. Verify and test the effectiveness of Service Entry configurations
+
+Service Entry is an important tool for managing external service access in Istio, providing visibility and control over external dependencies.

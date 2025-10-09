@@ -52,20 +52,21 @@ Note the **multiple header file** problem.
 
 When running unit tests in the `/test/bpf_ut/bpftest` directory, you might encounter the following issues and their solutions. To avoid repeated settings, it is recommended to use a unified `sudo env` command to execute the tests.
 
-1.  **`go` command not found**
+1. **`go` command not found**
 
     In a `sudo` environment, the `go` command might not be found in the `PATH`.
-    *   **Solution**: Explicitly pass the `PATH` environment variable in the `sudo` command, e.g., `PATH=$PATH:/usr/local/go/bin`.
+    * **Solution**: Explicitly pass the `PATH` environment variable in the `sudo` command, e.g., `PATH=$PATH:/usr/local/go/bin`.
 
-2.  **Go module download issue (network timeout)**
+2. **Go module download issue (network timeout)**
 
     For example, encountering `Get "https://proxy.golang.org/..." i/o timeout`. This is usually caused by network proxy or connection problems preventing Go modules from being downloaded.
-    *   **Solution**: Set `GOPROXY` to use a domestic proxy and disable `GOSUMDB` verification, e.g., `GOPROXY=https://goproxy.cn,direct GOSUMDB=off`.
+    * **Solution**: Set `GOPROXY` to use a domestic proxy and disable `GOSUMDB` verification, e.g., `GOPROXY=https://goproxy.cn,direct GOSUMDB=off`.
 
-3.  **`No package 'api-v2-c' found`**
+3. **`No package 'api-v2-c' found`**
 
     This indicates that `pkg-config` cannot find the `api-v2-c.pc` file.
-    *   **Solution**: Find the actual path of the `api-v2-c.pc` file and add its directory to the `PKG_CONFIG_PATH` environment variable. In the Kmesh project, this file is usually located in the `mk/` directory.
+    * **Solution**: Find the actual path of the `api-v2-c.pc` file and add its directory to the `PKG_CONFIG_PATH` environment variable. In the Kmesh project, this file is usually located in the `mk/` directory.
+  
         ```sh
         # Find the .pc file
         find /home/sweet/git/kmesh -name "api-v2-c.pc"
@@ -76,10 +77,10 @@ When running unit tests in the `/test/bpf_ut/bpftest` directory, you might encou
         pkg-config --cflags api-v2-c
         ```
 
-4.  **`libkmesh_api_v2_c.so: cannot open shared object file: No such file or directory` (Dynamic library not found)**
+4. **`libkmesh_api_v2_c.so: cannot open shared object file: No such file or directory` (Dynamic library not found)**
 
     This usually happens at runtime when the system cannot find the `.so` dynamic library file compiled by Kmesh.
-    *   **Solution**: Determine the directory where the `.so` file is located (e.g., `/usr/lib64`) and add it to the `LD_LIBRARY_PATH` environment variable, e.g., `LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH`.
+    * **Solution**: Determine the directory where the `.so` file is located (e.g., `/usr/lib64`) and add it to the `LD_LIBRARY_PATH` environment variable, e.g., `LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH`.
 
 **Unified Unit Test Execution Command Example**:
 

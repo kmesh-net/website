@@ -25,7 +25,7 @@ export default function Blogs() {
         </div>
         <div className="right">
           {blogPosts.slice(0, 3).map((item, index) => (
-            <div key={item.metadata.permalink} className="viewBlogContainer">/* Better to use unique identifer than index as key */
+            <div key={item.metadata.permalink} className="viewBlogContainer">
               <h3 onClick={() => history.push(item.metadata.permalink)}>
                 {item.metadata.title}
               </h3>

@@ -16,7 +16,7 @@ const config = {
   baseUrl: "/",
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenMarkdownLinks: "warn", 
 
   i18n: {
     defaultLocale: "en",
@@ -60,6 +60,7 @@ const config = {
           onInlineTags: "warn",
           onInlineAuthors: "warn",
           onUntruncatedBlogPosts: "warn",
+          
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -148,7 +149,7 @@ const config = {
   plugins: [
     [require.resolve("./src/plugins/blogGlobalData/index.js"), {}],
     "docusaurus-plugin-sass",
-    "plugin-image-zoom",
+    "docusaurus-plugin-image-zoom",
     [
       "docusaurus-lunr-search",
       {

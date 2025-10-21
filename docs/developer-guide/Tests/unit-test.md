@@ -69,10 +69,10 @@ When running unit tests in the `/test/bpf_ut/bpftest` directory, you might encou
   
         ```sh
         # Find the .pc file
-        find /home/sweet/git/kmesh -name "api-v2-c.pc"
-        # Example output: /home/sweet/git/kmesh/mk/api-v2-c.pc
+        find {your-project-path} -name "api-v2-c.pc"
+        # Example output: {your-project-path}/mk/api-v2-c.pc
         # Set PKG_CONFIG_PATH
-        export PKG_CONFIG_PATH=/home/sweet/git/kmesh/mk:$PKG_CONFIG_PATH
+        export PKG_CONFIG_PATH={your-project-path}/mk:$PKG_CONFIG_PATH
         # Verify (optional)
         pkg-config --cflags api-v2-c
         ```
@@ -88,7 +88,7 @@ To resolve the above common issues, you can use the following command with all n
 
 ```sh
 sudo env \
-  PKG_CONFIG_PATH=/home/sweet/git/kmesh/mk:$PKG_CONFIG_PATH \
+  PKG_CONFIG_PATH={your-project-path}/mk:$PKG_CONFIG_PATH \
   GOPROXY=https://goproxy.cn,direct \
   GOSUMDB=off \
   PATH=$PATH:/usr/local/go/bin \
@@ -100,15 +100,15 @@ If you want to see more detailed test output, you can add the `-test.v` paramete
 
 ```sh
 sudo env \
-  PKG_CONFIG_PATH=/home/sweet/git/kmesh/mk:$PKG_CONFIG_PATH \
+  PKG_CONFIG_PATH={your-project-path}/mk:$PKG_CONFIG_PATH \
   GOPROXY=https://goproxy.cn,direct \
   GOSUMDB=off \
   PATH=$PATH:/usr/local/go/bin \
   LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH \
-  go test ./bpftest -bpf-ut-path /home/sweet/git/kmesh/test/bpf_ut -test.v
+  go test ./bpftest -bpf-ut-path {your-project-path}/test/bpf_ut -test.v
 ```
 
-Please adjust based on the actual root directory path of your Kmesh project (e.g., `/home/sweet/git/kmesh`) and the path to the `.so` dynamic library file (e.g., `/usr/lib64`).
+Please adjust based on the actual root directory path of your Kmesh project (e.g., `{your-project-path}`) and the path to the `.so` dynamic library file (e.g., `/usr/lib64`).
 
 Besides the above issues, since Kmesh ut uses gomonkey, there may be a situation where monkey's functions are small and inlined during Go compilation optimization.
 

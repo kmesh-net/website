@@ -9,6 +9,8 @@ Before getting started, ensure the following tools are installed in your environ
 - **Go**: For running the test framework.
 - **Docker**: For containerizing applications.
 - **kubectl**: For managing Kubernetes clusters.
+- **Kind**: For creating Kubernetes clusters locally.
+- **Helm**: For managing Kubernetes applications.
 
 ## E2E Test Environment
 
@@ -26,34 +28,40 @@ Both services use Echo Pods, which are used to test different scenarios.
 
 ## Writing E2E Tests
 
-Here is a simple E2E test function template:
+Here is a simple E2E test function template with step-by-step explanations:
 
 ```go
 func TestEchoCall(t *testing.T) {
+    // Create a new test suite for the current test
     framework.NewTest(t).Run(func(t framework.TestContext) {
+        // Define a subtest for the Echo Call functionality
         t.NewSubTest("Echo Call Test").Run(func(t framework.TestContext) {
-            // Retrieve test services
+            // Retrieve the source service (with Waypoint) and destination service (without Waypoint)
             src := apps.ServiceWithWaypointAtServiceGranularity[0]
             dst := apps.EnrolledToKmesh
 
-            // Define test cases
+            // Define test cases with a name and a checker to validate the response
             cases := []struct {
                 name string
                 checker echo.Checker
             }{
                 {
-                    name: "basic call",
-                    checker: echo.And(echo.ExpectOK(), echo.ExpectBodyContains("Hello")),
+                    name: "basic call", // Name of the test case
+                    checker: echo.And(
+                        echo.ExpectOK(),                      // Expect the HTTP call to succeed
+                        echo.ExpectBodyContains("Hello"),    // Expect the response body to contain "Hello"
+                    ),
                 },
             }
 
-            // Execute test cases
+            // Iterate over each test case and execute it
             for _, c := range cases {
                 t.NewSubTest(c.name).Run(func(t framework.TestContext) {
+                    // Perform the HTTP call from the source to the destination
                     src.CallOrFail(t, echo.CallOptions{
-                        Target:   dst[0],
-                        PortName: "http",
-                        Checker:  c.checker,
+                        Target:   dst[0],       // Target service
+                        PortName: "http",      // Port name to use for the call
+                        Checker:  c.checker,    // Checker to validate the response
                     })
                 })
             }
@@ -61,6 +69,15 @@ func TestEchoCall(t *testing.T) {
     })
 }
 ```
+
+### Explanation of Steps
+
+1. **`framework.NewTest(t).Run`**: Initializes a new test suite for the current test.
+2. **`t.NewSubTest("Echo Call Test").Run`**: Creates a subtest for the Echo Call functionality.
+3. **Retrieve Services**: The `src` variable represents the source service (with Waypoint), and the `dst` variable represents the destination service (without Waypoint).
+4. **Define Test Cases**: Each test case includes a name and a `checker` to validate the HTTP response. For example, `echo.ExpectOK()` ensures the HTTP call succeeds, and `echo.ExpectBodyContains("Hello")` checks the response body.
+5. **Iterate and Execute**: For each test case, the `src.CallOrFail` method performs the HTTP call from the source to the destination and validates the response using the specified `checker`.
+6. **`echo.CallOptions`**: Specifies the target service, port name, and checker for the HTTP call.
 
 ### Resource Cleanup
 
@@ -109,30 +126,4 @@ src.CallOrFail(t, echo.CallOptions{
 
 ## Running Tests
 
-### Run All Test Cases
-
-To run all test cases, use the following command:
-
-```bash
-./test/e2e/run_test.sh
-```
-
-### Run a Single Test Case
-
-To run a single test case, use the following command:
-
-```bash
-./test/e2e/run_test.sh --only-run-tests -run "TestEchoCall"
-```
-
-### Control Test Output Verbosity
-
-```bash
-./test/e2e/run_test.sh -v
-```
-
-### Repeat Test Cases
-
-```bash
-./test/e2e/run_test.sh -count=3
-```
+For detailed instructions on running tests, refer to the [E2E Test Guide](https://kmesh.net/docs/developer-guide/Tests/e2e-test).

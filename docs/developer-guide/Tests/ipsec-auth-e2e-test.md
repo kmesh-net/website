@@ -8,7 +8,84 @@ Before running the tests, ensure the following:
 
 - **Kubernetes Cluster**: A two-node Kubernetes cluster with Kmesh installed.
 - **Tools**: `kubectl`, `tcpdump`, and `kmeshctl`.
-- **Applications**: `httpbin` and `sleep` applications deployed in the cluster.
+- **Applications**: `echo` and `sleep` applications deployed in the cluster.
+
+## Example YAML for Deployment
+
+**Sleep Application (save as `sleep.yaml`):**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sleep
+  labels:
+    app: sleep
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: sleep
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      nodeName: kmesh-testing-control-plane
+      containers:
+      - name: sleep
+        image: curlimages/curl
+        command: ["/bin/sleep", "infinity"]
+```
+
+**Echo Application (save as `echo.yaml`):**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: echo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+      - name: echo
+        image: gcr.io/istio-testing/app:latest
+        args:
+        - --port=8080
+        ports:
+        - containerPort: 8080
+```
 
 ## IPSec E2E Tests
 
@@ -18,31 +95,66 @@ This test verifies the establishment of IPSec tunnels and the correctness of enc
 
 #### Steps
 
-1. Deploy the `httpbin` and `sleep` applications on different nodes:
+1. Deploy the `sleep` and `echo` applications:
 
    ```bash
-   kubectl apply -f httpbin.yaml
    kubectl apply -f sleep.yaml
+   kubectl apply -f echo.yaml
    ```
 
 2. Verify connectivity between the applications:
 
    ```bash
-   kubectl exec <sleep-pod> -- curl http://<httpbin-service>
+   kubectl exec <sleep-pod> -- curl http://<echo-service>
    ```
 
-3. Check IPSec state and policy rules:
+   **Expected Output:**
+
+   ```plaintext
+   Hello version: v1, instance: echo-<pod-id>
+   ```
+
+3. Check IPSec state:
 
    ```bash
    ip xfrm state show
+   ```
+
+   **Expected Output:**
+
+   ```plaintext
+   src {{SRC_IP}} dst {{DST_IP}}
+       proto esp spi 0x{{SPI}} reqid 1 mode tunnel
+       replay-window 0 
+       output-mark 0xd0/0xffffffff
+       aead rfc4106(gcm(aes)) {{KEY}} 128
+       anti-replay context: seq 0x0, oseq 0x0, bitmap 0x00000000
+       sel src ::/0 dst ::/0 
+   ```
+
+4. Check IPSec policy:
+
+   ```bash
    ip xfrm policy show
    ```
 
-4. Verify encryption using `tcpdump`:
+   **Expected Output:**
+
+   ```plaintext
+   src ::/0 dst {{DST_SUBNET}} 
+       dir out priority 0 
+       mark 0xe0/0xffffffff 
+       tmpl src {{SRC_IP}} dst {{DST_IP}}
+           proto esp spi 0x{{SPI}} reqid 1 mode tunnel
+   ```
+
+5. Verify encryption using `tcpdump`:
 
    ```bash
    tcpdump -i any esp
    ```
+
+   **Expected Output:** ESP packets should be visible during communication.
 
 ### 2. Key Rotation Test
 
@@ -50,17 +162,24 @@ This test ensures the reliability of the PSK update mechanism and validates serv
 
 #### Steps
 
-1. Record the initial SPI and pre-shared key:
+1. Record the initial SPI:
 
    ```bash
    ip xfrm state show
-   kubectl get secret
+   ```
+
+   **Expected Output:**
+
+   ```plaintext
+   src {{SRC_IP}} dst {{DST_IP}}
+       proto esp spi 0x{{INITIAL_SPI}} reqid 1 mode tunnel
+       aead rfc4106(gcm(aes)) {{INITIAL_KEY}} 128
    ```
 
 2. Send continuous traffic between the applications:
 
    ```bash
-   kubectl exec <sleep-pod> -- curl http://<httpbin-service> -s -o /dev/null -w "%{http_code}\n"
+   kubectl exec <sleep-pod> -- curl http://<echo-service>
    ```
 
 3. Update the pre-shared key:
@@ -75,15 +194,40 @@ This test ensures the reliability of the PSK update mechanism and validates serv
    ip xfrm state show
    ```
 
+   **Expected Output:**
+
+   ```plaintext
+   src {{SRC_IP}} dst {{DST_IP}}
+       proto esp spi 0x{{INITIAL_SPI + 1}} reqid 1 mode tunnel
+       aead rfc4106(gcm(aes)) {{NEW_KEY}} 128
+   ```
+
 5. Ensure communication continuity and encryption status.
 
 ## Offload Authorization E2E Tests
 
-### 1. IP Authorization Test
+### Unified Steps for Authorization Tests
 
-This test verifies that traffic is allowed or denied based on source IP.
+1. Apply the policy:
 
-#### Example Policy
+   ```bash
+   kubectl apply -f <policy-file>.yaml
+   ```
+
+2. Test connectivity:
+
+   ```bash
+   kubectl exec <sleep-pod> -- curl http://<echo-service>
+   ```
+
+   **Expected Output:**
+
+   - **ALLOW Policy:** The curl command should succeed, and the HTTP response code should be `200`.
+   - **DENY Policy:** The curl command should fail, and no response should be received.
+
+### Example Policies
+
+#### IP Authorization Policy
 
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -97,28 +241,10 @@ spec:
   - from:
     - source:
         ipBlocks:
-        - "192.168.1.1"
+        - "{{ALLOWED_IP}}"
 ```
 
-#### Steps
-
-1. Apply the policy:
-
-   ```bash
-   kubectl apply -f ip-allow-policy.yaml
-   ```
-
-2. Test connectivity:
-
-   ```bash
-   kubectl exec <sleep-pod> -- curl http://<httpbin-service>
-   ```
-
-### 2. Port Authorization Test
-
-This test verifies that traffic is allowed or denied based on destination ports.
-
-#### Example Policy
+#### Port Authorization Policy
 
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -131,28 +257,10 @@ spec:
   rules:
   - to:
     - operation:
-        ports: ["80"]
+        ports: ["{{ALLOWED_PORT}}"]
 ```
 
-#### Steps
-
-1. Apply the policy:
-
-   ```bash
-   kubectl apply -f port-allow-policy.yaml
-   ```
-
-2. Test connectivity:
-
-   ```bash
-   kubectl exec <sleep-pod> -- curl http://<httpbin-service>
-   ```
-
-### 3. Header Authorization Test
-
-This test verifies that traffic is allowed or denied based on HTTP headers.
-
-#### Example Policy
+#### Header Authorization Policy
 
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -164,29 +272,11 @@ spec:
   action: ALLOW
   rules:
   - when:
-    - key: request.headers["x-api-key"]
-      values: ["secret-token"]
+    - key: request.headers["{{HEADER_NAME}}"]
+      values: ["{{HEADER_VALUE}}"]
 ```
 
-#### Steps
-
-1. Apply the policy:
-
-   ```bash
-   kubectl apply -f header-allow-policy.yaml
-   ```
-
-2. Test connectivity:
-
-   ```bash
-   kubectl exec <sleep-pod> -- curl -H "x-api-key: secret-token" http://<httpbin-service>
-   ```
-
-### 4. Namespace Authorization Test
-
-This test verifies that traffic is allowed or denied based on the source namespace.
-
-#### Example Policy
+#### Namespace Authorization Policy
 
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -199,28 +289,10 @@ spec:
   rules:
   - from:
     - source:
-        namespaces: ["test-ns2"]
+        namespaces: ["{{SOURCE_NAMESPACE}}"]
 ```
 
-#### Steps
-
-1. Apply the policy:
-
-   ```bash
-   kubectl apply -f namespace-allow-policy.yaml
-   ```
-
-2. Test connectivity:
-
-   ```bash
-   kubectl exec <sleep-pod> -- curl http://<httpbin-service>
-   ```
-
-### 5. Host Authorization Test
-
-This test verifies that traffic is allowed or denied based on the destination host.
-
-#### Example Policy
+#### Host Authorization Policy
 
 ```yaml
 apiVersion: security.istio.io/v1beta1
@@ -233,29 +305,15 @@ spec:
   rules:
   - to:
     - operation:
-        hosts: ["example.com"]
+        hosts: ["{{TARGET_HOST}}"]
 ```
-
-#### Steps
-
-1. Apply the policy:
-
-   ```bash
-   kubectl apply -f host-allow-policy.yaml
-   ```
-
-2. Test connectivity:
-
-   ```bash
-   kubectl exec <sleep-pod> -- curl http://example.com
-   ```
 
 ## Cleanup
 
 After completing the tests, clean up the resources:
 
 ```bash
-kubectl delete -f httpbin.yaml
 kubectl delete -f sleep.yaml
+kubectl delete -f echo.yaml
 kubectl delete authorizationpolicy --all -n test-ns1
 ```

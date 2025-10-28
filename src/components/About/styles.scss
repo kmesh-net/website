@@ -67,6 +67,70 @@
       margin: 0px 0 10px 0;
     }
   }
+
+  @media (max-width: 435px) {
+    .row {
+      .description {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+        font-size: 1rem;
+      }
+
+      .name {
+        font-size: 1.5em;
+        font-weight: 400;
+        margin: 20px 0 10px 0;
+      }
+
+      .jobTitle {
+        font-size: 0.5rem;
+        font-weight: 300;
+        margin: 0px 0 10px 0;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .row {
+      .description {
+        font-size: 1rem;
+      }
+      .name {
+        font-size: 1.5em;
+      }
+      .jobTitle {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  @media (min-width: 1300px) and (max-width: 1515px) {
+    .row {
+      .description {
+        font-size: 1.1rem;
+      }
+      .name {
+        font-size: 1.8em;
+      }
+      .jobTitle {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .row {
+      .description {
+        font-size: 1.1rem;
+      }
+      .name {
+        font-size: 1.8em;
+      }
+      .jobTitle {
+        font-size: 0.9rem;
+      }
+    }
+  }
 }
 
 html[data-theme="dark"] {

@@ -14,6 +14,32 @@
   flex-basis: 33.333%;
   padding: 0 15px;
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.reasonIcon {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;   
+  height: 60px; 
+  background: rgba(79, 195, 247, 0.1);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 30px;  
+    height: 30px; 
+    fill: #4FC3F7;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .reasonTitle {

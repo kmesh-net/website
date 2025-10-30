@@ -25,7 +25,7 @@ export default function Blogs() {
         </div>
         <div className="right">
           {blogPosts.slice(0, 3).map((item, index) => (
-            <div key={index} className="viewBlogContainer">
+            <div key={item.metadata.permalink} className="viewBlogContainer">
               <h3 onClick={() => history.push(item.metadata.permalink)}>
                 {item.metadata.title}
               </h3>
@@ -35,7 +35,7 @@ export default function Blogs() {
               <div className="info">
                 <div className="author">
                   {(item.metadata?.authors || []).map((item) => (
-                    <a href={item.url} target="_blank">
+                    <a key={item.name} href={item.url} target="_blank" rel="noreferrer">
                       {item.name}
                     </a>
                   ))}

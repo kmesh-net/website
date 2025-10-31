@@ -1,6 +1,8 @@
 ---
 sidebar_position: 6
 title: Access Logs
+description: Enable and interpret Kmesh TCP access logs with kmeshctl.
+keywords: [access logs, kmeshctl, tcp logging, ebpf, monitoring]
 ---
 
 ## Enable Kmesh access logging

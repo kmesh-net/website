@@ -6,13 +6,12 @@ import { themes as prismThemes } from "prism-react-renderer";
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Kmesh",
-  favicon: "img/favicons/favicon.ico",
+  tagline:
+    "Kmesh is a high-performance service grid data plane software implemented based on the eBPF and programmable kernel.",
+  favicon: "/static/img/favicons/favicon.ico",
 
-  // Set the production url of your site here
+  // Production URL (no trailing slash)
   url: "https://kmesh.net",
-
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
   onBrokenLinks: "throw",
@@ -22,13 +21,8 @@ const config = {
     defaultLocale: "en",
     locales: ["en", "zh"],
     localeConfigs: {
-      en: {
-        htmlLang: "en-GB",
-        label: "English",
-      },
-      zh: {
-        label: "简体中文",
-      },
+      en: { htmlLang: "en-GB", label: "English" },
+      zh: { label: "简体中文" },
     },
   },
 
@@ -39,27 +33,22 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
-          editUrl: "https://github.com/kmesh-net/website/blob/main",
+          editUrl: "https://kmesh.net/docs/welcome",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+        },
+        blog: {
+          showReadingTime: true,
+          feedOptions: { type: ["rss", "atom"], xslt: true },
+          editUrl: "https://kmesh.net/blog",
+          // silence non-SEO warnings
+          onInlineTags: "ignore",
+          onInlineAuthors: "ignore",
+          onUntruncatedBlogPosts: "ignore",
         },
         gtag: {
           trackingID: "G-854W8PEZ1Z",
           anonymizeIP: true,
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/kmesh-net/website/blob/main",
-          // Useful options to enforce blogging best practices
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -71,19 +60,46 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      docs: {
-        sidebar: {
-          hideable: true,
-          autoCollapseCategories: true,
+      /* ------- GLOBAL SEO ------- */
+      metadata: [
+        {
+          name: "description",
+          content:
+            "Kmesh - eBPF-based high-performance service-mesh load balancer. Docs, downloads, tutorials and community.",
         },
+        {
+          name: "keywords",
+          content:
+            "kmesh, service mesh, ebpf, load balancer, cloud native, kubernetes, eBPF, cncf",
+        },
+        { name: "author", content: "Kmesh Project" },
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "Kmesh" },
+        {
+          property: "og:image",
+          content: "/img/favicons/favicon.ico",
+        },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: "Kmesh eBPF Service Mesh" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:site", content: "@Kmesh_net" },
+        { name: "twitter:creator", content: "@Kmesh_net" },
+      ],
+
+      docs: {
+        sidebar: { hideable: true, autoCollapseCategories: true },
       },
+
+      sitemap: {
+        changefreq: "weekly",
+        priority: 0.5,
+        ignorePatterns: ["/tags/**"],
+      },
+
       navbar: {
         title: "Kmesh",
-        logo: {
-          alt: "Kmesh",
-          src: "img/favicons/favicon.ico",
-        },
+        logo: { alt: "Kmesh logo", src: "img/favicons/favicon.ico" },
         items: [
           {
             type: "docSidebar",
@@ -113,20 +129,19 @@ const config = {
             className: "header-youtube-link header-icon",
           },
           {
-            to: "https://app.slack.com/client/T08PSQ7BQ/C06BU2GB8NL",
+            href: "https://app.slack.com/client/T08PSQ7BQ/C06BU2GB8NL",
             position: "right",
             className: "header-slack-link header-icon",
           },
-          {
-            type: "localeDropdown",
-            position: "right",
-          },
+          { type: "localeDropdown", position: "right" },
         ],
       },
+
       footer: {
         style: "dark",
         copyright: `Copyright © Kmesh a Series of LF Projects, LLC<br>For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/">lfprojects.org/policies/</a>.`,
       },
+
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
@@ -152,12 +167,23 @@ const config = {
     [
       "docusaurus-lunr-search",
       {
-        languages: ["en",'zh'],
+        languages: ["en", "zh"],
         indexDocs: true,
         indexBlog: true,
         indexPages: false,
-      }
+      },
     ],
+  ],
+
+  // --- 性能：字体预载 + 长缓存 ---
+  stylesheets: [
+    {
+      href: "/fonts/inter.woff2",
+      type: "font/woff2",
+      rel: "preload",
+      as: "font",
+      crossOrigin: "anonymous",
+    },
   ],
 };
 

@@ -1,6 +1,8 @@
 ---
 sidebar_position: 4
 title: Try Request Routing
+description: Route traffic by version or user identity with Kmesh VirtualService policies.
+keywords: [request routing, version routing, header routing, jason user, kmesh, virtualservice]
 ---
 
 ## Preparation

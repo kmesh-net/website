@@ -45,7 +45,7 @@ This `EnvoyFilter` resource injects a local rate-limit filter into the `httpbin`
 - A request with the header `quota: medium` will be limited to **3 requests per 300 seconds**.
 - Other requests will be subject to a default limit of **10 requests per 300 seconds**.
 
-The `targetRefs` ensures that this filter is applied only to the `httpbin-waypoint` proxy.
+The `targetRefs` field ensures that this filter is applied only to the `httpbin-waypoint` proxy.
 
 ```sh
 kubectl apply -f -<<EOF

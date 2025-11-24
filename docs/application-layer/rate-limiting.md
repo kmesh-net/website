@@ -142,9 +142,9 @@ spec:
                 maxTokens: 10
                 tokensPerFill: 10
   targetRefs:
-  - kind: Gateway
-    group: gateway.networking.k8s.io
-    name: httpbin-waypoint
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: httpbin-waypoint
 EOF
 ```
 

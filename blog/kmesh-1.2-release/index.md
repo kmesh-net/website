@@ -73,7 +73,7 @@ See PRs [#1434](https://github.com/kmesh-net/kmesh/pull/1434), [#1484](https://g
 ### Istio Adaptation & Upgrade Safety
 
 Kmesh v1.2 fully adapts to Istio 1.26, deprecating older versions in CI testing. Proposals and features enabling zero-downtime upgrades ensure that Kmesh can be updated without disrupting existing connections, enhancing production readiness.
-See PRs #1513, #1503, #1441
+See PRs [#1513](https://github.com/kmesh-net/kmesh/pull/1513), [#1503](https://github.com/kmesh-net/kmesh/pull/1503), [#1441](https://github.com/kmesh-net/kmesh/pull/1441)
 
 Together, these fixes and enhancements make Kmesh v1.2 significantly more robust, stable, and secure, providing confidence for production deployments and laying a strong foundation for future feature development.
 

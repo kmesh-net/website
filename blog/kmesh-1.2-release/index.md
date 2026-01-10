@@ -53,7 +53,7 @@ Kmesh v1.2 includes numerous fixes and refinements that enhance stability, relia
 ### IPsec & Security Enhancements
 
 Communication issues between pods with IPsec enabled were resolved, and kmeshctl now supports automatic key generation for secrets, simplifying secure communication setup. Additional E2E tests were added to verify correctness and prevent regressions. These changes improve both usability and cluster security.
-See GitHub PRs #1496, #1487
+See GitHub PRs [#1496](https://github.com/kmesh-net/kmesh/pull/1496), [#1487](https://github.com/kmesh-net/kmesh/pull/1487)
 
 ### Kmeshctl & Workflow Fixes
 

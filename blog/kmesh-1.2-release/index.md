@@ -63,7 +63,7 @@ See PRs [#1426](https://github.com/kmesh-net/kmesh/pull/1426), [#1498](https://g
 ### eBPF & Kernel-Native Fixes
 
 Flaky test cases related to cross-namespace communication and connection metrics were fixed, and the cgroup_skb eBPF program was added to improve network packet handling. These fixes strengthen reliability in kernel-native mode and reduce errors in production environments.
-See PRs #1452, #1474
+See PRs [#1452](https://github.com/kmesh-net/kmesh/pull/1452), [#1474](https://github.com/kmesh-net/kmesh/pull/1474)
 
 ### CI, Dependency & Documentation Updates
 

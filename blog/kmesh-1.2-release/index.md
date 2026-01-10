@@ -58,7 +58,7 @@ See GitHub PRs [#1496](https://github.com/kmesh-net/kmesh/pull/1496), [#1487](ht
 ### Kmeshctl & Workflow Fixes
 
 Several enhancements were made to kmeshctl and development workflows, including new commands, preparation scripts (prepare-dev), and documentation sync workflows. Minor usability issues were corrected, streamlining developer interaction with the CLI and reducing friction during setup and maintenance.
-See PRs #1426, #1498
+See PRs [#1426](https://github.com/kmesh-net/kmesh/pull/1426), [#1498](https://github.com/kmesh-net/kmesh/pull/1498)
 
 ### eBPF & Kernel-Native Fixes
 

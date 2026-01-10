@@ -20,7 +20,7 @@ Alongside these enhancements, the Kmesh website and documentation continue to ev
 Building on the DNS refactor introduced in v1.1, v1.2 adds dnsProxy capabilities, allowing Kmesh to intercept DNS resolution requests for managed services.
 ![DNS Proxy Flow](./images/dns1.jpg)
 
- A dedicated domain-to-IP mapping table improves hostname resolution reliability and simplifies integration with non-Kubernetes-native services. These enhancements ensure consistent service discovery across all operating modes and improve overall DNS performance in complex deployment scenarios.
+A dedicated domain-to-IP mapping table improves hostname resolution reliability and simplifies integration with non-Kubernetes-native services. These enhancements ensure consistent service discovery across all operating modes and improve overall DNS performance in complex deployment scenarios.
  ![DNS Proxy Mapping](./images/dns2.jpg)
 
 

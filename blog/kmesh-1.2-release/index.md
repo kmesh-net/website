@@ -104,6 +104,6 @@ In addition, Kmesh v1.2.0 includes contributions from our entire contributor com
 
 ## Reference Links
 
-* [Kmesh Release v1.1.0](https://github.com/kmesh-net/kmesh/releases/tag/v1.1.0)
+* [Kmesh Release v1.2.0](https://github.com/kmesh-net/kmesh/releases/tag/v1.2.0)
 * [Kmesh GitHub](https://github.com/kmesh-net/kmesh)
 * [Kmesh Website](https://kmesh.net/)

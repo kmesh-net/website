@@ -94,12 +94,13 @@ Kmesh v1.2.0 builds on the strong foundation of v1.1 and reflects the contributi
 
 In addition, Kmesh v1.2.0 includes contributions from our entire contributor community, including:
 
-* @YaoZengzeng     @hzxuzhonghu  @dependabot
-* @Flying-Tom   @zrggw   @sancppp
-* @Kuromesi  @072020127   @yashisrani
-* @yp969803   @AkarshSahlot   @mdimado
-* @xiaojiangao123  @lec-bit   @Vinnu124
-* @LiZhenCheng9527  @wxnzb   and many others.
+|                |                  |              |                  |
+|:---------------|:-----------------|:-------------|:-----------------|
+| @YaoZengzeng   | @hzxuzhonghu     | @dependabot  | @Flying-Tom      |
+| @zrggw         | @sancppp         | @Kuromesi    | @072020127       |
+| @yashisrani    | @yp969803        | @AkarshSahlot| @mdimado         |
+| @xiaojiangao123| @lec-bit         | @Vinnu124    | @LiZhenCheng9527 |
+| @wxnzb         | and many others. |              |                  |
 
 
 ## Reference Links

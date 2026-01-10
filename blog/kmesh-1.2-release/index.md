@@ -81,7 +81,7 @@ Together, these fixes and enhancements make Kmesh v1.2 significantly more robust
 
 Kmesh v1.2.0 builds on the strong foundation of v1.1 and reflects the contributions of a rapidly growing community. We are thrilled to welcome the following new contributors who made their first contributions in this release:
 
-* @Flying-Tom 
+* @Flying-Tom
 * @zrggw
 * @yashisrani
 * @AkarshSahlot

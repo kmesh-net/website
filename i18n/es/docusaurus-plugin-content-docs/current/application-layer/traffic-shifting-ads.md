@@ -105,7 +105,7 @@ This task shows you how to set up Traffic Shifting policy for http traffic in Km
   kubectl apply -f samples/fortio/fortio-v1-10-v2-90.yaml
   ```
 
-  **fortio-header.yaml**
+  **fortio-v1-10-v2-90.yaml**
 
   ```yaml
   apiVersion: networking.istio.io/v1alpha3

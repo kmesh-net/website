@@ -68,7 +68,7 @@ See PRs [#1452](https://github.com/kmesh-net/kmesh/pull/1452), [#1474](https://g
 ### CI, Dependency & Documentation Updates
 
 Dependencies were upgraded to resolve vulnerabilities, CI workflows were refined, and documentation improvements including markdown linting and Chinese grammar checking were applied. These changes ensure secure, reliable builds and improve usability for contributors.
-See PRs #1434, #1484
+See PRs [#1434](https://github.com/kmesh-net/kmesh/pull/1434), [#1484](https://github.com/kmesh-net/kmesh/pull/1484)
 
 ### Istio Adaptation & Upgrade Safety
 

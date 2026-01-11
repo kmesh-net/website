@@ -46,7 +46,7 @@ Kmesh 在第一期提出了 4 个项目，我选择了 [long-connection-metrics]
 
 ![design](./images/tcp_long_conn_design.png)
 
-[更多信息](https://kmesh.net/docs/transpot-layer/l4-metrics)
+[更多信息](https://kmesh.net/docs/transport-layer/l4-metrics)
 
 ## 导师体验
 

@@ -42,7 +42,7 @@ Kmesh 在第一期提出了 4 个项目，我选择了 [long-connection-metrics]
 
 `tcp long connection metrics` 项目旨在实现 TCP 长连接的访问日志和指标，开发一种持续监控和报告机制，以便在长生存期 TCP 连接的整个生命周期内捕获详细的实时数据。
 
-使用 Ebpf 钩子收集连接统计信息，如发送/接收字节数、丢包数、重传数等。
+使用 eBPF 钩子收集连接统计信息，如发送/接收字节数、丢包数、重传数等。
 
 ![design](./images/tcp_long_conn_design.png)
 

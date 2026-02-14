@@ -1,164 +1,135 @@
 ---
-title: "From Contributor to Maintainer: My LFX Mentorship Journey (Or How I Accidentally Became Responsible for Things)"
+title: "From Contributor to Maintainer: My LFX Mentorship Journey"
 authors:
   - jayesh9747
 date: 2025-02-14
 sidebar_position: 2
 ---
 
-### 👋 Plot Twist: I'm Now a Maintainer
+### Introduction
 
-Hi everyone! I'm Jayesh Savaliya, a B.Tech student at IIIT Pune who somehow convinced people I know what I'm doing with backend technologies and open source. Over the last two years, I've managed to get selected for the C4GT program twice (2024 & 2025) - yes, they let me back in - and cracked LFX Mentorship 2025 (Term 1).
+Hi everyone! I'm Jayesh Savaliya, a B.Tech student at IIIT Pune passionate about backend technologies and open source. Over the last two years, I've been selected for the C4GT program twice (2024 & 2025) - yes, they let me back in - and recently completed LFX Mentorship 2025 (Term 1), where I somehow went from fixing typos to being responsible for reviewing other people's code at Kmesh.
 
-In this blog, I'll share:
-- How I stumbled into open source (spoiler: it wasn't a master plan)
-- My totally-not-secret strategies to crack programs like LFX
-- Why I chose Kmesh (hint: eBPF is cool, okay?)
-- How I went from "can I contribute?" to "wait, I'm responsible for this now?"
-- Some actually useful advice that isn't just "be passionate"
+In this blog, I'll share my journey and the strategies that actually worked (no generic "just be passionate" advice, I promise).
 
 ---
 
-### 🚀 My Open Source Origin Story
+### My Background
 
-When I applied to LFX, I wasn't some open source newbie who just discovered GitHub last week. I had already battle-tested myself with:
-- **Sunbird** (EkStep Foundation) via C4GT - where I learned that education tech is harder than it looks
-- **Mifos** - a GSoC org focused on financial services (because who doesn't want to debug payment systems at 2 AM?)
-- A few other backend projects where I definitely didn't break production. Much.
+When I applied to LFX, I wasn't starting from scratch. I had already battle-tested myself with:
+- **Sunbird** (EkStep Foundation) via C4GT, where I learned that education tech is harder than it looks
+- **Mifos**, a GSoC organization focused on financial services (because debugging payment systems at 2 AM builds character)
+- Various backend projects where I definitely didn't break production. Much.
 
-#### 🔍 Choosing the Right Project (AKA: "Eeny, Meeny, Miny, Moe" But Make It Strategic)
+#### Choosing Kmesh
 
-I shortlisted 2–3 projects from the LFX portal based on some highly scientific criteria:
-1. **Tech stack relevance** - Does it use technologies I want to master?
-2. **Learning potential** - Will this make me sound smart at tech meetups?
-3. **Active maintainers** - Are these people actually responsive, or is this a ghost town?
+I shortlisted projects from the LFX portal based on three key criteria:
+1. **Tech stack relevance** - Technologies I wanted to master
+2. **Learning potential** - Projects that would challenge and grow my skills
+3. **Active maintainers** - Communities with responsive, helpful mentors
 
-Eventually, I chose **Kmesh** - a high-performance service mesh data plane built on eBPF and programmable kernel technologies. What made me choose it?
+I chose Kmesh, a high-performance service mesh data plane built on eBPF and programmable kernel technologies. Kmesh's sidecarless architecture eliminates proxy overhead, resulting in better performance and lower resource consumption.
 
-**The Technical Answer:** Kmesh's sidecarless architecture eliminates proxy overhead, resulting in better forwarding performance and lower resource consumption. It's bleeding-edge systems programming meets networking optimization.
-
-**The Real Answer:** It had "eBPF" in the description, and I wanted to feel like a kernel wizard. Also, the maintainers seemed nice.
+Honestly? It had "eBPF" in the description and I wanted to sound cool at tech meetups. But it turned out to be genuinely fascinating work with a great community.
 
 ---
 
-### 💡 How to Actually Crack an Open Source Program (My 3-Step Formula)
+### How to Succeed in Open Source Programs
 
-Forget the "just be passionate" advice. Here's what actually worked:
+Here's my three-step approach that worked for LFX:
 
-#### 1. ✅ Make Meaningful Contributions (Start Small, Dream Big)
+#### 1. Make Meaningful Contributions
 
-**The Wrong Way:** "I'll start by rewriting the entire architecture!"
+Start small and scale up gradually. Don't be the person who says "I'll rewrite the entire architecture!" on day one.
 
-**The Right Way:**
-- Week 1-2: Fix typos, improve logs, update docs
-- Week 3-4: Fix small bugs, add tests
-- Week 5+: Core features, refactoring, "I understand this codebase now"
+Instead:
+- **Weeks 1-2:** Fix typos, improve logs, update documentation
+- **Weeks 3-4:** Fix small bugs, add tests
+- **Week 5+:** Work on core features and refactoring
 
-This progression shows mentors you're not just throwing random PRs at the wall to see what sticks.
+This progression shows mentors you're not just throwing random PRs at the wall hoping something sticks.
 
-#### 2. 📝 Write a Proposal That Doesn't Put People to Sleep
+#### 2. Write a Strong Proposal
 
 Your proposal should be:
-- **Clear:** No buzzword bingo. Explain what you'll do in plain English.
-- **Structured:** Timeline with milestones. Bonus points if you actually follow it later.
-- **Convincing:** Why you? What makes you not-terrible at this?
+- **Clear:** Explain your approach in straightforward language
+- **Structured:** Include a realistic timeline with milestones
+- **Convincing:** Demonstrate why you're the right person for the project
 
-**Pro tip:** If your proposal is longer than your actual code contributions, you're doing it wrong.
+Make sure your proposal reflects genuine engagement with the project, not just surface-level research.
 
-#### 3. 💬 Be Actively Involved (Without Being *That* Person)
+#### 3. Be Actively Involved
 
-Stay present in project channels (Slack, Discord, mailing lists). Communicate with mentors. Ask questions. Suggest improvements.
+Stay engaged in project channels (Slack, Discord, mailing lists). Communicate regularly with mentors, ask thoughtful questions, and contribute to discussions.
 
-But also: Don't spam. Don't ask questions Google could answer. Don't @ everyone at 3 AM with "quick question."
+But also: don't be *that* person who asks questions Google could answer or pings everyone at 3 AM with "quick question." Balance is everything.
 
-**The Formula:** Contribute + Propose + Communicate = You stand out (in a good way)
-
----
-
-### 👨‍💻 The Accidental Path to Maintainership
-
-Becoming a maintainer wasn't some grand plan. It happened because I apparently couldn't stop contributing even when the mentorship officially ended.
-
-Here's the not-so-secret sauce:
-
-#### 🔄 Consistency (AKA: The "Keep Showing Up" Method)
-I didn't stop after my first merged PR and call it a day. I kept going:
-- Fixing bugs nobody noticed
-- Adding features people actually wanted
-- Refactoring code that made future-me's life easier
-
-#### 🧠 Learning Mindset (Or: "I Have No Idea What I'm Doing, But I'll Figure It Out")
-Every learning curve was just another opportunity to feel confused and then triumphant:
-- eBPF concepts? Started clueless, ended slightly less clueless
-- Performance optimization? Learned by making things slower first
-- CI/CD improvements? Broke the build a few times, now I own it
-
-#### 🤝 Patience & Feedback (The "Don't Take It Personally" Skill)
-Code reviews can be brutal. I learned to:
-- Take feedback seriously (even when it stings)
-- Iterate quickly (because blockers are expensive)
-- Stay patient when things break (they will break)
-
-#### 🚀 Initiative (The "What If We Just..." Trait)
-I started acting like an owner before I was one:
-- Suggesting improvements to the project
-- Writing better tests (because flaky tests are the worst)
-- Automating repetitive tasks (because I'm lazy efficiently)
-- Reviewing others' contributions (giving back feels good)
-
-**The Result:** By the end of my mentorship, the maintainers trusted me enough to grant maintainer access.
-
-From "hey can I fix this typo?" to "you're now responsible for reviewing PRs" - it was surreal, humbling, and honestly pretty cool.
+**The Formula:** Consistent contributions + Strong proposal + Active communication = Standing out
 
 ---
 
-### 🎯 Actual Advice for Aspiring Contributors
+### The Path to Maintainership
 
-Let me cut through the inspirational fluff:
+Becoming a maintainer wasn't planned. It happened naturally through sustained engagement after the mentorship period ended.
 
-#### 🧱 Start small, but stay consistent
-You're not going to rewrite the kernel on day one. Start with something tiny. Then keep going.
+#### Consistency
 
-#### 🎯 Focus on learning, not just selection
-Getting selected is great. Learning enough to be useful is better.
+I continued contributing regularly after my initial PRs were merged:
+- Fixing overlooked bugs
+- Adding requested features
+- Refactoring code for better maintainability
 
-#### 📢 Communicate actively and respectfully
-Ask questions. Share progress. Be helpful. Don't be annoying. It's a fine line.
+#### Learning Mindset
 
-#### 🚀 Don't be afraid to suggest improvements
-If you see something that could be better, say something. The worst they can say is "no" (or "did you actually read the docs?").
+I embraced every learning opportunity, even when I had no idea what I was doing. eBPF concepts? Started clueless, ended slightly less clueless. Performance optimization? Learned by making things slower first. CI/CD improvements? Broke the build a few times, but now I own it.
 
-#### 🛠️ Embrace feedback, be solution-oriented
-Nobody's code is perfect on the first try. Take the feedback, fix it, move on. Arguing about semicolons is not a good use of anyone's time.
+#### Patience & Feedback
 
-**The Truth:** You don't need to be a genius. You just need to:
-1. Show up
-2. Contribute
-3. Improve
-4. Repeat
+Code reviews can be humbling (read: brutal). I learned to take feedback seriously even when it stung, iterate quickly, and stay patient when things inevitably broke.
 
----
+#### Taking Initiative
 
-### 🙌 Final Thoughts (The Sentimental Part)
+I started acting like a maintainer before having the title:
+- Suggesting project improvements
+- Writing comprehensive tests (because flaky tests are the worst)
+- Automating repetitive tasks (laziness is a virtue in programming)
+- Reviewing other contributors' work
 
-The LFX Mentorship taught me more than just how to write better code. It taught me:
-- How to work with a global, distributed team (timezones are fun!)
-- How to think critically about production-grade software (spoiler: logs are important)
-- How to grow from contributor to leader in a community (responsibility is scary but worth it)
-
-If I can go from "nervous first-time contributor" to "wait, people are asking me for code reviews?", then you absolutely can too.
-
-Let's keep building, learning, and supporting each other in this amazing open source ecosystem. And maybe, just maybe, you'll accidentally become a maintainer too.
+By the end of my mentorship, the trust I built with the team led to being granted maintainer access. Going from "hey, can I fix this typo?" to "you're now responsible for reviewing PRs" was equal parts surreal and terrifying.
 
 ---
 
-### 📬 Let's Connect
+### Key Takeaways
 
-Want to talk about open source, eBPF, or why debugging kernel code at 2 AM is actually kind of fun?
+Here's what I learned that might help you:
 
-- 🔗 [LinkedIn](https://linkedin.com/in/jayesh-savaliya)
-- 💻 [GitHub](https://github.com/jayesh9747)
+**Start small, stay consistent** - Begin with simple contributions and build from there. Consistency matters more than individual genius.
 
-Thanks for reading - see you in the next PR 🚀
+**Focus on learning** - Getting selected is great, but learning enough to make real contributions is what counts.
 
-*P.S. - If you're reading this because you're procrastinating on your own open source contributions, close this tab and go fix that bug you've been avoiding. I believe in you.*
+**Communicate effectively** - Ask questions, share progress, and be helpful. Respectful, clear communication goes a long way.
+
+**Suggest improvements** - If you see something that could be better, speak up. Good ideas are always welcome.
+
+**Embrace feedback** - Your first PR won't be perfect. Nobody's is. Take feedback as learning opportunities, iterate, and move on. Arguing about semicolons is not a productive use of anyone's time.
+
+You don't need to be a genius. You just need to show up, contribute meaningfully, and improve consistently.
+
+---
+
+### Final Thoughts
+
+The LFX Mentorship taught me more than just technical skills. I learned how to work with distributed teams across timezones, think critically about production software (logs are your friends!), and grow into a leadership role in an open source community.
+
+If you're considering applying to LFX or any open source program, take the leap. With consistent effort and genuine engagement, you can make a real impact. If I can go from nervous first-time contributor to maintainer, so can you.
+
+---
+
+### Connect With Me
+
+Feel free to reach out if you want to discuss open source, eBPF, or systems programming:
+
+- [LinkedIn](https://linkedin.com/in/jayesh-savaliya)
+- [GitHub](https://github.com/jayesh9747)
+
+Thanks for reading, and see you in the next PR!

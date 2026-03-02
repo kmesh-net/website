@@ -45,7 +45,7 @@ This `EnvoyFilter` resource injects a local rate-limit filter into the `httpbin`
 - A request with the header `quota: medium` will be limited to **3 requests per 300 seconds**.
 - Other requests will be subject to a default limit of **10 requests per 300 seconds**.
 
-The `workloadSelector` ensures that this filter is applied only to the `httpbin-waypoint` proxy.
+The `targetRefs` field ensures that this filter is applied only to the `httpbin-waypoint` proxy.
 
 ```sh
 kubectl apply -f -<<EOF
@@ -141,9 +141,10 @@ spec:
                 fillInterval: 300s
                 maxTokens: 10
                 tokensPerFill: 10
-  workloadSelector:
-    labels:
-      gateway.networking.k8s.io/gateway-name: httpbin-waypoint
+  targetRefs:
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: httpbin-waypoint
 EOF
 ```
 
@@ -305,9 +306,10 @@ metadata:
   name: filter-ratelimit
   namespace: default
 spec:
-  workloadSelector:
-    labels:
-      gateway.networking.k8s.io/gateway-name: httpbin-waypoint
+  targetRefs:
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: httpbin-waypoint
   configPatches:
     - applyTo: CLUSTER
       match:
@@ -366,9 +368,10 @@ metadata:
   name: filter-ratelimit-svc
   namespace: default
 spec:
-  workloadSelector:
-    labels:
-      gateway.networking.k8s.io/gateway-name: httpbin-waypoint
+  targetRefs:
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: httpbin-waypoint
   configPatches:
     - applyTo: VIRTUAL_HOST
       match:

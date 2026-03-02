@@ -24,6 +24,7 @@
     "clsx": "^2.0.0",
     "docusaurus-lunr-search": "^3.6.0",
     "docusaurus-plugin-sass": "^0.2.6",
+    "lucide-react": "^1.14.0",
     "plugin-image-zoom": "flexanalytics/plugin-image-zoom",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",

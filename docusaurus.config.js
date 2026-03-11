@@ -1,6 +1,9 @@
 // @ts-check
 // `@type` JSDoc annotations allow editor autocompletion and type checking
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
@@ -12,7 +15,6 @@ const config = {
   url: "https://kmesh.net",
 
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
   onBrokenLinks: "throw",
@@ -44,7 +46,7 @@ const config = {
           showLastUpdateTime: true,
         },
         gtag: {
-          trackingID: "G-854W8PEZ1Z",
+          trackingID: process.env.GA_TRACKING_ID,
           anonymizeIP: true,
         },
         blog: {
@@ -53,10 +55,7 @@ const config = {
             type: ["rss", "atom"],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/kmesh-net/website/blob/main",
-          // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",
           onUntruncatedBlogPosts: "warn",
@@ -71,7 +70,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       docs: {
         sidebar: {
           hideable: true,
@@ -152,11 +150,11 @@ const config = {
     [
       "docusaurus-lunr-search",
       {
-        languages: ["en",'zh'],
+        languages: ["en", "zh"],
         indexDocs: true,
         indexBlog: true,
         indexPages: false,
-      }
+      },
     ],
   ],
 };

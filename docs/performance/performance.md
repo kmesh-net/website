@@ -1,5 +1,7 @@
 ---
 title: Kmesh Performance
+description: Benchmark results, test methodology, and performance metrics for Kmesh eBPF data plane.
+keywords: [kmesh performance, fortio benchmark, latency, throughput, ebpf, observability]
 sidebar_position: 1
 ---
 

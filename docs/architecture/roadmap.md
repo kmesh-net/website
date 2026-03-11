@@ -1,6 +1,7 @@
 ---
 title: Roadmap
-description: ""
+description: Kmesh feature timeline – traffic management, security, observability, and ecosystem collaboration.
+keywords: [kmesh roadmap, feature timeline, traffic management, observability, ebpf]
 sidebar_position: 2
 ---
 

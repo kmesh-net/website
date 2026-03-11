@@ -1,5 +1,7 @@
 ---
 title: Governance
+description: Kmesh project governance – values, membership, meetings, and decision-making process.
+keywords: [governance, values, membership, steering committee, kmesh, cncf]
 sidebar_position: 3
 ---
 

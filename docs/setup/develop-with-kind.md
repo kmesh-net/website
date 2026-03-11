@@ -1,5 +1,7 @@
 ---
 title: Deploy/Develop with Kind
+description: Quick guide to create a local Kubernetes cluster with Kind and deploy Kmesh for development.
+keywords: [kind, local cluster, development, kmesh, istio ambient, ebpf]
 sidebar_position: 2
 ---
 

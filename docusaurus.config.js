@@ -148,15 +148,15 @@ const config = {
   plugins: [
     [require.resolve("./src/plugins/blogGlobalData/index.js"), {}],
     "docusaurus-plugin-sass",
-    "plugin-image-zoom",
+    "docusaurus-plugin-image-zoom",
     [
       "docusaurus-lunr-search",
       {
-        languages: ["en",'zh'],
+        languages: ["en", "zh"],
         indexDocs: true,
         indexBlog: true,
         indexPages: false,
-      }
+      },
     ],
   ],
 };

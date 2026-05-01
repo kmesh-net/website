@@ -14,11 +14,11 @@ We are excited to announce the release of Kmesh v1.2.0, the result of three mont
 
 This is the feature that makes half of everything else in this release possible.
 
-Before v1.2.0, Kmesh had no real handle on DNS. It worked alongside the cluster's DNS resolution flow but couldn't intercept or influence it. That ceiling showed up everywhere in ServiceEntry limitations, in dual-engine mode constraints, in the gap between what Kmesh could theoretically govern and what it could actually reach.
+Before v1.2.0, Kmesh had no real handle on DNS. It worked alongside the cluster's DNS resolution flow but couldn't intercept or influence it. That ceiling showed up everywhere in ServiceEntry limitations, in dual-engine mode constraints, and in the gap between what Kmesh could theoretically govern and what it could actually reach.
 
 ![DNS Proxy](./images/dns-proxy.png)
 
-v1.2.0 adds a proper DNS proxy. Kmesh now intercepts DNS resolution requests for services it manages and maintains its own internal domain-to-address mapping table. This means Kmesh knows what's being resolved, when, and can act on it. If you've ever hit a wall with Kmesh and external service management, this is the PR that tears it down.
+v1.2.0 adds a proper DNS proxy. Kmesh now intercepts DNS resolution requests for services it manages and maintains its own internal domain-to-address mapping table. This means Kmesh knows what's being resolved, when, and can act on it. If you've ever hit a wall with Kmesh and external service management, this is the feature that tears it down.
 
 ### Enhanced IPsec
 
@@ -40,9 +40,9 @@ All ServiceEntry types are now fully implemented. But the bigger story is what D
 
 ### Zero-Downtime Upgrade Capability
 
-This one has a caveat, it is currently alpha. But the problem it solves is real and worth calling out.
+This one has a caveat: it is currently alpha. But the problem it solves is real and worth calling out.
 
-Upgrading the Kmesh daemon used to mean accepting connection disruption. In v0.5.0, we made restarts non-disruptive. v1.2.0 extends that guarantee to the full upgrade workflow: as long as BPF map structures have not changed between versions, upgrading the daemon will not drop existing connections. For a data plane component that sits directly in the path of all service to service traffic, this matters enormously.
+Upgrading the Kmesh daemon used to mean accepting connection disruption. In v0.5.0, we made restarts non-disruptive. v1.2.0 extends that guarantee to the full upgrade workflow: as long as BPF map structures have not changed between versions, upgrading the daemon will not drop existing connections. For a data plane component that sits directly in the path of all service-to-service traffic, this matters enormously.
 
 ![Zero-Downtime Upgrade](./images/zero-downtime-upgrade.png)
 

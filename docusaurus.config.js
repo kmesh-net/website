@@ -3,6 +3,8 @@
 
 import { themes as prismThemes } from "prism-react-renderer";
 
+const gaTrackingID = process.env.GA_TRACKING_ID;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Kmesh",
@@ -43,10 +45,12 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
-        gtag: {
-          trackingID: "G-854W8PEZ1Z",
-          anonymizeIP: true,
-        },
+        ...(gaTrackingID && {
+          gtag: {
+            trackingID: gaTrackingID,
+            anonymizeIP: true,
+          },
+        }),
         blog: {
           showReadingTime: true,
           feedOptions: {

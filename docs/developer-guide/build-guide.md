@@ -62,7 +62,7 @@ The Kmesh needs to be compiled and built in the Linux environment with the Kmesh
 
 ### Build Kmesh from Source
 
-Clong the source code from github.
+Clone the source code from GitHub.
 
 ```sh
 git clone https://github.com/kmesh-net/kmesh.git

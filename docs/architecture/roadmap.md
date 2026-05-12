@@ -1,4 +1,3 @@
-```md
 ---
 title: Roadmap
 description: ""
@@ -30,4 +29,3 @@ sidebar_position: 2
 | **Programmable**                  | Plug-in expansion capability           |         |         |         |    ✓    |         |         |
 | **Ecosystem Collaboration**       | Data plane collaboration (Envoy, etc.) |         |    ✓    |         |         |         |         |
 | **Operating Environment Support** | Container                              |    ✓    |         |         |         |         |         |
-```

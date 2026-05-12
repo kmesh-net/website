@@ -83,36 +83,48 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 
 ## Install Kmesh
 
-We offer several ways to install Kmesh:
+The recommended way to install Kmesh is via Helm from the OCI registry. This method is the simplest and doesn't require cloning the repository.
 
 ### Option 1: Install from OCI Registry (Recommended)
 
-You can install Kmesh directly from the GitHub Container Registry without cloning the repository:
+You can install Kmesh directly from the GitHub Container Registry:
 
 ```shell
-helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-system --create-namespace
+helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version v1.2.0 -n kmesh-system --create-namespace
 ```
 
-- Replace `x.y.z` with your desired version from [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm):
+- For other versions, refer to the [kmesh-helm packages](https://github.com/orgs/kmesh-net/packages/container/package/kmesh-helm):
   - For stable releases, use a version like `v1.1.0`.
   - For pre-releases, use a version like `v1.1.0-alpha`.
   - Omit the `--version` flag to install the latest version (not recommended for production).
 
-### Option 2: Install from Helm
+---
+
+### Alternative: Install from Source (For Developers)
+
+If you're a developer and need to install from a local source code directory or require more customization, use one of the following methods. 
+
+> **Note**: These methods require you to clone the [Kmesh repository](https://github.com/kmesh-net/kmesh) first:
+> ```shell
+> git clone https://github.com/kmesh-net/kmesh.git
+> cd kmesh
+> ```
+
+#### Method 1: Install from Helm (Local Source)
 
 ```shell
 helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
 ```
 
-### Option 3: Install from Helm Chart Archive
+#### Method 2: Install from Helm Chart Archive
+
+Download the `kmesh-helm-<version>.tgz` archive from [GitHub Releases](https://github.com/kmesh-net/kmesh/releases). Replace `<version>` in the command above with the version you downloaded (e.g., `v1.2.0`).
 
 ```shell
 helm install kmesh ./kmesh-helm-<version>.tgz -n kmesh-system --create-namespace
 ```
 
-- Download the `kmesh-helm-<version>.tgz` archive from [GitHub Releases](https://github.com/kmesh-net/kmesh/releases). Replace `<version>` in the command above with the version you downloaded (e.g., `v1.1.0`).
-
-### Option 4: Install from Yaml
+#### Method 3: Install from Yaml
 
 ```shell
 kubectl create namespace kmesh-system

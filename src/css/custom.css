@@ -168,3 +168,127 @@
     align-items: center;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Mobile search bar — prevent it from overflowing / crowding the navbar
+   Fixes: https://github.com/kmesh-net/website/issues/304
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Constrain the lunr search button so it never pushes logo/hamburger off screen */
+@media (max-width: 996px) {
+  /* The lunr-search plugin renders a plain <input> inside .navbar__search */
+  .navbar__search {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 160px;
+  }
+
+  .navbar__search-input {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.8rem;
+  }
+
+  /* DocSearch button (fallback in case algolia is ever re-added) */
+  .DocSearch-Button {
+    width: auto;
+    max-width: 140px;
+    padding: 0 0.6rem;
+  }
+
+  .DocSearch-Button-Placeholder {
+    display: none; /* hide "Search" text label, keep the icon only */
+  }
+}
+
+/* Extra tight on very small phones (< 400 px) */
+@media (max-width: 400px) {
+  /* Give logo room to breathe */
+  .navbar__brand {
+    flex-shrink: 0;
+    margin-right: 0.4rem;
+  }
+
+  /* Shrink navbar padding so content isn't clipped */
+  .navbar {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* Search bar: icon-only on the tiniest screens */
+  .navbar__search {
+    max-width: 2.2rem;   /* just wide enough for the search icon */
+    overflow: hidden;
+  }
+
+  .navbar__search-input {
+    font-size: 0;
+    padding: 0 0.3rem;
+  }
+
+  .navbar__search-input::placeholder {
+    font-size: 0;          /* hide placeholder text, keep the box clickable */
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Search results modal — fix category label wrapping on narrow screens
+   Fixes: https://github.com/kmesh-net/website/issues/304
+───────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 996px) {
+  /* Lunr-search results dropdown */
+  .search-result-section,
+  .lunrsearch-results-container {
+    padding: 0.5rem;
+  }
+
+  /* Category heading inside results (e.g. "Documentation", "Kmesh Performance") */
+  .search-result-section-title,
+  .lunrsearch-group-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Individual result rows */
+  .search-result-match,
+  .lunrsearch-result-item {
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* Result title */
+  .search-result-match-title,
+  .lunrsearch-result-title {
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Result preview snippet */
+  .search-result-match-content,
+  .lunrsearch-result-snippet {
+    font-size: 0.78rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 400px) {
+  /* On very small screens the modal should span full width */
+  .searchResultsWrapper,
+  .lunrsearch-results-container {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    border-radius: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}

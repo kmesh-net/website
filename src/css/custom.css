@@ -215,19 +215,26 @@
     padding-right: 0.5rem;
   }
 
-  /* Search bar: icon-only on the tiniest screens */
+  /* Search bar: icon-only on the tiniest screens, expands when focused */
   .navbar__search {
     max-width: 2.2rem;   /* just wide enough for the search icon */
     overflow: hidden;
+    transition: max-width 0.2s ease;
+  }
+
+  /* When the user taps/focuses the input, give it room to type */
+  .navbar__search:focus-within {
+    max-width: 160px;
+    overflow: visible;
   }
 
   .navbar__search-input {
-    font-size: 0;
+    font-size: 1rem;     /* keep ≥ 16px to prevent iOS auto-zoom */
     padding: 0 0.3rem;
   }
 
   .navbar__search-input::placeholder {
-    font-size: 0;          /* hide placeholder text, keep the box clickable */
+    font-size: 0;        /* hide placeholder text, keep the box clickable */
   }
 }
 
@@ -286,7 +293,6 @@
   .lunrsearch-results-container {
     left: 0 !important;
     right: 0 !important;
-    width: 100vw !important;
     border-radius: 0;
     max-height: 60vh;
     overflow-y: auto;

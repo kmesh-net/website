@@ -1,6 +1,8 @@
 ---
 sidebar_position: 3
 title: TCP Authorization in XDP
+description: Accelerate TCP authorization by enforcing port/IP policies directly in XDP/eBPF.
+keywords: [xdp auth, ebpf, port deny, ip deny, kmesh, authorization]
 ---
 
 ## Authorization in XDP

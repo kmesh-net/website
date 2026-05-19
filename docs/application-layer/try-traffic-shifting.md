@@ -1,6 +1,8 @@
 ---
 sidebar_position: 5
 title: Try Traffic Shifting
+description: Shift HTTP traffic between service versions with weighted routing.
+keywords: [traffic shifting, weighted routing, canary, split, http]
 ---
 
 ## Preparation

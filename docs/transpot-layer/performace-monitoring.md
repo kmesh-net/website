@@ -1,6 +1,8 @@
 ---
 sidebar_position: 4
 title: Use Grafana to visualize kmesh performance monitoring
+description: Build Grafana dashboards to monitor Kmesh daemon performance in real time.
+keywords: [grafana, performance monitoring, ebpf, kmesh, dashboards]
 ---
 
 **NOTE:** This is an immature feature, so we turn it off by default, you can optionally turn it on.

@@ -1,6 +1,7 @@
 ---
 title: Quick Start
-description: This guide lets you quickly install Kmesh.
+description: Get Kmesh running in under 10 minutes – prerequisites, install options, and first service test.
+keywords: [quick start, install kmesh, kubernetes, istio ambient, ebpf, helm]
 sidebar_position: 1
 ---
 

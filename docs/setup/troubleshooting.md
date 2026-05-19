@@ -1,5 +1,7 @@
 ---
 title: Installation Troubleshooting Guide
+description: Fix common Kmesh install issues – port conflicts, dependencies, CNI errors, and health checks.
+keywords: [troubleshooting, port 15006, libbpf, cni conflict, kmesh, debug]
 sidebar_position: 4
 ---
 

@@ -1,6 +1,8 @@
 ---
 sidebar_position: 2
 title: Querying L4 Metrics from Prometheus
+description: Collect and query Kmesh L4 TCP metrics via Prometheus dashboards.
+keywords: [l4 metrics, prometheus, tcp metrics, kmesh, observability]
 ---
 
 ## Preparation

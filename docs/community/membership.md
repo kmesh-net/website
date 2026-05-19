@@ -1,5 +1,7 @@
 ---
 title: Membership
+description: Community roles in Kmesh – Member, Reviewer, Approver, Maintainer – and how to advance.
+keywords: [community roles, member, reviewer, approver, maintainer, kmesh, ladder]
 sidebar_position: 4
 ---
 

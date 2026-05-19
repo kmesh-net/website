@@ -1,6 +1,8 @@
 ---
 sidebar_position: 8
-title: Use Kiali to visualize traffic graph under Kmesh
+title: Visualise Traffic with Kiali
+description: Use Kiali to view the Kmesh traffic topology graph.
+keywords: [kiali, traffic graph, observability, metrics, dashboard]
 ---
 
 ## Preparation

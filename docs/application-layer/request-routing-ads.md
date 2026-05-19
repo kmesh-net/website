@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 title: Request Routing
+description: Route HTTP requests by weight or user identity in Kmesh.
+keywords: [request routing, header routing, jason, user, http]
 ---
 
 This task shows you how to set up Request Routing policy for http traffic in Kmesh.

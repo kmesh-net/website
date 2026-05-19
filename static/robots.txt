@@ -1,0 +1,39 @@
+User-agent: *                      # applies to every bot
+Allow: /                           # whole site indexable
+
+# Crawl-delay for polite bots (optional)
+Crawl-delay: 1                    # 1 s between requests (Bing/Yandex obey)
+
+# Sitemap location
+Sitemap: https://kmesh.net/sitemap.xml
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.pdf?                # block query-string PDFs (print views, etc.)
+Disallow: /search?               # internal search result pages
+Disallow: /_next/                # Next.js build artefacts
+Disallow: /tags/                 # tag listing pages (thin content)
+
+User-agent: Googlebot
+Allow: /
+# No crawl-delay for Google
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1                   # be nice to Bing
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Mediapartners-Google
+Allow: /

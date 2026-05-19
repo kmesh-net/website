@@ -1,5 +1,7 @@
 ---
 title: Feature Lifecycle
+description: Understand Alpha, Beta, and GA stages for Kmesh features and APIs.
+keywords: [feature lifecycle, alpha beta ga, api stability, graduation criteria, kmesh]
 sidebar_position: 2
 ---
 
@@ -10,8 +12,11 @@ Each version has different level of stability, support time,
 and requires different graduation criteria moving to next level:
 
 - [Alpha](#alpha)
+  - [Graduation Criteria](#graduation-criteria)
 - [Beta](#beta)
+  - [Graduation Criteria](#graduation-criteria-1)
 - [GA](#ga)
+  - [Graduation Criteria](#graduation-criteria-2)
 
 ## Alpha
 

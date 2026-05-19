@@ -1,5 +1,7 @@
 ---
 title: Kmesh Resource Consumption
+description: CPU and memory usage analysis of Kmesh eBPF programs under various load scenarios.
+keywords: [resource consumption, cpu usage, memory usage, ebpf, kmesh, stress test]
 sidebar_position: 2
 ---
 

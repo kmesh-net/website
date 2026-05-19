@@ -1,5 +1,7 @@
 ---
 title: Use Enhanced Kernel
+description: Enable full Kmesh features (L7, etc.) on openEuler 23.03 with kernel 6.1+.
+keywords: [enhanced kernel, openeuler 23.03, kernel 6.1, l7 traffic, ebpf, kmesh]
 sidebar_position: 3
 ---
 

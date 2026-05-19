@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 title: TCP Authorization
+description: Enforce IP-based ALLOW/DENY policies for TCP traffic in Kmesh with AuthorizationPolicy.
+keywords: [tcp authorization, authorizationpolicy, ip allowlist, kmesh, security]
 ---
 
 

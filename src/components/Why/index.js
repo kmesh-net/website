@@ -1,4 +1,12 @@
 import React from "react";
+import {
+  Plug,
+  Rocket,
+  ArrowDown,
+  ShieldCheck,
+  Activity,
+  Globe
+} from "lucide-react";
 import SectionContainer from "../sectionContainer";
 import Translate from "@docusaurus/Translate";
 import "./index.scss";
@@ -6,6 +14,7 @@ import "./index.scss";
 const reasons = [
   {
     title: <Translate>Smooth compatibility</Translate>,
+    icon: Plug,
     content: (
       <>
         <Translate>Application-transparent Traffic Management.</Translate>
@@ -18,6 +27,7 @@ const reasons = [
   },
   {
     title: <Translate>High performance</Translate>,
+    icon: Rocket,
     content: (
       <>
         <Translate>Forwarding latency 60%↓</Translate>
@@ -28,6 +38,7 @@ const reasons = [
   },
   {
     title: <Translate>Low overhead</Translate>,
+    icon: ArrowDown,
     content: (
       <>
         <Translate>ServiceMesh data plane overhead 70%↓</Translate>
@@ -36,6 +47,7 @@ const reasons = [
   },
   {
     title: <Translate>Security Isolation</Translate>,
+    icon: ShieldCheck,
     content: (
       <>
         <Translate>eBPF Secure Traffic Orchestration</Translate>
@@ -46,6 +58,7 @@ const reasons = [
   },
   {
     title: <Translate>Full Stack Visualization*</Translate>,
+    icon: Activity,
     content: (
       <>
         <Translate>E2E observation*</Translate>
@@ -58,6 +71,7 @@ const reasons = [
   },
   {
     title: <Translate>Open Ecosystem</Translate>,
+    icon: Globe,
     content: <Translate>Support for XDS Protocol Standards</Translate>,
   },
 ];
@@ -69,12 +83,22 @@ export default function Why() {
         <Translate>Why Kmesh</Translate>
       </h1>
       <div className="reasonBoxContainer">
-        {reasons.map((item, index) => (
-          <div key={index} className="reasonBox">
-            <p className="reasonTitle">{item.title}</p>
-            <div className="reasonContent">{item.content}</div>
+        {reasons.map((item, index) => {
+          const Icon = item.icon;
+
+          return(
+            <div key={index} className="reasonBox">
+
+              {/* ICON */}
+              <div className="reasonIcon">
+                <Icon />
+              </div>
+
+              <p className="reasonTitle">{item.title}</p>
+              <div className="reasonContent">{item.content}</div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </SectionContainer>
   );

@@ -5,39 +5,91 @@
 }
 
 .reasonBoxContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 3rem;
+  gap: 32px;
+  max-width: 1100px;
+  width: 100%;
 }
 
 .reasonBox {
-  flex-basis: 33.333%;
-  padding: 0 15px;
-  margin-bottom: 2rem;
+  text-align: center;
+  padding: 28px 20px;
+  border-radius: 12px;
+
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  max-width: 320px;
+  margin: 0 auto;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reasonBox:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode shadow */
+[data-theme='dark'] .reasonBox:hover {
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.06);
 }
 
 .reasonTitle {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  font-weight: bolder;
-  text-align: center;
+  margin: 10px 0 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .reasonContent {
-  font-size: 0.9rem;
-  white-space: pre-wrap;
-  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.reasonIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 14px;
+
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, background 0.3s ease;
+
+}
+
+.reasonBox:hover .reasonIcon {
+  transform: scale(1.1);
+}
+
+.reasonIcon svg {
+  width: 36px;
+  height: 36px;
+  color: #1a1a1a;
+}
+
+/* Dark mode support */
+[data-theme='dark'] .reasonIcon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .reasonIcon svg {
+  color: #ffffff;
 }
 
 // Responsive styles
 @media screen and (max-width: 768px) {
-  .reasonBox {
-    flex-basis: 50%;
+  .reasonBoxContainer {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media screen and (max-width: 480px) {
-  .reasonBox {
-    flex-basis: 100%;
+  .reasonBoxContainer {
+    grid-template-columns: 1fr;
   }
 }

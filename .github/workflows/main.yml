@@ -1,4 +1,4 @@
-name: Codespell
+name: Website CI
 
 on:
   push:
@@ -10,6 +10,24 @@ permissions:
   contents: read
 
 jobs:
+  build:
+    name: Build Docusaurus
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install
+      - name: Build Docusaurus
+        run: npm run build
+        env:
+          GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+
   codespell:
     name: Check for spelling errors
     runs-on: ubuntu-latest

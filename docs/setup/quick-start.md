@@ -188,7 +188,11 @@ Expected response should show HTTP 200 OK status.
 Check for successful initialization messages:
 
 ```shell
-kubectl logs -n kmesh-system $(kubectl get pods -n kmesh-system -o jsonpath='{.items.metadata.name}')
+# Option 1: Get logs from all Kmesh pods (recommended)
+kubectl logs -n kmesh-system -l app=kmesh
+
+# Option 2: Get logs from the first pod
+kubectl logs -n kmesh-system $(kubectl get pods -n kmesh-system -o jsonpath='{.items[0].metadata.name}')
 ```
 
 Look for these key messages:

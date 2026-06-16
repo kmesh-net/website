@@ -23,9 +23,9 @@ Before installing Kmesh, ensure your environment meets the following requirement
 
 ## Preparation
 
-Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26+ are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly provide a Kubernetes cluster (We provide a [document](develop-with-kind/) for developing and deploying Kmesh using kind). Of course, you can also use [minikube](https://minikube.sigs.k8s.io/docs/) and other ways to create Kubernetes clusters.
+Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26+ are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly provide a Kubernetes cluster (We provide a [document](/docs/setup/develop-with-kind/) for developing and deploying Kmesh using kind). Of course, you can also use [minikube](https://minikube.sigs.k8s.io/docs/) and other ways to create Kubernetes clusters.
 
-Currently, Kmesh makes use of [istio](https://istio.io/) as its control plane. Before installing Kmesh, please install the Istio control plane. We recommend installing istio ambient mode because Kmesh `dual-engine` mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Currently, Kmesh makes use of [istio](https://istio.io/) as its control plane. Before installing Kmesh, please install the Istio control plane. We recommend installing Istio ambient mode because Kmesh `dual-engine` mode needs it. For details, see [ambient mode Istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
 
 You can view the results of istio installation using the following command:
 
@@ -41,12 +41,12 @@ ztunnel-4jlvv             1/1     Running   0          18h
 
 ```shell
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
-  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
+  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental" | kubectl apply -f -; }
 ```
 
 ### Only install Istiod
 
-Installing ambient mode istio by above steps will install additional istio components.
+Installing ambient mode istio by above steps will install additional Istio components.
 
 The process of installing only `istiod` as the control plane for Kmesh is provided next.
 
@@ -78,7 +78,7 @@ After installing istiod, it's time to install Kubernetes Gateway API CRDs.
 
 ```shell
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
-  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
+  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental" | kubectl apply -f -; }
 ```
 
 ## Install Kmesh
@@ -321,5 +321,5 @@ kubectl delete -f samples/sleep/sleep.yaml
 If you installed the Gateway API CRDs, remove them:
 
 ```shell
-kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl delete -f -
+kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental" | kubectl delete -f -
 ```

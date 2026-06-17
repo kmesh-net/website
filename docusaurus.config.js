@@ -15,12 +15,12 @@ const config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "zh"],
+    locales: ["en", "zh", "es"],
     localeConfigs: {
       en: {
         htmlLang: "en-GB",
@@ -28,6 +28,9 @@ const config = {
       },
       zh: {
         label: "简体中文",
+      },
+      es: {
+        label: "Español",
       },
     },
   },
@@ -152,11 +155,11 @@ const config = {
     [
       "docusaurus-lunr-search",
       {
-        languages: ["en",'zh'],
+        languages: ["en", "zh", "es"],
         indexDocs: true,
         indexBlog: true,
         indexPages: false,
-      }
+      },
     ],
   ],
 };

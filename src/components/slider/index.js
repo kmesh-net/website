@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Slider from "react-slick";
 import Translate from "@docusaurus/Translate";
@@ -80,6 +80,25 @@ const SlideItem = (props) => {
 };
 
 export const HomeSlider = () => {
+  const sliderRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    if (!isHovered) {
+      interval = setInterval(() => {
+        if (sliderRef.current) {
+          sliderRef.current.slickNext();
+        }
+      }, 5000);
+    }
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isHovered]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -89,8 +108,12 @@ export const HomeSlider = () => {
   };
 
   return (
-    <div className={"slider-container"}>
-      <Slider {...settings}>
+    <div 
+      className={"slider-container"}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Slider ref={sliderRef} {...settings}>
         {sliderItems.map((i, index) => (
           <SlideItem key={index} {...i} />
         ))}

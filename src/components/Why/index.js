@@ -71,8 +71,10 @@ export default function Why() {
       <div className="reasonBoxContainer">
         {reasons.map((item, index) => (
           <div key={index} className="reasonBox">
-            <p className="reasonTitle">{item.title}</p>
-            <div className="reasonContent">{item.content}</div>
+            <div className="reasonCard">
+              <p className="reasonTitle">{item.title}</p>
+              <div className="reasonContent">{item.content}</div>
+            </div>
           </div>
         ))}
       </div>

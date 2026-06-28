@@ -8,12 +8,64 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 3rem;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .reasonBox {
   flex-basis: 33.333%;
   padding: 0 15px;
   margin-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+.reasonCard {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 24px;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.reasonCard:hover {
+  transform: translateY(-4px) scale(1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+@for $i from 1 through 6 {
+  .reasonBox:nth-child(#{$i}) .reasonCard {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reasonCard {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reasonCard:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
 }
 
 .reasonTitle {
@@ -30,13 +82,13 @@
 }
 
 // Responsive styles
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 996px) {
   .reasonBox {
     flex-basis: 50%;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 576px) {
   .reasonBox {
     flex-basis: 100%;
   }

@@ -4,7 +4,7 @@ command = "yarn build"
 functions = "functions/"
 
 [build.environment]
-  NODE_VERSION = "20.14.0"
+  NODE_VERSION = "20.18.1"
   NPM_VERSION = "10.8.1"
 
 # Redirects for routing

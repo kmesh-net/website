@@ -181,6 +181,10 @@ const config = {
             className: "header-slack-link header-icon",
           },
           {
+            type: "search",
+            position: "right",
+          },
+          {
             type: "localeDropdown",
             position: "right",
           },
@@ -213,13 +217,16 @@ const config = {
     "docusaurus-plugin-sass",
     "plugin-image-zoom",
     [
-      "docusaurus-lunr-search",
+      require.resolve("@easyops-cn/docusaurus-search-local"),
       {
-        languages: ["en",'zh'],
-        indexDocs: true,
-        indexBlog: true,
-        indexPages: false,
-      }
+        docsRouteBasePath: "/docs",
+        blogRouteBasePath: "/blog",
+        language: ["en", "zh"],
+        hashed: true,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        indexPages: true,
+      },
     ],
   ],
 };

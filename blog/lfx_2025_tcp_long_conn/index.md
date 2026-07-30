@@ -46,7 +46,7 @@ Ebpf hooks are used to collect connection stats such as send/received bytes, pac
 
 ![design](./images/tcp_long_conn_design.png)
 
-[More-information](https://kmesh.net/docs/transpot-layer/l4-metrics)
+[More-information](https://kmesh.net/docs/transport-layer/l4-metrics)
 
 ## Mentorship Experience
 

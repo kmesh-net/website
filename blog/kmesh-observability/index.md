@@ -193,7 +193,7 @@ Metric Result:
 kmesh_tcp_connection_received_bytes_total{connection_security_policy="mutual_tls",destination_address="10.244.2.80:8080",destination_app="ws-server",destination_canonical_revision="latest",destination_canonical_service="ws-server",destination_cluster="Kubernetes",destination_pod_address="10.244.2.80",destination_pod_name="ws-server",destination_pod_namespace="default",destination_principal="-",destination_service="ws-server-service.default.svc.cluster.local",destination_service_name="ws-server-service",destination_service_namespace="default",destination_version="latest",destination_workload="ws-server",destination_workload_namespace="default",reporter="destination",request_protocol="tcp",response_flags="-",source_address="10.244.2.81:47660",source_app="ws-client",source_canonical_revision="latest",source_canonical_service="ws-client",source_cluster="Kubernetes",source_principal="-",source_version="latest",source_workload="ws-client",source_workload_namespace="default",start_time="2025-04-24 12:47:54.439318976 +0000 UTC"} 8680
 ```
 
-It can also be viewed via the prometheus dashboard. Refer to [Kmesh observability](/docs/transpot-layer/l4-metrics)
+It can also be viewed via the prometheus dashboard. Refer to [Kmesh observability](/docs/transport-layer/l4-metrics)
 
 Accesslog monitored by Kmesh L4 at this stage:
 
@@ -201,7 +201,7 @@ Accesslog monitored by Kmesh L4 at this stage:
 | -------------- | ------------------------------------------------------------------------------------------------------------------ |
 | src.addr       | Source address and port, source workload of the request                                                            |
 | src.workload   | Name of the Pod that initiated the request                                                                         |
-| src.namespace  | Namespace of source worklaod                                                                                       |
+| src.namespace  | Namespace of source workload                                                                                       |
 | dst.addr       | Destination address and port, destination workload of the request                                                  |
 | dst.service    | Hostname of deatination service                                                                                    |
 | dst.workload   | Name of the Pod receiving the request                                                                              |

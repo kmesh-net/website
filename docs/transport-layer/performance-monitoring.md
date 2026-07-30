@@ -50,7 +50,7 @@ kubectl port-forward --address 0.0.0.0 svc/grafana 3000:3000 -n kmesh-system
 
    Visit `Dashboards > Kmesh > Kmesh performance monitoring`:
 
-    ![image](images/kmesh_deamon_monitoring.jpg)
+    ![image](images/kmesh_daemon_monitoring.jpg)
     ![image](images/kmesh_map_and_operation_monitoring.jpg)
 
 ## Cleanup

@@ -146,7 +146,7 @@ for k, portList := range dstWorkload.Services {
 kmesh_tcp_workload_received_bytes_total{connection_security_policy="mutual_tls",destination_app="httpbin",destination_canonical_revision="v1",destination_canonical_service="httpbin",destination_cluster="Kubernetes",destination_pod_address="10.244.0.11",destination_pod_name="httpbin-5c5944c58c-v9mlk",destination_pod_namespace="default",destination_principal="-",destination_version="v1",destination_workload="httpbin",destination_workload_namespace="default",reporter="destination",request_protocol="tcp",response_flags="-",source_app="sleep",source_canonical_revision="latest",source_canonical_service="sleep",source_cluster="Kubernetes",source_principal="-",source_version="latest",source_workload="sleep",source_workload_namespace="default"} 231
 ```
 
-这些指标也可以通过 Prometheus 仪表板进行查看。参见 [Kmesh 可观测性](/docs/transpot-layer/l4-metrics)
+这些指标也可以通过 Prometheus 仪表板进行查看。参见 [Kmesh 可观测性](/docs/transport-layer/l4-metrics)
 
 当前阶段由 Kmesh L4 监控的访问日志包括：
 

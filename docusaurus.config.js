@@ -16,6 +16,10 @@ const config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
+  customFields: {
+    kmeshVersion: "v1.2.0",
+  },
+
   // ===== SEO: Head tags =====
   headTags: [
     {

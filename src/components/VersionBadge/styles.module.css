@@ -1,0 +1,48 @@
+.versionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-right: 0.5rem;
+  padding: 0.15rem 0.65rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  color: var(--ifm-navbar-link-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.versionBadge:hover {
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background-color: var(--ifm-color-primary);
+}
+
+.label {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 996px) {
+  .versionBadge {
+    margin-right: 0.25rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.72rem;
+  }
+
+  .label {
+    font-size: 0.72rem;
+  }
+}

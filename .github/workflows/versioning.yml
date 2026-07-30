@@ -32,6 +32,12 @@ jobs:
       - name: Run Docusaurus versioning
         run: npx docusaurus docs:version ${{ steps.extract_version.outputs.version }}
 
+      - name: Update navbar version badge
+        run: |
+          VERSION="${{ steps.extract_version.outputs.version }}"
+          # Keep customFields.kmeshVersion in sync with the latest tagged release.
+          sed -i -E "s/(kmeshVersion:[[:space:]]*\")v?[0-9]+\.[0-9]+\.[0-9]+([^\"]*)(\")/\1v${VERSION}\3/" docusaurus.config.js
+
       - name: Create branch and commit changes
         run: |
           git config --global user.name "GitHub Actions"

@@ -5,6 +5,12 @@
   "View All": {
     "message": "查看全部"
   },
+  "Return Home": {
+    "message": "返回首页"
+  },
+  "View Documentation": {
+    "message": "查看文档"
+  },
   "Last updated on": {
     "message": "上次更新于"
   },

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
-import styles from "./styles.module.css"; // we will create this next
+import Translate from "@docusaurus/Translate";
+import styles from "./styles.module.css";
 
 export default function NotFoundContent({ className }) {
   return (
@@ -8,9 +9,21 @@ export default function NotFoundContent({ className }) {
       <div className={styles.pageWrapper}>
         <div className={styles.notFoundContainer}>
           <div className={styles.content}>
-            <h1 className={styles.title}>Page Not Found</h1>
+            <h1 className={styles.title}>
+              <Translate
+                id="theme.NotFound.title"
+                description="The title of the 404 page"
+              >
+                Page Not Found
+              </Translate>
+            </h1>
             <p className={styles.subtitle}>
-              The requested resource could not be located on this server.
+              <Translate
+                id="theme.NotFound.p1"
+                description="The first paragraph of the 404 page"
+              >
+                We could not find what you were looking for.
+              </Translate>
             </p>
 
             <div className={styles.messageBox}>
@@ -30,14 +43,13 @@ export default function NotFoundContent({ className }) {
               </div>
               <div>
                 <p className={styles.message}>
-                  Chinese documentation is currently unavailable.
-                </p>
-                <p className={styles.message}>
-                  Please refer to our{" "}
-                  <Link to="/docs/welcome" className={styles.link}>
-                    English documentation
-                  </Link>{" "}
-                  for comprehensive project information.
+                  <Translate
+                    id="theme.NotFound.p2"
+                    description="The 2nd paragraph of the 404 page"
+                  >
+                    Please contact the owner of the site that linked you to the
+                    original URL and let them know their link is broken.
+                  </Translate>
                 </p>
               </div>
             </div>
@@ -56,7 +68,7 @@ export default function NotFoundContent({ className }) {
                     fill="currentColor"
                   />
                 </svg>
-                Return Home
+                <Translate>Return Home</Translate>
               </Link>
               <Link to="/docs/welcome" className={styles.secondaryButton}>
                 <svg
@@ -71,7 +83,7 @@ export default function NotFoundContent({ className }) {
                     fill="currentColor"
                   />
                 </svg>
-                View Documentation
+                <Translate>View Documentation</Translate>
               </Link>
             </div>
           </div>

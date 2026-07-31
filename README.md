@@ -5,6 +5,7 @@ This repo contains the source code of [Kmesh Website](https://kmesh.net/en/) and
 - [Kmesh Website](https://kmesh.net/en/)
 - [Kmesh Docs](https://kmesh.net/docs/welcome)
 - [Kmesh Blog](https://kmesh.net/en/blog/)
+  - Check out our latest guide: [Kmesh: The Ultimate Guide to Service Mesh for Beginners](https://kmesh.net/en/blog/kmesh-service-mesh-explained)
 
 Welcome to join us and you are more than appreciated to contribute!
 

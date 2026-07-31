@@ -24,4 +24,9 @@
   .cncfLine2 {
     font-size: 1.8rem;
   }
-  
+
+  .logoImage {
+    width: 100%;
+    height: auto;
+    display: block;
+  }

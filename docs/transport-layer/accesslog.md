@@ -23,7 +23,7 @@ Access Log Field Descriptions :
 | -------------- | ------------------------------------------------------------------------------------------------------------------ |
 | src.addr       | Source address and port, source workload of the request                                                            |
 | src.workload   | Name of the Pod that initiated the request                                                                         |
-| src.namespace  | Namespace of source worklaod                                                                                       |
+| src.namespace  | Namespace of source workload                                                                                       |
 | dst.addr       | Destination address and port, destination workload of the request                                                  |
 | dst.service    | Hostname of deatination service                                                                                    |
 | dst.workload   | Name of the Pod receiving the request                                                                              |

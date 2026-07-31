@@ -1,31 +1,31 @@
 ---
 sidebar_position: 3
-title: XDP 中的 TCP 授权
+title: TCP Authorization in XDP
 ---
 
-## XDP 中的授权
+## Authorization in XDP
 
-之前，我们推出了[用户空间授权功能](/i18n/zh/docusaurus-plugin-content-docs/current/transpot-layer/tcp-authorization.md)，其中授权结果在用户空间进行验证。本文档解释了如何直接在 XDP 程序中启用授权。目前，基于 XDP 的授权仅支持基于端口和 IP 地址的验证。
+Previously, we launched the [userspace authorization feature](/docs/transport-layer/tcp-authorization.md), where authorization results were verified in userspace. This document explains how to enable authentication directly within the XDP program. Currently, XDP-based authentication supports verification based on port and IP addresses only.
 
-### 如何启用基于 XDP 的授权
+### How to enable XDP-based authentication
 
-我们可以使用 `kmeshctl` 来启用基于 XDP 的授权：
+We can use `kmeshctl` to enable XDP-based authentication:
 
 ```bash
 ./kmeshctl authz enable
 ```
 
-修改 BPF 日志级别：
+To modify BPF log level:
 
 ```bash
 ./kmeshctl log <$kmeshnode1> --set bpf:debug
 ```
 
-## 配置拒绝授权策略
+## Configure Deny Authorization Policies
 
-### 配置目标端口拒绝授权策略
+### Configure Destination Port Deny Authorization Policy
 
-为 Fortio 工作负载创建一个“deny-by-dstport”授权策略，拒绝发送到指定端口地址的请求。在此示例中，发送到端口 8080 的流量被拒绝：
+Create a "deny-by-dstport" authorization policy for the Fortio workload that denies requests to the specified port address. In this example, traffic sent to port 8080 is denied:
 
 ```yaml
 # deny-by-dstport.yaml
@@ -39,27 +39,27 @@ spec:
       app: fortio-server
   action: DENY
   rules:
-    - to:
-        - operation:
-            ports:
-              - "8080"
+  - to:
+    - operation:
+        ports:
+        - "8080"
 ```
 
-应用策略：
+Apply the policy:
 
 ```bash
 kubectl apply -f deny-by-dstport.yaml
 ```
 
-#### 测试策略
+#### Testing the Policy
 
-Fortio 流量返回的状态码确认发送到端口 8080 的流量已被拒绝：
+The status code returned by the Fortio traffic confirms that traffic sent to port 8080 has been denied:
 
 ```bash
 kubectl exec -it fortio-client-deployment-6966bf9488-tpwpj -- fortio load -c 1 -n 1 -qps 0 -jitter=true 10.244.0.7:8080
 ```
 
-预期输出：
+Expected output:
 
 ```text
 ...
@@ -71,13 +71,13 @@ Response Body/Total Sizes : count 1 avg 0 +/- 0 min 0 max 0 sum 0
 All done 1 calls (plus 0 warmup) 3005.022 ms avg, 0.3 qps
 ```
 
-Kmesh 记录的日志中也会打印特定信息：
+Specific information will also be printed in the logs recorded by Kmesh:
 
 ```bash
 kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
-预期输出：
+Expected output:
 
 ```log
 ...
@@ -85,9 +85,9 @@ time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: port 8080 in dest
 time="2024-12-25T15:23:12+08:00" level=info msg="[AUTH] DEBUG: rule matched, action: DENY" subsys=ebpf
 ```
 
-### 配置源 IP 拒绝授权策略
+### Configure Source IP Deny Authorization Policy
 
-创建策略以拒绝来自特定源 IP 的流量：
+Create a policy to deny traffic from a specific source IP:
 
 ```yaml
 # deny-by-srcip.yaml
@@ -102,28 +102,28 @@ spec:
       app: fortio-server
   action: DENY
   rules:
-    - from:
-        - source:
-            ipBlocks:
-              - 10.244.1.36
+  - from:
+    - source:
+        ipBlocks:
+        - 10.244.1.36
 ```
 
-应用策略：
+Apply the policy:
 
 ```bash
 kubectl apply -f deny-by-srcip.yaml
 ```
 
-#### 测试策略
+#### Testing the Policy
 
-Fortio 流量返回的状态码确认从 IP 10.244.1.36 发送的流量已被拒绝：
+The status code returned by the Fortio traffic confirms that traffic sent from IP 10.244.1.36 has been denied:
 
 ```bash
-# fortio-client-deployment-6966bf9488-m96qp 的 IP 地址是 10.244.1.36
+# The IP address of fortio-client-deployment-6966bf9488-m96qp is 10.244.1.36
 kubectl exec -it fortio-client-deployment-6966bf9488-m96qp -- fortio load -c 1 -n 1 -qps 0 -jitter=true 10.244.0.36:8080
 ```
 
-预期输出：
+Expected output:
 
 ```text
 ...
@@ -135,13 +135,13 @@ Response Body/Total Sizes : count 1 avg 0 +/- 0 min 0 max 0 sum 0
 All done 1 calls (plus 0 warmup) 3005.563 ms avg, 0.3 qps
 ```
 
-Kmesh 记录的日志中也会打印特定信息：
+Specific information will also be printed in the logs recorded by Kmesh:
 
 ```bash
 kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
-预期输出：
+Expected output:
 
 ```log
 ...
@@ -150,9 +150,9 @@ time="2024-12-26T15:06:14+08:00" level=info msg="[AUTH] DEBUG: no ports configur
 time="2024-12-26T15:06:14+08:00" level=info msg="[AUTH] DEBUG: IPv4 match srcip: Rule IP: af40124, Prefix Length: 32, Target IP: af40124\n" subsys=ebpf
 ```
 
-### 配置目标 IP 拒绝授权策略
+### Configure Destination IP Deny Authorization Policy
 
-创建策略以拒绝发送到特定目标 IP 的流量：
+Create a policy to deny traffic to a specific destination IP:
 
 ```yaml
 # deny-by-dstip.yaml
@@ -166,26 +166,26 @@ spec:
       app: fortio-server
   action: DENY
   rules:
-    - when:
-        - key: destination.ip
-          values: ["10.244.0.36"]
+  - when:
+    - key: destination.ip
+      values: ["10.244.0.36"]
 ```
 
-应用策略：
+Apply the policy:
 
 ```bash
 kubectl apply -f deny-by-dstip.yaml
 ```
 
-#### 测试策略
+#### Testing the Policy
 
-Fortio 流量返回的状态码确认发送到 IP 10.244.0.36 的流量已被拒绝：
+The status code returned by the Fortio traffic confirms that traffic sent to IP 10.244.0.36 has been denied:
 
 ```bash
 kubectl exec -it fortio-client-deployment-6966bf9488-m96qp -- fortio load -c 1 -n 1 -qps 0 -jitter=true 10.244.0.36:8080
 ```
 
-预期输出：
+Expected output:
 
 ```text
 ...
@@ -196,13 +196,13 @@ Response Body/Total Sizes : count 1 avg 0 +/- 0 min 0 max 0 sum 0
 All done 1 calls (plus 0 warmup) 3004.974 ms avg, 0.3 qps
 ```
 
-Kmesh 记录的日志中也会打印特定信息：
+Specific information will also be printed in the logs recorded by Kmesh:
 
 ```bash
 kubectl logs -f kmesh-vlxhd -n kmesh-system
 ```
 
-预期输出：
+Expected output:
 
 ```log
 ...

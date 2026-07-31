@@ -33,4 +33,4 @@ When any of the above changes are detected, the upgrade logic treats the old map
 
 ## Test recommendations
 
-Package your new daemon build into an image and publish it. Set that image address in the environment variable KMESH_UPGRADE_IMAGE. In a fresh clone of the project , run the e2e test while skipping the test’s internal image build step by passing the --skip-build-daemonupgarde-image flag (this flag tells the test to use the externally supplied KMESH_UPGRADE_IMAGE). The TestKmeshUpgrade test will then perform a rolling upgrade of the daemonset and validate whether traffic continuity is preserved.
+Package your new daemon build into an image and publish it. Set that image address in the environment variable KMESH_UPGRADE_IMAGE. In a fresh clone of the project , run the e2e test while skipping the test’s internal image build step by passing the --skip-build-daemonupgrade-image flag (this flag tells the test to use the externally supplied KMESH_UPGRADE_IMAGE). The TestKmeshUpgrade test will then perform a rolling upgrade of the daemonset and validate whether traffic continuity is preserved.

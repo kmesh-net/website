@@ -4,6 +4,9 @@ description: This guide lets you quickly install Kmesh.
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quick Start Guide
 
 This guide lets you quickly install Kmesh.
@@ -12,22 +15,49 @@ This guide lets you quickly install Kmesh.
 
 Before installing Kmesh, ensure your environment meets the following requirements:
 
-| Requirement | Version | Notes                 |
-| ----------- | ------- | --------------------- |
-| Kubernetes  | 1.26+   | Tested on 1.26-1.29   |
+| Requirement | Version | Notes                                       |
+| ----------- | ------- | ------------------------------------------- |
+| Kubernetes  | 1.26+   | Tested on 1.26-1.29                         |
 | Istio       | 1.22+   | Tested on 1.22-1.25 (ambient mode required) |
-| Helm        | 3.0+    | For helm installation |
-| Memory      | 4GB+    | Recommended minimum   |
-| CPU         | 2 cores | Recommended minimum   |
-| Kernel      | 5.10+   | For eBPF support      |
+| Helm        | 3.0+    | For helm installation                       |
+| Memory      | 4GB+    | Recommended minimum                         |
+| CPU         | 2 cores | Recommended minimum                         |
+| Kernel      | 5.10+   | For eBPF support                            |
 
 ## Preparation
 
-Kmesh needs to run on a Kubernetes cluster. Kubernetes 1.26+ are currently supported. We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) to quickly provide a Kubernetes cluster (We provide a [document](develop-with-kind/) for developing and deploying Kmesh using kind). Of course, you can also use [minikube](https://minikube.sigs.k8s.io/docs/) and other ways to create Kubernetes clusters.
+### 1. Kubernetes Cluster Preparation
 
-Currently, Kmesh makes use of [istio](https://istio.io/) as its control plane. Before installing Kmesh, please install the Istio control plane. We recommend installing istio ambient mode because Kmesh `dual-engine` mode need it. For details, see [ambient mode istio](https://istio.io/latest/docs/ops/ambient/getting-started/).
+Kmesh requires a Kubernetes cluster (v1.26+). Choose one of the following methods to prepare your cluster:
 
-You can view the results of istio installation using the following command:
+<Tabs groupId="cluster-type">
+<TabItem value="kind" label="kind (Recommended)" default>
+
+We recommend using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) for quick local development and testing. See our [Developing with kind](develop-with-kind/) guide for detailed Kmesh deployment instructions.
+
+</TabItem>
+<TabItem value="minikube" label="minikube">
+
+You can use [minikube](https://minikube.sigs.k8s.io/docs/) to create your local Kubernetes cluster. Ensure you configure sufficient CPU (2+ cores) and Memory (4GB+).
+
+</TabItem>
+<TabItem value="existing" label="Existing Cluster">
+
+If you are using an existing managed or bare-metal Kubernetes cluster, ensure your kernel version is 5.10+ for eBPF support.
+
+</TabItem>
+</Tabs>
+
+### 2. Istio Control Plane Installation
+
+Kmesh utilizes [Istio](https://istio.io/) as its control plane. Choose your preferred Istio installation method:
+
+<Tabs groupId="istio-install">
+<TabItem value="ambient" label="Istio Ambient Mode (Recommended)" default>
+
+We recommend installing Istio in ambient mode, as Kmesh's `dual-engine` mode requires it. For complete details, see the [Istio Ambient Mode Getting Started Guide](https://istio.io/latest/docs/ops/ambient/getting-started/).
+
+Verify your Istio installation using the following command:
 
 ```shell
 kubectl get po -n istio-system
@@ -37,55 +67,51 @@ istiod-5659cfbd55-9s92d   1/1     Running   0          18h
 ztunnel-4jlvv             1/1     Running   0          18h
 ```
 
-> **Note**: To use waypoint you need to install the Kubernetes Gateway API CRDs, which don't come installed by default on most Kubernetes clusters:
+> **Note**: To use Waypoints, you need to install the Kubernetes Gateway API CRDs, which do not come installed by default on most Kubernetes clusters:
 
 ```shell
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
 ```
 
-### Only install Istiod
+</TabItem>
+<TabItem value="istiod" label="Istiod Only (Minimal)">
 
-Installing ambient mode istio by above steps will install additional istio components.
+Installing ambient mode via the standard steps installs additional components like `ztunnel`. If you prefer a minimal installation with only `istiod` as the control plane for Kmesh:
 
-The process of installing only `istiod` as the control plane for Kmesh is provided next.
-
-#### Install Istio CRDs
+**1. Install Istio CRDs**
 
 ```shell
 helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo update
-```
-
-To install the chart with the release name `istio-base`:
-
-```shell
 kubectl create namespace istio-system
 helm install istio-base istio/base -n istio-system
 ```
 
-#### Install Istiod
-
-To install the chart with the release name `istiod`:
+**2. Install Istiod**
 
 ```shell
 helm install istiod istio/istiod --namespace istio-system --version 1.24.0 --set pilot.env.PILOT_ENABLE_AMBIENT=true
 ```
 
-> **Important:** Must set `pilot.env.PILOT_ENABLE_AMBIENT=true`. otherwise Kmesh will not be able to establish grpc links with istiod! If you want to use the Waypoint feature, you should use the istio version 1.23 ~ 1.25.
+> **Important:** You must set `pilot.env.PILOT_ENABLE_AMBIENT=true`, otherwise Kmesh will not be able to establish gRPC connections with Istiod. If you plan to use the Waypoint feature, ensure you use Istio version 1.23 ~ 1.25.
 
-After installing istiod, it's time to install Kubernetes Gateway API CRDs.
+**3. Install Gateway API CRDs**
 
 ```shell
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=444631bfe06f3bcca5d0eadf1857eac1d369421d" | kubectl apply -f -; }
 ```
 
+</TabItem>
+</Tabs>
+
 ## Install Kmesh
 
-We offer several ways to install Kmesh:
+We offer several ways to install Kmesh. Select the method that best fits your environment:
 
-### Option 1: Install from OCI Registry (Recommended)
+<Tabs groupId="install-method">
+<TabItem value="oci" label="OCI Registry (Recommended)" default>
 
 You can install Kmesh directly from the GitHub Container Registry without cloning the repository:
 
@@ -98,55 +124,43 @@ helm install kmesh oci://ghcr.io/kmesh-net/kmesh-helm --version x.y.z -n kmesh-s
   - For pre-releases, use a version like `v1.1.0-alpha`.
   - Omit the `--version` flag to install the latest version (not recommended for production).
 
-### Option 2: Install from Helm
+</TabItem>
+<TabItem value="helm" label="Local Helm Chart">
+
+If you have cloned the Kmesh repository locally:
 
 ```shell
 helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
 ```
 
-### Option 3: Install from Helm Chart Archive
+</TabItem>
+<TabItem value="archive" label="Helm Chart Archive">
+
+Download the `kmesh-helm-<version>.tgz` archive from [GitHub Releases](https://github.com/kmesh-net/kmesh/releases). Replace `<version>` in the command below with the version you downloaded (e.g., `v1.1.0`):
 
 ```shell
 helm install kmesh ./kmesh-helm-<version>.tgz -n kmesh-system --create-namespace
 ```
 
-- Download the `kmesh-helm-<version>.tgz` archive from [GitHub Releases](https://github.com/kmesh-net/kmesh/releases). Replace `<version>` in the command above with the version you downloaded (e.g., `v1.1.0`).
+</TabItem>
+<TabItem value="yaml" label="YAML Manifests">
 
-### Option 4: Install from Yaml
+If you prefer using standard Kubernetes manifests directly from a local clone:
 
 ```shell
 kubectl create namespace kmesh-system
 kubectl apply -f ./deploy/yaml/
 ```
 
-You can confirm the status of Kmesh with the following command:
-
-```shell
-kubectl get pod -n kmesh-system
-NAME          READY   STATUS    RESTARTS   AGE
-kmesh-v2frk   1/1     Running   0          18h
-```
-
-View the running status of Kmesh service:
-
-```log
-time="2024-04-25T13:17:40Z" level=info msg="bpf Start successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="controller Start successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="dump StartServer successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="start write CNI config\n" subsys="cni installer"
-time="2024-04-25T13:17:40Z" level=info msg="kmesh cni use chained\n" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="Copied /usr/bin/kmesh-cni to /opt/cni/bin." subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="kubeconfig either does not exist or is out of date, writing a new one" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="wrote kubeconfig file /etc/cni/net.d/kmesh-cni-kubeconfig" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="cni config file: /etc/cni/net.d/10-kindnet.conflist" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys=manager
-```
+</TabItem>
+</Tabs>
 
 ## Verify Installation
 
-After installing Kmesh, verify all components are functioning correctly:
+After installing Kmesh, verify that all components are functioning correctly by checking the core components, pod integration, logs, and CNI configuration:
 
-### 1. Verify Core Components
+<Tabs groupId="verify-steps">
+<TabItem value="core" label="1. Core Components" default>
 
 Check Kmesh pod status:
 
@@ -164,65 +178,61 @@ NAME                      READY   STATUS    RESTARTS   AGE
 istiod-5659cfbd55-9s92d   1/1     Running   0          18h
 ```
 
-### 2. Verify Pod Integration
+</TabItem>
+<TabItem value="integration" label="2. Pod Integration">
 
-Deploy a test pod and verify Kmesh annotation:
+Deploy a test pod and verify the Kmesh redirection annotation:
 
 ```shell
 kubectl describe po <pod-name> | grep Annotations
 Annotations:      kmesh.net/redirection: enabled
 ```
 
-### 3. Verify Service Connectivity
+</TabItem>
+<TabItem value="logs" label="3. Service Logs">
 
-Test service access using the sleep pod:
-
-```shell
-kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
-```
-
-Expected response should show HTTP 200 OK status.
-
-### 4. Verify Kmesh Service Logs
-
-Check for successful initialization messages:
+Check for successful initialization messages in the Kmesh daemon logs:
 
 ```shell
-kubectl logs -n kmesh-system $(kubectl get pods -n kmesh-system -o jsonpath='{.items.metadata.name}')
+kubectl logs -n kmesh-system $(kubectl get pods -n kmesh-system -o jsonpath='{.items[0].metadata.name}')
 ```
 
-Look for these key messages:
+Look for these key startup messages:
 
-- "bpf Start successful"
-- "controller Start successful"
-- "dump StartServer successful"
-- "command Start cni successful"
+- `bpf Start successful`
+- `controller Start successful`
+- `dump StartServer successful`
+- `command Start cni successful`
 
-### 5. Verify CNI Configuration
+</TabItem>
+<TabItem value="cni" label="4. CNI Configuration">
 
-Check CNI binary installation:
+Check the CNI binary installation:
 
 ```shell
 ls -l /opt/cni/bin/kmesh-cni
 ```
 
-Verify CNI configuration:
+Verify the CNI kubeconfig:
 
 ```shell
 cat /etc/cni/net.d/kmesh-cni-kubeconfig
 ```
 
+</TabItem>
+</Tabs>
+
 ## Change Kmesh Start Mode
 
-Kmesh supports two start up modes: `dual-engine` and `kernel-native`.
+Kmesh supports two startup modes: `dual-engine` and `kernel-native`.
 
-The specific mode to be used is defined in deploy/charts/kmesh-helm/values.yaml, and we can modify the startup parameters in that file.
+The specific mode to be used is defined in `deploy/charts/kmesh-helm/values.yaml`, and we can modify the startup parameters in that file:
 
 ```yaml
-......
-    containers:
-      kmeshDaemonArgs: "--mode=dual-engine --enable-bypass=false"
-......
+# ......
+containers:
+  kmeshDaemonArgs: "--mode=dual-engine --enable-bypass=false"
+# ......
 ```
 
 We can use the following command to make the modification:
@@ -233,22 +243,21 @@ sed -i 's/--mode=dual-engine/--mode=kernel-native/' deploy/charts/kmesh-helm/val
 
 ## Deploy the Sample Applications
 
-Kmesh can manage pods in a namespace with a label `istio.io/dataplane-mode=Kmesh`, and meanwhile the pod should have no `istio.io/dataplane-mode=none` label.
+Kmesh manages pods in namespaces labeled with `istio.io/dataplane-mode=Kmesh`, provided the pod does not have the `istio.io/dataplane-mode=none` label.
 
 ```shell
 # Enable Kmesh for the specified namespace
 kubectl label namespace default istio.io/dataplane-mode=Kmesh
 ```
 
-Apply the following configuration to deploy sleep and httpbin:
+Apply the following configuration to deploy sample `sleep` and `httpbin` applications:
 
 ```shell
 kubectl apply -f ./samples/httpbin/httpbin.yaml
-
 kubectl apply -f ./samples/sleep/sleep.yaml
 ```
 
-Check the applications status:
+Check the status of the applications:
 
 ```shell
 kubectl get pod
@@ -257,21 +266,19 @@ httpbin-65975d4c6f-96kgw                  1/1     Running   0          3h38m
 sleep-7656cf8794-8tp9n                    1/1     Running   0          3h38m
 ```
 
-You can confirm if a pod is managed by Kmesh by looking at the pod's annotation.
+You can confirm if a pod is managed by Kmesh by checking the pod's annotations:
 
 ```shell
-kubectl describe po httpbin-65975d4c6f-96kgw | grep Annotations
-
+kubectl describe po -l app=httpbin | grep Annotations
 Annotations:      kmesh.net/redirection: enabled
 ```
 
 ## Test Service Access
 
-After the applications have been manage by Kmesh, we can test that they can still communicate successfully.
+After the applications are managed by Kmesh, test that they can communicate successfully:
 
 ```shell
-kubectl exec sleep-7656cf8794-xjndm -c sleep -- curl -IsS "http://httpbin:8000/status/200"
-
+kubectl exec $(kubectl get pod -l app=sleep -o jsonpath='{.items[0].metadata.name}') -c sleep -- curl -IsS "http://httpbin:8000/status/200"
 HTTP/1.1 200 OK
 Server: gunicorn/19.9.0
 Date: Sun, 28 Apr 2024 07:31:51 GMT
@@ -282,36 +289,67 @@ Access-Control-Allow-Credentials: true
 Content-Length: 0
 ```
 
-Note: 10.244.0.21 is the IP of httpbin
+> **Note**: `10.244.0.21` is the example IP of the `httpbin` pod.
 
 ## Clean Up
 
-If you don't want to use Kmesh to manage the application anymore, you can remove the labels from the namespace.
+If you no longer wish to use Kmesh to manage applications in the namespace, you can remove the label and recreate the pods:
 
 ```shell
 kubectl label namespace default istio.io/dataplane-mode-
-kubectl delete pod httpbin-65975d4c6f-96kgw sleep-7656cf8794-8tp9n
-kubectl describe pod httpbin-65975d4c6f-h2r99 | grep Annotations
-
+kubectl delete pod -l app=httpbin
+kubectl delete pod -l app=sleep
+kubectl describe pod -l app=httpbin | grep Annotations
 Annotations:      <none>
 ```
 
 ### Delete Kmesh
 
-If you installed Kmesh using any of the Helm options above:
+Select the uninstallation method corresponding to how you installed Kmesh:
+
+<Tabs groupId="install-method">
+<TabItem value="oci" label="OCI Registry" default>
+
+If you installed Kmesh from the OCI registry:
 
 ```shell
 helm uninstall kmesh -n kmesh-system
 kubectl delete ns kmesh-system
 ```
 
-If you installed Kmesh using yaml:
+</TabItem>
+<TabItem value="helm" label="Local Helm Chart">
+
+If you installed Kmesh using the local Helm chart:
+
+```shell
+helm uninstall kmesh -n kmesh-system
+kubectl delete ns kmesh-system
+```
+
+</TabItem>
+<TabItem value="archive" label="Helm Chart Archive">
+
+If you installed Kmesh using the Helm chart archive:
+
+```shell
+helm uninstall kmesh -n kmesh-system
+kubectl delete ns kmesh-system
+```
+
+</TabItem>
+<TabItem value="yaml" label="YAML Manifests">
+
+If you installed Kmesh using YAML manifests:
 
 ```shell
 kubectl delete -f ./deploy/yaml/
 ```
 
-To remove the sleep and httpbin applications:
+</TabItem>
+</Tabs>
+
+To remove the sample `sleep` and `httpbin` applications:
 
 ```shell
 kubectl delete -f samples/httpbin/httpbin.yaml

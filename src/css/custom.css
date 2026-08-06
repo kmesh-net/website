@@ -131,6 +131,14 @@
   height: 100%;
 }
 
+/* Blog images - full width */
+.blog-post-page .markdown img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* 997 px – 1245 px : ONLY logo + toggle + search */
 @media (min-width: 997px) and (max-width: 1245px) {
   /* hide all navbar links except the logo image */

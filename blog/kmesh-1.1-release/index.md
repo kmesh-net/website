@@ -6,7 +6,7 @@ date: 2025-05-23
 sidebar_position: 1
 ---
 
-We are delighted to announce the release of ​​Kmesh v1.1.0​​, a milestone achieved through the collective efforts of our global community over the past three months. Special recognition goes to the contributors from the ​​LXF Project​​, whose dedication has been pivotal in driving this release forward.
+We are delighted to announce the release of ​​Kmesh v1.1.0​​, a milestone achieved through the collective efforts of our global community over the past three months. Special recognition goes to the contributors from the ​​LFX Project​​, whose dedication has been pivotal in driving this release forward.
 
 Building on the foundation of v1.0.0, this release introduces significant enhancements to Kmesh’s architecture, observability, and ecosystem integration. The official Kmesh website has undergone a comprehensive redesign, offering an intuitive interface and streamlined documentation to empower both users and developers. Under the hood, we’ve refactored the DNS module and added metrics for long connections, providing deeper insights into more traffic patterns.
 

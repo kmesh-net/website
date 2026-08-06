@@ -154,6 +154,11 @@ const config = {
             position: "left",
             label: "Documentation",
           },
+          {
+            type: "docsVersionDropdown",
+            position: "left",
+            dropdownActiveClassDisabled: true,
+          },
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/kmesh-net/kmesh/releases",

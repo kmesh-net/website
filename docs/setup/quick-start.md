@@ -4,6 +4,9 @@ description: This guide lets you quickly install Kmesh.
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quick Start Guide
 
 This guide lets you quickly install Kmesh.
@@ -83,7 +86,10 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 
 ## Install Kmesh
 
-We offer several ways to install Kmesh:
+We offer several ways to install Kmesh. Please choose your preferred mode:
+
+<Tabs>
+  <TabItem value="dual-engine" label="Dual Engine (Default)" default>
 
 ### Option 1: Install from OCI Registry (Recommended)
 
@@ -119,28 +125,40 @@ kubectl create namespace kmesh-system
 kubectl apply -f ./deploy/yaml/
 ```
 
-You can confirm the status of Kmesh with the following command:
+  </TabItem>
+  <TabItem value="kernel-native" label="Kernel Native">
 
-```shell
-kubectl get pod -n kmesh-system
-NAME          READY   STATUS    RESTARTS   AGE
-kmesh-v2frk   1/1     Running   0          18h
-```
+> **Note**: Kernel-Native mode depends on enhanced kernel features (e.g., L7 traffic control). Please refer to [Use Enhanced Kernel](use-enhanced-kernel.md) to ensure your environment meets the requirements.
 
-View the running status of Kmesh service:
+### Option 1: Install from Helm (Recommended)
 
-```log
-time="2024-04-25T13:17:40Z" level=info msg="bpf Start successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="controller Start successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="dump StartServer successful" subsys=manager
-time="2024-04-25T13:17:40Z" level=info msg="start write CNI config\n" subsys="cni installer"
-time="2024-04-25T13:17:40Z" level=info msg="kmesh cni use chained\n" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="Copied /usr/bin/kmesh-cni to /opt/cni/bin." subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="kubeconfig either does not exist or is out of date, writing a new one" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="wrote kubeconfig file /etc/cni/net.d/kmesh-cni-kubeconfig" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="cni config file: /etc/cni/net.d/10-kindnet.conflist" subsys="cni installer"
-time="2024-04-25T13:17:41Z" level=info msg="command Start cni successful" subsys=manager
-```
+To install Kmesh in Kernel-Native mode, it is recommended to use the local Helm chart to easily modify the configuration.
+
+1.  Modify the startup mode to `kernel-native`:
+
+    ```shell
+    sed -i 's/--mode=dual-engine/--mode=kernel-native/' deploy/charts/kmesh-helm/values.yaml
+    ```
+
+2.  Install Kmesh:
+
+    ```shell
+    helm install kmesh ./deploy/charts/kmesh-helm -n kmesh-system --create-namespace
+    ```
+
+### Option 2: Install from Yaml
+
+1.  Modify the startup mode in the Yaml configuration files (you may need to locate the specific DaemonSet configuration).
+
+2.  Install Kmesh:
+
+    ```shell
+    kubectl create namespace kmesh-system
+    kubectl apply -f ./deploy/yaml/
+    ```
+
+  </TabItem>
+</Tabs>
 
 ## Verify Installation
 
@@ -210,25 +228,6 @@ Verify CNI configuration:
 
 ```shell
 cat /etc/cni/net.d/kmesh-cni-kubeconfig
-```
-
-## Change Kmesh Start Mode
-
-Kmesh supports two start up modes: `dual-engine` and `kernel-native`.
-
-The specific mode to be used is defined in deploy/charts/kmesh-helm/values.yaml, and we can modify the startup parameters in that file.
-
-```yaml
-......
-    containers:
-      kmeshDaemonArgs: "--mode=dual-engine --enable-bypass=false"
-......
-```
-
-We can use the following command to make the modification:
-
-```shell
-sed -i 's/--mode=dual-engine/--mode=kernel-native/' deploy/charts/kmesh-helm/values.yaml
 ```
 
 ## Deploy the Sample Applications

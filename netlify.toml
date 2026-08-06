@@ -9,6 +9,12 @@ functions = "functions/"
 
 # Redirects for routing
 [[redirects]]
+  from = "https://kmesh-net.netlify.app/*"
+  to = "https://kmesh.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/latestversion"
   to = "/.netlify/functions/latestversion"
   status = 200
@@ -20,8 +26,3 @@ functions = "functions/"
   status = 301
   force = true # Ensure redirection
 
-[[redirects]]
-  from = "https://kmesh.net"
-  to = "https://kmesh-net.netlify.app"
-  status = 200
-  force = true

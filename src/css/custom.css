@@ -168,3 +168,95 @@
     align-items: center;
   }
 }
+
+/* =====================================================
+   Mobile Navbar Search Responsiveness (fixes #304)
+   ===================================================== */
+
+/* 996px and below: constrain search so logo + hamburger always fit */
+@media (max-width: 996px) {
+  .navbar__search {
+    max-width: 160px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  /* Hide the placeholder text — icon-only saves horizontal space */
+  .navbar__search input::placeholder,
+  .DocSearch-Button-Placeholder {
+    display: none;
+  }
+
+  /* Lock the brand (logo + title) so it never gets squeezed out */
+  .navbar__brand {
+    flex-shrink: 0;
+  }
+}
+
+/* Below 400px: allow search to expand fully when focused,
+   collapse to icon-only when idle.
+   NOTE: font-size kept ≥ 16px to prevent iOS Safari auto-zoom. */
+@media (max-width: 400px) {
+  .navbar__search {
+    max-width: 2.2rem;
+    transition: max-width 0.2s ease;
+  }
+
+  .navbar__search:focus-within {
+    max-width: 100%;
+  }
+
+  /* Reduce navbar horizontal padding on very small screens */
+  .navbar {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* =====================================================
+   Lunr Search Results Modal — Mobile Improvements
+   ===================================================== */
+
+/* Truncate long category headings with ellipsis */
+.search-result-match__category,
+[class*="searchResultItem"] h3,
+[class*="lunr"] .category-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Clamp snippet text to 2 lines on mobile */
+@media (max-width: 996px) {
+  .search-result-match__summary,
+  [class*="searchResultItem"] p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.85rem;
+  }
+
+  /* Tighten internal padding of result items */
+  [class*="searchResultItem"],
+  .search-result-match {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* At 400px and below: stretch results modal to full viewport width
+   Use left:0 + right:0 (not width:100vw) to avoid horizontal overflow
+   caused by scrollbar width on some browsers. */
+@media (max-width: 400px) {
+  [class*="searchResultsContainer"],
+  .lunr-search-results,
+  #lunr-search-results-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}

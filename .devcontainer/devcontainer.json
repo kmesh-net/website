@@ -1,0 +1,31 @@
+{
+  "name": "Kmesh Website Development",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+
+  // Install dependencies using yarn to match the project's lockfile
+  "postCreateCommand": "yarn install --frozen-lockfile",
+
+  // Forward Docusaurus dev server port
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Docusaurus Dev Server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  // VS Code extensions and settings for documentation development
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "DavidAnson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

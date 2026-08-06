@@ -30,6 +30,41 @@ updates:
 
 ---
 
+## Development Environment
+
+You can start developing with zero manual setup using either **GitHub Codespaces** or **VS Code Dev Containers**.
+
+### Option 1: GitHub Codespaces (Recommended)
+
+Click the button below to open the project in a ready-to-code cloud environment:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/kmesh-net/website)
+
+Once the Codespace is ready, start the dev server:
+
+```bash
+npm start
+# or
+yarn start
+```
+
+### Option 2: VS Code Dev Containers (Local)
+
+1. Install [Docker](https://www.docker.com/products/docker-desktop) and the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for VS Code.
+2. Clone the repository and open it in VS Code.
+3. When prompted, click **"Reopen in Container"** — or run the command **Dev Containers: Reopen in Container** from the Command Palette.
+4. Dependencies are installed automatically. Start the dev server:
+
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
+
+Both options provide a pre-configured environment with Node.js 20 and recommended VS Code extensions for documentation development.
+
+---
+
 ## How to Install
 
 The Kmesh website is built using **Docusaurus** with React. Follow these steps to install and run it:

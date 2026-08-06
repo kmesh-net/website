@@ -66,10 +66,12 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
-        gtag: {
-          trackingID: "G-854W8PEZ1Z",
-          anonymizeIP: true,
-        },
+        ...(process.env.GA_TRACKING_ID && {
+          gtag: {
+            trackingID: process.env.GA_TRACKING_ID,
+            anonymizeIP: true,
+          },
+        }),
         blog: {
           showReadingTime: true,
           feedOptions: {

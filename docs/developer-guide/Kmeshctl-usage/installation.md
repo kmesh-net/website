@@ -11,9 +11,9 @@ Pre-built binaries are available on our [releases page](https://github.com/kmesh
 
 ```bash
 # For AMD64 / x86_64
-[ $(uname -m) = x86_64 ] && curl -Lo ./kmeshctl https://github.com/kmesh-net/kmesh/releases/download/v1.0.0/kmeshctl-linux-amd64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kmeshctl https://github.com/kmesh-net/kmesh/releases/download/v1.1.0/kmeshctl-linux-amd64
 # For ARM64
-[ $(uname -m) = aarch64 ] && curl -Lo ./kmeshctl https://github.com/kmesh-net/kmesh/releases/download/v1.0.0/kmeshctl-linux-arm64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kmeshctl https://github.com/kmesh-net/kmesh/releases/download/v1.1.0/kmeshctl-linux-arm64
 chmod +x ./kmeshctl
 sudo mv ./kmeshctl /usr/local/bin/kmeshctl
 ```

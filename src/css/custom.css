@@ -168,3 +168,33 @@
     align-items: center;
   }
 }
+
+.kmesh-version-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  padding: 0.08rem 0.28rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1;
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,0.06);
+  vertical-align: middle;
+}
+
+[data-theme="dark"] .kmesh-version-badge {
+  border-color: rgba(255,255,255,0.06);
+}
+
+.kmesh-version-container {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 996px) {
+  .kmesh-version-badge { display: none; }
+}

@@ -11,6 +11,16 @@ sidebar_position: 2
 
 Let's start from setting up the required environment. You can follow the steps below:
 
+### Prerequisites
+
+Before you begin, make sure you have the following installed and available on your PATH, and that you have the required permissions:
+
+- Docker (running): used to build images and run Kind nodes. You must be able to access the Docker daemon (e.g., your user is in the `docker` group or you run commands with `sudo`).
+- kind: the `kind` binary used to create local Kubernetes clusters. See the [kind releases page](https://github.com/kubernetes-sigs/kind/releases) for downloads.
+- kubectl: Kubernetes CLI to interact with the cluster. Follow the official install guide if needed.
+- istioctl: for installing Istio into the kind cluster (required for Kmesh dataplane features).
+- Adequate disk and memory: Kind clusters run as containers and need sufficient resources.
+
 ### Install kind
 
 Installing `kind` is very simple, because it's just a binary file. You can select the correct one according to the version and the architecture in the [github releases page](https://github.com/kubernetes-sigs/kind/releases). Take `linux` + `amd64` as example:
@@ -102,6 +112,11 @@ docker build --build-arg arch=amd64 -f build/docker/dockerfile -t $image_name .
 
 You should specify the `image_name`.
 
+Notes on the build commands:
+
+- `make docker`: builds the code inside a reproducible container and produces a Docker image. Check the repo `Makefile` or `build/` scripts for the image tag variable (e.g. `IMAGE_NAME`).
+- `docker build -t $image_name`: tag the image with a name you will later load into the Kind cluster (for example `kmesh:local`).
+
 ### Load the image to each cluster node
 
 ```shell
@@ -109,6 +124,10 @@ kind load docker-image $image_name --name $cluster_name
 ```
 
 You should specify the `image_name` and `cluster_name`.
+
+Notes on loading images:
+
+- `kind load docker-image <image> --name <cluster>` copies a locally-built image into all Kind nodes so Pods can use it without pulling from a registry. Ensure `<image>` matches the tag used when building and `<cluster>` matches the Kind cluster name (default: `kind`).
 
 ### Edit the Kmesh daemonset
 

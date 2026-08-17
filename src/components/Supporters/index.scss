@@ -19,10 +19,8 @@
       margin: 16px auto;
       padding: 5px 15px 15px;
       text-align: center;
-      background-color: #fff;
-      border-style: solid;
-      border-width: 0.5px;
-      border-color: #dde6ed;
+      background-color: transparent;
+      border: none;
       transition: transform 0.2s;
     }
 
@@ -55,3 +53,4 @@
     }
   }
 }
+

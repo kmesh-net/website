@@ -1,7 +1,7 @@
 import React from "react";
 import { usePluginData } from "@docusaurus/useGlobalData";
 import SectionContainer from "../sectionContainer";
-import { useHistory } from "@docusaurus/router";
+import Link from "@docusaurus/Link";
 import Translate from "@docusaurus/Translate";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import "./styles.scss";
@@ -10,11 +10,8 @@ export default function Blogs() {
 
     const { i18n: { currentLocale } } = useDocusaurusContext();
 
-    const {
-        blogGlobalData: { blogPosts },
-    } = usePluginData("blog-global-dataPlugin");
-
-    const history = useHistory();
+    const pluginData = usePluginData("blog-global-dataPlugin");
+    const blogPosts = pluginData?.blogGlobalData?.blogPosts || [];
 
     return (
         <SectionContainer className="blogPostContainer">
@@ -23,19 +20,17 @@ export default function Blogs() {
                     <h1>
                         <Translate>Recent News</Translate>
                     </h1>
-                    <a onClick={() => history.push("blog")}>
+                    <Link to="/blog">
                         <Translate>View All</Translate>
-                    </a>
+                    </Link>
                 </div>
                 <div className="right">
-                    {blogPosts.slice(0, 3).map((item, index) => (
-                        <div key={index} className="viewBlogContainer">
-                            <h3
-                                onClick={() =>
-                                    history.push(item.metadata.permalink)
-                                }
-                            >
-                                {item.metadata.title}
+                    {blogPosts.slice(0, 3).map((item) => (
+                        <div key={item.metadata.permalink} className="viewBlogContainer">
+                            <h3>
+                                <Link to={item.metadata.permalink}>
+                                    {item.metadata.title}
+                                </Link>
                             </h3>
                             {item.metadata?.frontMatter?.summary && (
                                 <p>{item.metadata?.frontMatter.summary}</p>
@@ -43,9 +38,9 @@ export default function Blogs() {
                             <div className="info">
                                 <div className="author">
                                     {(item.metadata?.authors || []).map(
-                                        (item) => (
-                                            <a href={item.url} target="_blank">
-                                                {item.name}
+                                        (author) => (
+                                            <a key={author.url || author.name} href={author.url} target="_blank" rel="noopener noreferrer">
+                                                {author.name}
                                             </a>
                                         )
                                     )}
@@ -68,3 +63,4 @@ export default function Blogs() {
         </SectionContainer>
     );
 }
+

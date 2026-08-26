@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Slider from "react-slick";
 import Translate from "@docusaurus/Translate";
-import { useHistory } from "@docusaurus/router";
+import Link from "@docusaurus/Link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
@@ -47,8 +47,6 @@ const SlideItem = (props) => {
     opacity = 0.5,
   } = props;
 
-  const history = useHistory();
-
   return (
     <div
       className={clsx("slick-item", align)}
@@ -67,12 +65,16 @@ const SlideItem = (props) => {
             width={160}
             height={30}
             title="GitHub Stars"
+            loading="lazy"
+            sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
           />
         </span>
       )}
       {button && (
         <div className={clsx("button")}>
-          <a onClick={() => history.push(button.url)}>{button.text}</a>
+          <Link to={button.url} className="slider-btn">
+            {button.text}
+          </Link>
         </div>
       )}
     </div>
@@ -91,10 +93,11 @@ export const HomeSlider = () => {
   return (
     <div className={"slider-container"}>
       <Slider {...settings}>
-        {sliderItems.map((i, index) => (
-          <SlideItem key={index} {...i} />
+        {sliderItems.map((item) => (
+          <SlideItem key={item.backgroundImage} {...item} />
         ))}
       </Slider>
     </div>
   );
 };
+

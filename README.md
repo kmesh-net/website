@@ -132,6 +132,7 @@ Or for markdown:
 
 ```md
 ![image_description](/img/path/to/image.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkmesh-net%2Fwebsite.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkmesh-net%2Fwebsite?ref=badge_shield)
 ```
 
 Docusaurus automatically handles image optimization including:
@@ -143,3 +144,7 @@ Docusaurus automatically handles image optimization including:
 Please follow this standard when contributing images to the documentation.
 
 Happy contributing!
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkmesh-net%2Fwebsite.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkmesh-net%2Fwebsite?ref=badge_large)

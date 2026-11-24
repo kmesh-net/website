@@ -65,9 +65,9 @@ const reasons = [
 export default function Why() {
   return (
     <SectionContainer className="whyContainer">
-      <h1>
+      <h2>
         <Translate>Why Kmesh</Translate>
-      </h1>
+      </h2>
       <div className="reasonBoxContainer">
         {reasons.map((item, index) => (
           <div key={index} className="reasonBox">

@@ -24,11 +24,11 @@ export default function Supporters() {
   return (
     <SectionContainer className={"supporterContainer"}>
       <div className={"supporters"}>
-        <h1>
+        <h2>
             <span className={"joins"}>
               <Translate>Supporters </Translate>
             </span>         
-        </h1>
+        </h2>
       </div>
       <div className={"supporterBoxContainer"}>
         {supportList.map((item, index) => (

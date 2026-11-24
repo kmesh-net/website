@@ -20,9 +20,9 @@ export default function Blogs() {
         <SectionContainer className="blogPostContainer">
             <div className="row">
                 <div className="left">
-                    <h1>
+                    <h2>
                         <Translate>Recent News</Translate>
-                    </h1>
+                    </h2>
                     <a onClick={() => history.push("blog")}>
                         <Translate>View All</Translate>
                     </a>

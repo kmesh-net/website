@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="title desc">
+  <title id="title">Kmesh MCP Server architecture</title>
+  <desc id="desc">AI clients connect to kmeshctl mcp serve over stdio or SSE. Daemon tools use a port-forward to the kmesh-daemon status server; Kubernetes tools call the Kubernetes API. All tools are read-only.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #000000; stroke-width: 1.5; }
+      .core { fill: #ffffff; stroke: #000000; stroke-width: 2; }
+      .title { font-family: "Segoe UI", Arial, sans-serif; font-size: 17px; font-weight: 700; fill: #000000; }
+      .label { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; fill: #000000; }
+      .small { font-family: "Segoe UI", Arial, sans-serif; font-size: 12px; fill: #000000; }
+      .edge { stroke: #000000; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="480" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 24px; font-weight: 700; fill: #000000;">Kmesh MCP Server</text>
+  <text x="500" y="68" text-anchor="middle" class="small">Read-only bridge between AI clients and Kmesh</text>
+
+  <rect x="40" y="150" width="250" height="100" rx="8" class="box"/>
+  <text x="165" y="186" text-anchor="middle" class="title">AI client</text>
+  <text x="165" y="210" text-anchor="middle" class="label">Claude Desktop, Cursor</text>
+  <text x="165" y="230" text-anchor="middle" class="small">asks in natural language</text>
+
+  <rect x="370" y="130" width="290" height="140" rx="8" class="core"/>
+  <text x="515" y="166" text-anchor="middle" class="title">kmeshctl mcp serve</text>
+  <text x="515" y="192" text-anchor="middle" class="label">15 read-only tools</text>
+  <text x="515" y="214" text-anchor="middle" class="small">summary and filter</text>
+  <text x="515" y="236" text-anchor="middle" class="small">stdio or SSE</text>
+
+  <rect x="760" y="40" width="200" height="85" rx="8" class="box"/>
+  <text x="860" y="73" text-anchor="middle" class="title">Kubernetes API</text>
+  <text x="860" y="96" text-anchor="middle" class="small">pods, services</text>
+  <text x="860" y="114" text-anchor="middle" class="small">namespaces, gateways</text>
+
+  <rect x="750" y="250" width="210" height="95" rx="8" class="box"/>
+  <text x="855" y="282" text-anchor="middle" class="title">kmesh-daemon</text>
+  <text x="855" y="305" text-anchor="middle" class="small">status server :15200</text>
+  <text x="855" y="325" text-anchor="middle" class="small">config, BPF maps</text>
+
+  <line x1="290" y1="200" x2="362" y2="200" class="edge" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="326" y="188" text-anchor="middle" class="small">stdio / SSE</text>
+  <text x="326" y="224" text-anchor="middle" class="small">:8080</text>
+
+  <line x1="660" y1="160" x2="752" y2="95" class="edge" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="700" y="112" text-anchor="middle" class="small">Kubernetes calls</text>
+
+  <line x1="660" y1="248" x2="742" y2="284" class="edge" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="700" y="302" text-anchor="middle" class="small">port-forward</text>
+
+  <text x="40" y="420" class="small">Data comes from one daemon pod, so results are node-local in multi-node clusters.</text>
+  <text x="40" y="444" class="small">The server is read-only and never changes the cluster.</text>
+</svg>
